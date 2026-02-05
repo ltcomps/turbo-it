@@ -2,7 +2,7 @@ export const siteConfig = {
   name: "Turbo IT",
   tagline: "We build digital experiences that accelerate growth.",
   description: "Manchester-based IT consultancy and web studio delivering premium digital solutions worldwide.",
-  email: "hello@turboit.co.uk",
+  email: "info@turboit.uk",
   phone: "+44 161 123 4567",
   address: "Manchester, UK · Operating Worldwide",
 };
