@@ -1,0 +1,170 @@
+"use client";
+
+import { motion, useReducedMotion } from "framer-motion";
+import Link from "next/link";
+import { ArrowRight, Play } from "lucide-react";
+
+import { cn } from "@/lib/utils";
+import { containerClass } from "@/lib/tokens";
+import { Button } from "@/components/ui/button";
+import { GridBackground } from "@/components/grid-background";
+import { GradientOrbs } from "@/components/gradient-orbs";
+
+export function Hero() {
+  const reducedMotion = useReducedMotion();
+
+  const fadeUp = {
+    initial: { opacity: 0, y: reducedMotion ? 0 : 20 },
+    animate: { opacity: 1, y: 0 },
+  };
+
+  return (
+    <section className="relative min-h-[90vh] overflow-hidden">
+      {/* Background layers */}
+      <GridBackground variant="dots" />
+      <GradientOrbs />
+
+      <div className={cn(containerClass, "relative z-10 pt-20 sm:pt-32 lg:pt-40")}>
+        <div className="grid gap-12 lg:grid-cols-12 lg:gap-8">
+          {/* Left column - main content */}
+          <div className="lg:col-span-7">
+            {/* Small intro line */}
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className="text-sm font-medium text-muted-foreground"
+            >
+              Manchester-based · Worldwide reach
+            </motion.p>
+
+            {/* Main headline */}
+            <motion.h1
+              {...fadeUp}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="mt-4 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl"
+            >
+              We make websites
+              <br />
+              <span className="text-muted-foreground">that actually work.</span>
+            </motion.h1>
+
+            {/* Subtext */}
+            <motion.p
+              {...fadeUp}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="mt-6 max-w-lg text-lg text-muted-foreground"
+            >
+              No fluff. No jargon. Just fast, good-looking sites that bring in customers.
+              We&apos;ve been doing this for 8 years.
+            </motion.p>
+
+            {/* CTAs */}
+            <motion.div
+              {...fadeUp}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="mt-8 flex flex-wrap items-center gap-4"
+            >
+              <Button
+                asChild
+                size="lg"
+                className="group bg-foreground text-background hover:bg-foreground/90 transition-all duration-200"
+              >
+                <Link href="/contact">
+                  Start a project
+                  <ArrowRight className="ml-2 size-4 transition-transform duration-200 group-hover:translate-x-1" />
+                </Link>
+              </Button>
+              <Button
+                asChild
+                variant="ghost"
+                size="lg"
+                className="text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <Link href="/work" className="flex items-center gap-2">
+                  <span className="relative flex size-8 items-center justify-center rounded-full border border-border bg-background transition-colors group-hover:border-electric">
+                    <Play className="size-3 fill-current" />
+                  </span>
+                  See our work
+                </Link>
+              </Button>
+            </motion.div>
+
+            {/* Quick proof */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              className="mt-16 flex items-center gap-6 sm:gap-8 border-t border-border pt-8"
+            >
+              {[
+                { value: "50+", label: "Projects shipped" },
+                { value: "8 yrs", label: "In business" },
+                { value: "4.9★", label: "Client rating" },
+              ].map((stat, i) => (
+                <div key={stat.label} className="flex items-center gap-6 sm:gap-8">
+                  {i > 0 && <div className="h-8 w-px bg-border" />}
+                  <div>
+                    <p className="text-2xl font-bold">{stat.value}</p>
+                    <p className="text-sm text-muted-foreground">{stat.label}</p>
+                  </div>
+                </div>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* Right column - featured project preview */}
+          <motion.div
+            initial={{ opacity: 0, scale: reducedMotion ? 1 : 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="relative hidden lg:col-span-5 lg:block"
+          >
+            <div className="relative">
+              {/* Glow effect behind card */}
+              <div className="absolute -inset-4 rounded-2xl bg-electric/10 blur-2xl" />
+
+              {/* Browser mockup */}
+              <div className="relative overflow-hidden rounded-xl border bg-card shadow-2xl transition-transform duration-500 hover:scale-[1.02]">
+                {/* Browser bar */}
+                <div className="flex items-center gap-2 border-b bg-muted/50 px-4 py-3">
+                  <div className="flex gap-1.5">
+                    <div className="size-3 rounded-full bg-red-500/80 transition-colors hover:bg-red-500" />
+                    <div className="size-3 rounded-full bg-yellow-500/80 transition-colors hover:bg-yellow-500" />
+                    <div className="size-3 rounded-full bg-green-500/80 transition-colors hover:bg-green-500" />
+                  </div>
+                  <div className="ml-4 flex-1 rounded-md bg-background px-3 py-1 text-xs text-muted-foreground">
+                    studiostylemcr.co.uk
+                  </div>
+                </div>
+
+                {/* Live website preview */}
+                <div className="aspect-[4/3] overflow-hidden bg-white">
+                  <iframe
+                    src="https://studiostylemcr.co.uk"
+                    title="Studio Style MCR Preview"
+                    className="h-[200%] w-[200%] origin-top-left scale-50 border-0 pointer-events-none"
+                    loading="lazy"
+                    scrolling="no"
+                  />
+                </div>
+              </div>
+
+              {/* Floating badge */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.6 }}
+                className="absolute -bottom-4 -left-4 rounded-lg border bg-card px-4 py-3 shadow-lg"
+              >
+                <p className="text-xs text-muted-foreground">Recent project</p>
+                <p className="font-semibold">Studio Style MCR</p>
+                <p className="text-sm text-electric">E-commerce</p>
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}

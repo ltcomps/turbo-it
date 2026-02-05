@@ -1,65 +1,182 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+
+import { Hero } from "@/components/hero";
+import { PageTransition } from "@/components/page-transition";
+import { Button } from "@/components/ui/button";
+import { featuredWork, testimonials } from "@/lib/content";
+import { containerClass } from "@/lib/tokens";
+import { cn } from "@/lib/utils";
+
+export default function HomePage() {
+  // Show 3 projects
+  const projects = featuredWork.slice(0, 3);
+  const testimonial = testimonials[1]; // Dr. Sarah Chen's quote
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <PageTransition>
+      {/* Hero */}
+      <Hero />
+
+      {/* Work - simple, staggered */}
+      <section className={cn(containerClass, "py-24 sm:py-32")}>
+        <div className="flex items-end justify-between">
+          <div>
+            <p className="text-sm font-medium text-muted-foreground">
+              Recent work
+            </p>
+            <h2 className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">
+              A few things we&apos;ve built
+            </h2>
+          </div>
+          <Link
+            href="/work"
+            className="hidden text-sm font-medium text-muted-foreground hover:text-foreground sm:block"
+          >
+            View all →
+          </Link>
+        </div>
+
+        <div className="mt-12 grid gap-6 lg:grid-cols-2">
+          {projects.map((project, index) => {
+            const displayUrl = project.liveUrl ? new URL(project.liveUrl).hostname : "";
+            return (
+              <motion.div
+                key={project.slug}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <Link
+                  href={`/work/${project.slug}`}
+                  className="group block overflow-hidden rounded-xl border bg-card transition-colors hover:border-foreground/20"
+                >
+                  {/* Browser mockup with live preview */}
+                  <div className="relative overflow-hidden bg-card">
+                    {/* Browser chrome - Safari style */}
+                    <div className="flex items-center gap-2 border-b bg-muted/50 px-4 py-3">
+                      <div className="flex gap-1.5">
+                        <div className="size-3 rounded-full bg-red-500/80" />
+                        <div className="size-3 rounded-full bg-yellow-500/80" />
+                        <div className="size-3 rounded-full bg-green-500/80" />
+                      </div>
+                      {displayUrl && (
+                        <div className="ml-4 flex-1 rounded-md bg-background px-3 py-1 text-xs text-muted-foreground">
+                          {displayUrl}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Live website preview */}
+                    <div className="aspect-[16/10] overflow-hidden bg-white">
+                      {(project as { screenshot?: string }).screenshot ? (
+                        <img
+                          src={(project as { screenshot?: string }).screenshot}
+                          alt={`${project.title} Preview`}
+                          className="h-full w-full object-cover object-top"
+                          loading="lazy"
+                        />
+                      ) : project.liveUrl ? (
+                        <iframe
+                          src={project.liveUrl}
+                          title={`${project.title} Preview`}
+                          className="h-[200%] w-[200%] origin-top-left scale-50 border-0 pointer-events-none"
+                          loading="lazy"
+                          scrolling="no"
+                        />
+                      ) : (
+                        <div
+                          className="h-full w-full"
+                          style={{
+                            background: `linear-gradient(135deg, ${project.color}20, ${project.color}40)`,
+                          }}
+                        />
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="p-6">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-medium text-muted-foreground">
+                        {project.category}
+                      </span>
+                      <span
+                        className="text-sm font-bold"
+                        style={{ color: project.color }}
+                      >
+                        {project.metric}
+                      </span>
+                    </div>
+                    <h3 className="mt-2 text-lg font-semibold group-hover:text-electric">
+                      {project.title}
+                    </h3>
+                    <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
+                      {project.blurb}
+                    </p>
+                  </div>
+                </Link>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        <Link
+          href="/work"
+          className="mt-8 block text-center text-sm font-medium text-muted-foreground hover:text-foreground sm:hidden"
+        >
+          View all projects →
+        </Link>
+      </section>
+
+      {/* Single testimonial - not a carousel */}
+      <section className="border-y bg-muted/30">
+        <div className={cn(containerClass, "py-16 sm:py-24")}>
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="mx-auto max-w-2xl text-center"
+          >
+            <blockquote className="text-xl font-medium leading-relaxed sm:text-2xl">
+              &ldquo;{testimonial.quote}&rdquo;
+            </blockquote>
+            <div className="mt-6">
+              <p className="font-semibold">{testimonial.author}</p>
+              <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Simple CTA */}
+      <section className={cn(containerClass, "py-24 sm:py-32")}>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mx-auto max-w-xl text-center"
+        >
+          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
+            Got a project in mind?
+          </h2>
+          <p className="mt-4 text-muted-foreground">
+            We&apos;d love to hear about it. Drop us a line and we&apos;ll get
+            back to you within 24 hours.
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+          <Button asChild size="lg" className="mt-8">
+            <Link href="/contact">
+              Let&apos;s talk
+              <ArrowRight className="ml-2 size-4" />
+            </Link>
+          </Button>
+        </motion.div>
+      </section>
+    </PageTransition>
   );
 }
