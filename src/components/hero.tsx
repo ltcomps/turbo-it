@@ -16,23 +16,33 @@ const ROTATE_INTERVAL = 5000;
 const CARD_COUNT = featuredWork.length;
 
 // Circular carousel positions: front center, back-right, back-left
-function getCardStyle(offset: number) {
+function getCardStyle(offset: number, mobile: boolean) {
+  const fan = mobile ? 20 : 35;
+  const shift = mobile ? "22%" : "30%";
+  const depth = mobile ? -80 : -120;
+  const backScale = mobile ? 0.88 : 0.85;
+
   if (offset === 0) {
-    // Front and center
     return { x: "0%", rotateY: 0, z: 0, scale: 1, opacity: 1, zIndex: 30 };
   }
   if (offset === 1) {
-    // Behind, fanned to the right
-    return { x: "30%", rotateY: -35, z: -120, scale: 0.85, opacity: 0.6, zIndex: 20 };
+    return { x: shift, rotateY: -fan, z: depth, scale: backScale, opacity: 0.6, zIndex: 20 };
   }
-  // Behind, fanned to the left
-  return { x: "-30%", rotateY: 35, z: -120, scale: 0.85, opacity: 0.6, zIndex: 10 };
+  return { x: `-${shift.replace('%','')}%`, rotateY: fan, z: depth, scale: backScale, opacity: 0.6, zIndex: 10 };
 }
 
 export function Hero() {
   const reducedMotion = useReducedMotion();
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 1024);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   const goToNext = useCallback(() => {
     setActiveIndex((prev) => (prev + 1) % CARD_COUNT);
@@ -57,7 +67,7 @@ export function Hero() {
       <GradientOrbs />
 
       <div className={cn(containerClass, "relative z-10 pt-20 sm:pt-32 lg:pt-40")}>
-        <div className="grid gap-12 lg:grid-cols-12 lg:gap-8">
+        <div className="grid gap-8 lg:grid-cols-12 lg:gap-8">
           {/* Left column - main content */}
           <div className="lg:col-span-7">
             {/* Small intro line */}
@@ -142,26 +152,26 @@ export function Hero() {
             </motion.div>
           </div>
 
-          {/* Right column - 3D circular carousel */}
+          {/* Right column / below on mobile - 3D circular carousel */}
           <motion.div
             initial={{ opacity: 0, scale: reducedMotion ? 1 : 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="relative hidden lg:col-span-5 lg:block"
+            className="relative lg:col-span-5"
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
           >
             {/* Glow effect behind carousel */}
             <div className="absolute -inset-4 rounded-2xl bg-electric/10 blur-2xl" />
 
-            {/* 3D perspective container */}
+            {/* 3D perspective container — responsive height */}
             <div
-              className="relative mx-auto"
-              style={{ perspective: "1200px", height: "420px", width: "100%" }}
+              className="relative mx-auto h-[280px] sm:h-[340px] lg:h-[420px]"
+              style={{ perspective: isMobile ? "800px" : "1200px", width: "100%" }}
             >
               {featuredWork.map((item, i) => {
                 const offset = (i - activeIndex + CARD_COUNT) % CARD_COUNT;
-                const pos = getCardStyle(offset);
+                const pos = getCardStyle(offset, isMobile);
                 const hostname = item.liveUrl.replace(/^https?:\/\//, "");
 
                 return (
@@ -181,40 +191,46 @@ export function Hero() {
                     className="absolute inset-x-0 top-0 mx-auto"
                     style={{
                       zIndex: pos.zIndex,
-                      width: "88%",
+                      width: isMobile ? "82%" : "88%",
                       height: "100%",
                       transformStyle: "preserve-3d",
                     }}
                   >
-                    <div className="flex h-full flex-col overflow-hidden rounded-xl border bg-card shadow-2xl">
+                    <div className="flex h-full flex-col overflow-hidden rounded-lg border bg-card shadow-2xl sm:rounded-xl">
                       {/* Browser bar */}
-                      <div className="flex shrink-0 items-center gap-2 border-b bg-muted/50 px-4 py-2.5">
-                        <div className="flex gap-1.5">
-                          <div className="size-2.5 rounded-full bg-red-500/80" />
-                          <div className="size-2.5 rounded-full bg-yellow-500/80" />
-                          <div className="size-2.5 rounded-full bg-green-500/80" />
+                      <div className="flex shrink-0 items-center gap-1.5 border-b bg-muted/50 px-3 py-1.5 sm:gap-2 sm:px-4 sm:py-2.5">
+                        <div className="flex gap-1">
+                          <div className="size-2 rounded-full bg-red-500/80 sm:size-2.5" />
+                          <div className="size-2 rounded-full bg-yellow-500/80 sm:size-2.5" />
+                          <div className="size-2 rounded-full bg-green-500/80 sm:size-2.5" />
                         </div>
-                        <div className="ml-3 flex-1 rounded-md bg-background px-3 py-1 text-xs text-muted-foreground">
+                        <div className="ml-2 flex-1 rounded bg-background px-2 py-0.5 text-[10px] text-muted-foreground sm:ml-3 sm:rounded-md sm:px-3 sm:py-1 sm:text-xs">
                           {hostname}
                         </div>
                       </div>
 
-                      {/* Website preview */}
+                      {/* Website preview — wider viewport on mobile for desktop layout */}
                       <div className="relative min-h-0 flex-1 overflow-hidden bg-white">
                         <iframe
                           src={item.liveUrl}
                           title={`${item.title} Preview`}
-                          className="w-[200%] origin-top-left scale-50 border-0 pointer-events-none"
-                          style={{ height: item.slug === "lucky-turbo" ? "250%" : "200%" }}
+                          className="origin-top-left border-0 pointer-events-none"
+                          style={{
+                            width: isMobile ? "300%" : "200%",
+                            height: item.slug === "lucky-turbo"
+                              ? (isMobile ? "350%" : "250%")
+                              : (isMobile ? "300%" : "200%"),
+                            transform: isMobile ? "scale(0.3333)" : "scale(0.5)",
+                          }}
                           loading="lazy"
                           scrolling="no"
                         />
                       </div>
 
                       {/* Project label */}
-                      <div className="shrink-0 border-t bg-muted/30 px-4 py-2">
-                        <p className="text-sm font-semibold">{item.title}</p>
-                        <p className="text-xs text-muted-foreground">{item.category}</p>
+                      <div className="shrink-0 border-t bg-muted/30 px-3 py-1.5 sm:px-4 sm:py-2">
+                        <p className="text-xs font-semibold sm:text-sm">{item.title}</p>
+                        <p className="text-[10px] text-muted-foreground sm:text-xs">{item.category}</p>
                       </div>
                     </div>
                   </motion.div>
