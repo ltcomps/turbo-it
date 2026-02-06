@@ -13,17 +13,30 @@ import { Button } from "@/components/ui/button";
 import { GridBackground } from "@/components/grid-background";
 import { GradientOrbs } from "@/components/gradient-orbs";
 
-const ROTATE_INTERVAL = 6000; // 6 seconds per project
+const ROTATE_INTERVAL = 5000; // 5 seconds per project
 
 export function Hero() {
   const reducedMotion = useReducedMotion();
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [direction, setDirection] = useState(1); // 1 = forward, -1 = backward
 
   const project = featuredWork[activeIndex];
-  const hostname = project.liveUrl.replace(/^https?:\/\//, "");
+
+  const slideVariants = {
+    enter: (d: number) => ({
+      x: reducedMotion ? 0 : `${100 * d}%`,
+      opacity: reducedMotion ? 0 : 1,
+    }),
+    center: { x: 0, opacity: 1 },
+    exit: (d: number) => ({
+      x: reducedMotion ? 0 : `${-100 * d}%`,
+      opacity: reducedMotion ? 0 : 1,
+    }),
+  };
 
   const goToNext = useCallback(() => {
+    setDirection(1);
     setActiveIndex((prev) => (prev + 1) % featuredWork.length);
   }, []);
 
@@ -134,7 +147,7 @@ export function Hero() {
             </motion.div>
           </div>
 
-          {/* Right column - rotating project previews */}
+          {/* Right column - sliding carousel */}
           <motion.div
             initial={{ opacity: 0, scale: reducedMotion ? 1 : 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -147,115 +160,67 @@ export function Hero() {
               {/* Glow effect behind card */}
               <div className="absolute -inset-4 rounded-2xl bg-electric/10 blur-2xl" />
 
-              {/* Browser mockup */}
-              <div className="relative overflow-hidden rounded-xl border bg-card shadow-2xl transition-transform duration-500 hover:scale-[1.02]">
-                {/* Browser bar */}
-                <div className="flex items-center gap-2 border-b bg-muted/50 px-4 py-3">
-                  <div className="flex gap-1.5">
-                    <div className="size-3 rounded-full bg-red-500/80 transition-colors hover:bg-red-500" />
-                    <div className="size-3 rounded-full bg-yellow-500/80 transition-colors hover:bg-yellow-500" />
-                    <div className="size-3 rounded-full bg-green-500/80 transition-colors hover:bg-green-500" />
-                  </div>
-                  <div className="ml-4 flex-1 rounded-md bg-background px-3 py-1 text-xs text-muted-foreground">
-                    <AnimatePresence mode="wait">
-                      <motion.span
-                        key={hostname}
-                        initial={{ opacity: 0, y: 4 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -4 }}
-                        transition={{ duration: 0.2 }}
-                        className="block"
-                      >
-                        {hostname}
-                      </motion.span>
-                    </AnimatePresence>
-                  </div>
-                </div>
+              {/* Carousel track */}
+              <div className="relative overflow-hidden rounded-xl">
+                <AnimatePresence initial={false} custom={direction} mode="popLayout">
+                  <motion.div
+                    key={project.slug}
+                    custom={direction}
+                    variants={slideVariants}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+                    className="w-full"
+                  >
+                    {/* Browser mockup card */}
+                    <div className="overflow-hidden rounded-xl border bg-card shadow-2xl">
+                      {/* Browser bar */}
+                      <div className="flex items-center gap-2 border-b bg-muted/50 px-4 py-3">
+                        <div className="flex gap-1.5">
+                          <div className="size-3 rounded-full bg-red-500/80" />
+                          <div className="size-3 rounded-full bg-yellow-500/80" />
+                          <div className="size-3 rounded-full bg-green-500/80" />
+                        </div>
+                        <div className="ml-4 flex-1 rounded-md bg-background px-3 py-1 text-xs text-muted-foreground">
+                          {project.liveUrl.replace(/^https?:\/\//, "")}
+                        </div>
+                      </div>
 
-                {/* Website preview area */}
-                <div className="relative aspect-[4/3] overflow-hidden bg-white">
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={project.slug}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.4 }}
-                      className="absolute inset-0"
-                    >
-                      {project.screenshot ? (
-                        <Image
-                          src={project.screenshot}
-                          alt={`${project.title} preview`}
-                          fill
-                          className="object-cover object-top"
-                        />
-                      ) : (
-                        <iframe
-                          src={project.liveUrl}
-                          title={`${project.title} Preview`}
-                          className="h-[200%] w-[200%] origin-top-left scale-50 border-0 pointer-events-none"
-                          loading="lazy"
-                          scrolling="no"
-                        />
-                      )}
-                    </motion.div>
-                  </AnimatePresence>
-                </div>
-
-                {/* Progress dots */}
-                <div className="flex items-center justify-center gap-2 border-t bg-muted/30 py-2">
-                  {featuredWork.map((item, i) => (
-                    <button
-                      key={item.slug}
-                      onClick={() => setActiveIndex(i)}
-                      className="group relative flex items-center justify-center p-1"
-                      aria-label={`Show ${item.title}`}
-                    >
-                      <span
-                        className={cn(
-                          "block size-2 rounded-full transition-all duration-300",
-                          i === activeIndex
-                            ? "scale-100"
-                            : "scale-75 bg-muted-foreground/30 hover:bg-muted-foreground/50"
+                      {/* Website preview */}
+                      <div className="relative aspect-[4/3] overflow-hidden bg-white">
+                        {project.screenshot ? (
+                          <Image
+                            src={project.screenshot}
+                            alt={`${project.title} preview`}
+                            fill
+                            className="object-cover object-top"
+                          />
+                        ) : (
+                          <iframe
+                            src={project.liveUrl}
+                            title={`${project.title} Preview`}
+                            className="h-[200%] w-[200%] origin-top-left scale-50 border-0 pointer-events-none"
+                            loading="lazy"
+                            scrolling="no"
+                          />
                         )}
-                        style={i === activeIndex ? { backgroundColor: project.color } : undefined}
-                      />
-                      {/* Active dot progress ring */}
-                      {i === activeIndex && !isPaused && !reducedMotion && (
-                        <motion.span
-                          className="absolute inset-0 rounded-full border-2"
-                          style={{ borderColor: project.color }}
-                          initial={{ scale: 0.5, opacity: 0 }}
-                          animate={{ scale: 1.5, opacity: [0.6, 0] }}
-                          transition={{
-                            duration: ROTATE_INTERVAL / 1000,
-                            ease: "linear",
-                          }}
-                        />
-                      )}
-                    </button>
-                  ))}
-                </div>
-              </div>
+                      </div>
 
-              {/* Floating badge */}
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={project.slug}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 10 }}
-                  transition={{ duration: 0.35 }}
-                  className="absolute -bottom-4 -left-4 rounded-lg border bg-card px-4 py-3 shadow-lg"
-                >
-                  <p className="text-xs text-muted-foreground">Recent project</p>
-                  <p className="font-semibold">{project.title}</p>
-                  <p className="text-sm" style={{ color: project.color }}>
-                    {project.category}
-                  </p>
-                </motion.div>
-              </AnimatePresence>
+                      {/* Project label bar */}
+                      <div className="flex items-center justify-between border-t bg-muted/30 px-4 py-2.5">
+                        <div>
+                          <p className="text-sm font-semibold">{project.title}</p>
+                          <p className="text-xs text-muted-foreground">{project.category}</p>
+                        </div>
+                        <span className="text-xs text-muted-foreground">
+                          {activeIndex + 1}/{featuredWork.length}
+                        </span>
+                      </div>
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
             </div>
           </motion.div>
         </div>
