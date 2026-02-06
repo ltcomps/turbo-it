@@ -79,7 +79,19 @@ export const trustedByLogos = [
   "E-commerce brands",
 ];
 
-export const featuredWork = [
+export const featuredWork: {
+  slug: string;
+  title: string;
+  category: string;
+  categoryTag: string;
+  blurb: string;
+  metric: string;
+  metricLabel: string;
+  tags: string[];
+  color: string;
+  liveUrl: string;
+  screenshot?: string;
+}[] = [
   {
     slug: "studio-style-mcr",
     title: "Studio Style MCR",
@@ -118,7 +130,6 @@ export const featuredWork = [
     tags: ["Next.js", "Payments", "Gamification"],
     color: "#00B0F0",
     liveUrl: "https://luckyturbo.co.uk",
-    screenshot: "/screenshots/lucky-turbo.png",
   },
 ];
 
