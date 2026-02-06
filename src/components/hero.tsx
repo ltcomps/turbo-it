@@ -1,17 +1,38 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { useState, useEffect, useCallback } from "react";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Play } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { containerClass } from "@/lib/tokens";
+import { featuredWork } from "@/lib/content";
 import { Button } from "@/components/ui/button";
 import { GridBackground } from "@/components/grid-background";
 import { GradientOrbs } from "@/components/gradient-orbs";
 
+const ROTATE_INTERVAL = 6000; // 6 seconds per project
+
 export function Hero() {
   const reducedMotion = useReducedMotion();
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  const project = featuredWork[activeIndex];
+  const hostname = project.liveUrl.replace(/^https?:\/\//, "");
+
+  const goToNext = useCallback(() => {
+    setActiveIndex((prev) => (prev + 1) % featuredWork.length);
+  }, []);
+
+  // Auto-rotate timer
+  useEffect(() => {
+    if (isPaused || reducedMotion) return;
+    const timer = setInterval(goToNext, ROTATE_INTERVAL);
+    return () => clearInterval(timer);
+  }, [isPaused, reducedMotion, goToNext]);
 
   const fadeUp = {
     initial: { opacity: 0, y: reducedMotion ? 0 : 20 },
@@ -23,6 +44,48 @@ export function Hero() {
       {/* Background layers */}
       <GridBackground variant="dots" />
       <GradientOrbs />
+
+      {/* Background website preview — faded & blurred behind everything */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-[1] overflow-hidden">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={`bg-${project.slug}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8 }}
+            className="absolute inset-0"
+          >
+            {project.screenshot ? (
+              <Image
+                src={project.screenshot}
+                alt=""
+                fill
+                className="object-cover object-top blur-sm scale-105"
+              />
+            ) : (
+              <iframe
+                src={project.liveUrl}
+                title=""
+                className="h-[200%] w-[200%] origin-top-left scale-50 border-0"
+                loading="lazy"
+                scrolling="no"
+                tabIndex={-1}
+              />
+            )}
+          </motion.div>
+        </AnimatePresence>
+        {/* Overlay to fade it out — light mode gets heavier fade */}
+        <div className="absolute inset-0 bg-background/85 dark:bg-background/90" />
+        {/* Tinted edge glow matching project color */}
+        <motion.div
+          className="absolute inset-0"
+          animate={{
+            background: `radial-gradient(ellipse at 70% 40%, ${project.color}08 0%, transparent 70%)`,
+          }}
+          transition={{ duration: 0.8 }}
+        />
+      </div>
 
       <div className={cn(containerClass, "relative z-10 pt-20 sm:pt-32 lg:pt-40")}>
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-8">
@@ -113,16 +176,22 @@ export function Hero() {
             </motion.div>
           </div>
 
-          {/* Right column - featured project preview */}
+          {/* Right column - rotating project previews */}
           <motion.div
             initial={{ opacity: 0, scale: reducedMotion ? 1 : 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.3 }}
             className="relative hidden lg:col-span-5 lg:block"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
           >
             <div className="relative">
-              {/* Glow effect behind card */}
-              <div className="absolute -inset-4 rounded-2xl bg-electric/10 blur-2xl" />
+              {/* Glow effect - color matches active project */}
+              <motion.div
+                className="absolute -inset-4 rounded-2xl blur-2xl"
+                animate={{ backgroundColor: `${project.color}15` }}
+                transition={{ duration: 0.6 }}
+              />
 
               {/* Browser mockup */}
               <div className="relative overflow-hidden rounded-xl border bg-card shadow-2xl transition-transform duration-500 hover:scale-[1.02]">
@@ -134,33 +203,105 @@ export function Hero() {
                     <div className="size-3 rounded-full bg-green-500/80 transition-colors hover:bg-green-500" />
                   </div>
                   <div className="ml-4 flex-1 rounded-md bg-background px-3 py-1 text-xs text-muted-foreground">
-                    studiostylemcr.co.uk
+                    <AnimatePresence mode="wait">
+                      <motion.span
+                        key={hostname}
+                        initial={{ opacity: 0, y: 4 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -4 }}
+                        transition={{ duration: 0.2 }}
+                        className="block"
+                      >
+                        {hostname}
+                      </motion.span>
+                    </AnimatePresence>
                   </div>
                 </div>
 
-                {/* Live website preview */}
-                <div className="aspect-[4/3] overflow-hidden bg-white">
-                  <iframe
-                    src="https://studiostylemcr.co.uk"
-                    title="Studio Style MCR Preview"
-                    className="h-[200%] w-[200%] origin-top-left scale-50 border-0 pointer-events-none"
-                    loading="lazy"
-                    scrolling="no"
-                  />
+                {/* Website preview area */}
+                <div className="relative aspect-[4/3] overflow-hidden bg-white">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={project.slug}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.4 }}
+                      className="absolute inset-0"
+                    >
+                      {project.screenshot ? (
+                        <Image
+                          src={project.screenshot}
+                          alt={`${project.title} preview`}
+                          fill
+                          className="object-cover object-top"
+                        />
+                      ) : (
+                        <iframe
+                          src={project.liveUrl}
+                          title={`${project.title} Preview`}
+                          className="h-[200%] w-[200%] origin-top-left scale-50 border-0 pointer-events-none"
+                          loading="lazy"
+                          scrolling="no"
+                        />
+                      )}
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
+
+                {/* Progress dots */}
+                <div className="flex items-center justify-center gap-2 border-t bg-muted/30 py-2">
+                  {featuredWork.map((item, i) => (
+                    <button
+                      key={item.slug}
+                      onClick={() => setActiveIndex(i)}
+                      className="group relative flex items-center justify-center p-1"
+                      aria-label={`Show ${item.title}`}
+                    >
+                      <span
+                        className={cn(
+                          "block size-2 rounded-full transition-all duration-300",
+                          i === activeIndex
+                            ? "scale-100"
+                            : "scale-75 bg-muted-foreground/30 hover:bg-muted-foreground/50"
+                        )}
+                        style={i === activeIndex ? { backgroundColor: project.color } : undefined}
+                      />
+                      {/* Active dot progress ring */}
+                      {i === activeIndex && !isPaused && !reducedMotion && (
+                        <motion.span
+                          className="absolute inset-0 rounded-full border-2"
+                          style={{ borderColor: project.color }}
+                          initial={{ scale: 0.5, opacity: 0 }}
+                          animate={{ scale: 1.5, opacity: [0.6, 0] }}
+                          transition={{
+                            duration: ROTATE_INTERVAL / 1000,
+                            ease: "linear",
+                          }}
+                        />
+                      )}
+                    </button>
+                  ))}
                 </div>
               </div>
 
               {/* Floating badge */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.6 }}
-                className="absolute -bottom-4 -left-4 rounded-lg border bg-card px-4 py-3 shadow-lg"
-              >
-                <p className="text-xs text-muted-foreground">Recent project</p>
-                <p className="font-semibold">Studio Style MCR</p>
-                <p className="text-sm text-electric">E-commerce</p>
-              </motion.div>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={project.slug}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  transition={{ duration: 0.35 }}
+                  className="absolute -bottom-4 -left-4 rounded-lg border bg-card px-4 py-3 shadow-lg"
+                >
+                  <p className="text-xs text-muted-foreground">Recent project</p>
+                  <p className="font-semibold">{project.title}</p>
+                  <p className="text-sm" style={{ color: project.color }}>
+                    {project.category}
+                  </p>
+                </motion.div>
+              </AnimatePresence>
             </div>
           </motion.div>
         </div>
