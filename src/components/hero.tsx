@@ -45,48 +45,6 @@ export function Hero() {
       <GridBackground variant="dots" />
       <GradientOrbs />
 
-      {/* Background website preview — faded & blurred behind everything */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-[1] overflow-hidden">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={`bg-${project.slug}`}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.8 }}
-            className="absolute inset-0"
-          >
-            {project.screenshot ? (
-              <Image
-                src={project.screenshot}
-                alt=""
-                fill
-                className="object-cover object-top blur-sm scale-105"
-              />
-            ) : (
-              <iframe
-                src={project.liveUrl}
-                title=""
-                className="h-[200%] w-[200%] origin-top-left scale-50 border-0"
-                loading="lazy"
-                scrolling="no"
-                tabIndex={-1}
-              />
-            )}
-          </motion.div>
-        </AnimatePresence>
-        {/* Overlay to fade it out — light mode gets heavier fade */}
-        <div className="absolute inset-0 bg-background/85 dark:bg-background/90" />
-        {/* Tinted edge glow matching project color */}
-        <motion.div
-          className="absolute inset-0"
-          animate={{
-            background: `radial-gradient(ellipse at 70% 40%, ${project.color}08 0%, transparent 70%)`,
-          }}
-          transition={{ duration: 0.8 }}
-        />
-      </div>
-
       <div className={cn(containerClass, "relative z-10 pt-20 sm:pt-32 lg:pt-40")}>
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-8">
           {/* Left column - main content */}
