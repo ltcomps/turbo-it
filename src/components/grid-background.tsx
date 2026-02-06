@@ -18,18 +18,42 @@ export function GridBackground({ variant = "dots", className }: GridBackgroundPr
     >
       {variant === "dots" && (
         <>
+          {/* Base dot layer with gentle breathing */}
           <div
             className="absolute inset-0 animate-[dotGlow_6s_ease-in-out_infinite] dark:hidden"
             style={{
-              backgroundImage: `radial-gradient(circle at 0.75px 0.75px, var(--muted-foreground) 0.75px, transparent 0)`,
+              backgroundImage: `radial-gradient(circle at 1px 1px, var(--muted-foreground) 1px, transparent 0)`,
               backgroundSize: "40px 40px",
             }}
           />
           <div
             className="absolute inset-0 hidden animate-[dotGlowDark_6s_ease-in-out_infinite] dark:block"
             style={{
-              backgroundImage: `radial-gradient(circle at 0.75px 0.75px, var(--muted-foreground) 0.75px, transparent 0)`,
+              backgroundImage: `radial-gradient(circle at 1px 1px, var(--muted-foreground) 1px, transparent 0)`,
               backgroundSize: "40px 40px",
+            }}
+          />
+          {/* Diagonal wave sweep — bright glow that travels across */}
+          <div
+            className="absolute inset-0 animate-[dotWave_2s_ease-in-out_infinite] dark:hidden"
+            style={{
+              backgroundImage: `radial-gradient(circle at 1px 1px, var(--muted-foreground) 1px, transparent 0)`,
+              backgroundSize: "40px 40px",
+              maskImage: `linear-gradient(135deg, transparent 0%, transparent 35%, white 50%, transparent 65%, transparent 100%)`,
+              WebkitMaskImage: `linear-gradient(135deg, transparent 0%, transparent 35%, white 50%, transparent 65%, transparent 100%)`,
+              maskSize: "300% 300%",
+              WebkitMaskSize: "300% 300%",
+            }}
+          />
+          <div
+            className="absolute inset-0 hidden animate-[dotWaveDark_2s_ease-in-out_infinite] dark:block"
+            style={{
+              backgroundImage: `radial-gradient(circle at 1px 1px, var(--muted-foreground) 1px, transparent 0)`,
+              backgroundSize: "40px 40px",
+              maskImage: `linear-gradient(135deg, transparent 0%, transparent 35%, white 50%, transparent 65%, transparent 100%)`,
+              WebkitMaskImage: `linear-gradient(135deg, transparent 0%, transparent 35%, white 50%, transparent 65%, transparent 100%)`,
+              maskSize: "300% 300%",
+              WebkitMaskSize: "300% 300%",
             }}
           />
         </>
