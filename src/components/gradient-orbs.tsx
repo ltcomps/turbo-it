@@ -21,7 +21,7 @@ export function GradientOrbs({ className }: GradientOrbsProps) {
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1.5, ease: "easeOut" }}
-        className="absolute -right-20 -top-20 h-[500px] w-[500px] rounded-full bg-electric/10 blur-[120px]"
+        className="absolute -right-20 -top-20 h-[500px] w-[500px] rounded-full bg-electric/10 blur-[120px] will-change-transform"
       />
 
       {/* Secondary orb - animated float */}
@@ -38,7 +38,7 @@ export function GradientOrbs({ className }: GradientOrbsProps) {
           repeatType: "reverse",
           ease: "easeInOut",
         }}
-        className="absolute left-1/4 top-1/3 h-[300px] w-[300px] rounded-full bg-electric/5 blur-[100px]"
+        className="absolute left-1/4 top-1/3 h-[300px] w-[300px] rounded-full bg-electric/5 blur-[100px] will-change-transform"
       />
 
       {/* Accent orb - bottom */}
@@ -55,7 +55,7 @@ export function GradientOrbs({ className }: GradientOrbsProps) {
           ease: "easeInOut",
           delay: 2,
         }}
-        className="absolute -bottom-40 left-1/2 h-[400px] w-[600px] -translate-x-1/2 rounded-full bg-electric/8 blur-[120px]"
+        className="absolute -bottom-40 left-1/2 h-[400px] w-[600px] -translate-x-1/2 rounded-full bg-electric/8 blur-[120px] will-change-transform"
       />
     </div>
   );

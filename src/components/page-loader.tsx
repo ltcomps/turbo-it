@@ -22,7 +22,7 @@ export function PageLoader() {
 
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 1400);
+    }, 500);
     return () => clearTimeout(timer);
   }, []);
 
