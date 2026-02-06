@@ -12,20 +12,21 @@ import { Button } from "@/components/ui/button";
 import { GridBackground } from "@/components/grid-background";
 import { GradientOrbs } from "@/components/gradient-orbs";
 
-const ROTATE_INTERVAL = 5000; // 5 seconds per project
+const ROTATE_INTERVAL = 5000;
 const CARD_COUNT = featuredWork.length;
 
-// Position config for each offset from active card
-// 0 = front, 1 = behind-right, 2 = behind-left, etc.
+// Circular carousel positions: front center, back-right, back-left
 function getCardStyle(offset: number) {
   if (offset === 0) {
-    return { x: 0, y: 0, scale: 1, zIndex: 30, opacity: 1 };
+    // Front and center
+    return { x: "0%", rotateY: 0, z: 0, scale: 1, opacity: 1, zIndex: 30 };
   }
   if (offset === 1) {
-    return { x: 24, y: -16, scale: 0.92, zIndex: 20, opacity: 0.55 };
+    // Behind, fanned to the right
+    return { x: "30%", rotateY: -35, z: -120, scale: 0.85, opacity: 0.6, zIndex: 20 };
   }
-  // offset === 2 (or more)
-  return { x: 48, y: -32, scale: 0.84, zIndex: 10, opacity: 0.3 };
+  // Behind, fanned to the left
+  return { x: "-30%", rotateY: 35, z: -120, scale: 0.85, opacity: 0.6, zIndex: 10 };
 }
 
 export function Hero() {
@@ -144,7 +145,7 @@ export function Hero() {
             </motion.div>
           </div>
 
-          {/* Right column - stacked carousel */}
+          {/* Right column - 3D circular carousel */}
           <motion.div
             initial={{ opacity: 0, scale: reducedMotion ? 1 : 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -153,48 +154,56 @@ export function Hero() {
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
           >
-            {/* Glow effect behind stack */}
+            {/* Glow effect behind carousel */}
             <div className="absolute -inset-4 rounded-2xl bg-electric/10 blur-2xl" />
 
-            {/* Card stack — all 3 cards rendered, positioned by offset */}
-            <div className="relative" style={{ aspectRatio: "4/3", marginBottom: "3rem" }}>
+            {/* 3D perspective container */}
+            <div
+              className="relative mx-auto"
+              style={{ perspective: "1200px", height: "420px", width: "100%" }}
+            >
               {featuredWork.map((item, i) => {
                 const offset = (i - activeIndex + CARD_COUNT) % CARD_COUNT;
-                const style = getCardStyle(offset);
+                const pos = getCardStyle(offset);
                 const hostname = item.liveUrl.replace(/^https?:\/\//, "");
 
                 return (
                   <motion.div
                     key={item.slug}
                     animate={{
-                      x: style.x,
-                      y: style.y,
-                      scale: style.scale,
-                      opacity: style.opacity,
-                      zIndex: style.zIndex,
+                      x: pos.x,
+                      rotateY: pos.rotateY,
+                      z: pos.z,
+                      scale: pos.scale,
+                      opacity: pos.opacity,
                     }}
                     transition={{
-                      duration: reducedMotion ? 0 : 0.6,
+                      duration: reducedMotion ? 0 : 0.7,
                       ease: [0.4, 0, 0.2, 1],
                     }}
-                    className="absolute inset-0 origin-bottom-left"
-                    style={{ zIndex: style.zIndex }}
+                    className="absolute inset-x-0 top-0 mx-auto"
+                    style={{
+                      zIndex: pos.zIndex,
+                      width: "88%",
+                      height: "100%",
+                      transformStyle: "preserve-3d",
+                    }}
                   >
-                    <div className="h-full overflow-hidden rounded-xl border bg-card shadow-2xl">
+                    <div className="flex h-full flex-col overflow-hidden rounded-xl border bg-card shadow-2xl">
                       {/* Browser bar */}
-                      <div className="flex items-center gap-2 border-b bg-muted/50 px-4 py-3">
+                      <div className="flex shrink-0 items-center gap-2 border-b bg-muted/50 px-4 py-2.5">
                         <div className="flex gap-1.5">
-                          <div className="size-3 rounded-full bg-red-500/80" />
-                          <div className="size-3 rounded-full bg-yellow-500/80" />
-                          <div className="size-3 rounded-full bg-green-500/80" />
+                          <div className="size-2.5 rounded-full bg-red-500/80" />
+                          <div className="size-2.5 rounded-full bg-yellow-500/80" />
+                          <div className="size-2.5 rounded-full bg-green-500/80" />
                         </div>
-                        <div className="ml-4 flex-1 rounded-md bg-background px-3 py-1 text-xs text-muted-foreground">
+                        <div className="ml-3 flex-1 rounded-md bg-background px-3 py-1 text-xs text-muted-foreground">
                           {hostname}
                         </div>
                       </div>
 
-                      {/* Website preview */}
-                      <div className="relative flex-1 overflow-hidden bg-white" style={{ height: "calc(100% - 88px)" }}>
+                      {/* Website preview — fills remaining space */}
+                      <div className="relative min-h-0 flex-1 overflow-hidden bg-white">
                         <iframe
                           src={item.liveUrl}
                           title={`${item.title} Preview`}
@@ -204,12 +213,10 @@ export function Hero() {
                         />
                       </div>
 
-                      {/* Project label bar */}
-                      <div className="flex items-center justify-between border-t bg-muted/30 px-4 py-2.5">
-                        <div>
-                          <p className="text-sm font-semibold">{item.title}</p>
-                          <p className="text-xs text-muted-foreground">{item.category}</p>
-                        </div>
+                      {/* Project label */}
+                      <div className="shrink-0 border-t bg-muted/30 px-4 py-2">
+                        <p className="text-sm font-semibold">{item.title}</p>
+                        <p className="text-xs text-muted-foreground">{item.category}</p>
                       </div>
                     </div>
                   </motion.div>
