@@ -35,7 +35,7 @@ export function GridBackground({ variant = "dots", className }: GridBackgroundPr
           />
           {/* Diagonal wave sweep — bright glow that travels across */}
           <div
-            className="absolute inset-0 animate-[dotWave_7s_ease-in-out_infinite] dark:hidden"
+            className="absolute inset-0 animate-[dotWave_4s_linear_infinite] dark:hidden"
             style={{
               backgroundImage: `radial-gradient(circle at 1px 1px, var(--muted-foreground) 1px, transparent 0)`,
               backgroundSize: "40px 40px",
@@ -46,7 +46,7 @@ export function GridBackground({ variant = "dots", className }: GridBackgroundPr
             }}
           />
           <div
-            className="absolute inset-0 hidden animate-[dotWaveDark_7s_ease-in-out_infinite] dark:block"
+            className="absolute inset-0 hidden animate-[dotWaveDark_4s_linear_infinite] dark:block"
             style={{
               backgroundImage: `radial-gradient(circle at 1px 1px, var(--muted-foreground) 1px, transparent 0)`,
               backgroundSize: "40px 40px",
