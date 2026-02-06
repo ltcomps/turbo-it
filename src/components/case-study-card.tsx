@@ -102,7 +102,8 @@ export function CaseStudyCard({
                   <iframe
                     src={liveUrl}
                     title={`${title} Preview`}
-                    className="h-[200%] w-[200%] origin-top-left scale-50 border-0 pointer-events-none"
+                    className="origin-top-left border-0 pointer-events-none"
+                    style={{ width: "300%", height: "300%", transform: "scale(0.3333)" }}
                     loading="lazy"
                     scrolling="no"
                   />
