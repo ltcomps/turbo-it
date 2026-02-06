@@ -202,13 +202,13 @@ export function Hero() {
                         </div>
                       </div>
 
-                      {/* Website preview — taller iframe hides cookie banners */}
+                      {/* Website preview */}
                       <div className="relative min-h-0 flex-1 overflow-hidden bg-white">
                         <iframe
                           src={item.liveUrl}
                           title={`${item.title} Preview`}
                           className="w-[200%] origin-top-left scale-50 border-0 pointer-events-none"
-                          style={{ height: "250%" }}
+                          style={{ height: item.slug === "lucky-turbo" ? "250%" : "200%" }}
                           loading="lazy"
                           scrolling="no"
                         />
