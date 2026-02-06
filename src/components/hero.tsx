@@ -144,12 +144,8 @@ export function Hero() {
             onMouseLeave={() => setIsPaused(false)}
           >
             <div className="relative">
-              {/* Glow effect - color matches active project */}
-              <motion.div
-                className="absolute -inset-4 rounded-2xl blur-2xl"
-                animate={{ backgroundColor: `${project.color}15` }}
-                transition={{ duration: 0.6 }}
-              />
+              {/* Glow effect behind card */}
+              <div className="absolute -inset-4 rounded-2xl bg-electric/10 blur-2xl" />
 
               {/* Browser mockup */}
               <div className="relative overflow-hidden rounded-xl border bg-card shadow-2xl transition-transform duration-500 hover:scale-[1.02]">
