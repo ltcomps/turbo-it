@@ -1,8 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import Image from "next/image";
+import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, Play } from "lucide-react";
 
@@ -14,30 +13,28 @@ import { GridBackground } from "@/components/grid-background";
 import { GradientOrbs } from "@/components/gradient-orbs";
 
 const ROTATE_INTERVAL = 5000; // 5 seconds per project
+const CARD_COUNT = featuredWork.length;
+
+// Position config for each offset from active card
+// 0 = front, 1 = behind-right, 2 = behind-left, etc.
+function getCardStyle(offset: number) {
+  if (offset === 0) {
+    return { x: 0, y: 0, scale: 1, zIndex: 30, opacity: 1 };
+  }
+  if (offset === 1) {
+    return { x: 24, y: -16, scale: 0.92, zIndex: 20, opacity: 0.55 };
+  }
+  // offset === 2 (or more)
+  return { x: 48, y: -32, scale: 0.84, zIndex: 10, opacity: 0.3 };
+}
 
 export function Hero() {
   const reducedMotion = useReducedMotion();
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const [direction, setDirection] = useState(1); // 1 = forward, -1 = backward
-
-  const project = featuredWork[activeIndex];
-
-  const slideVariants = {
-    enter: (d: number) => ({
-      x: reducedMotion ? 0 : `${100 * d}%`,
-      opacity: reducedMotion ? 0 : 1,
-    }),
-    center: { x: 0, opacity: 1 },
-    exit: (d: number) => ({
-      x: reducedMotion ? 0 : `${-100 * d}%`,
-      opacity: reducedMotion ? 0 : 1,
-    }),
-  };
 
   const goToNext = useCallback(() => {
-    setDirection(1);
-    setActiveIndex((prev) => (prev + 1) % featuredWork.length);
+    setActiveIndex((prev) => (prev + 1) % CARD_COUNT);
   }, []);
 
   // Auto-rotate timer
@@ -147,7 +144,7 @@ export function Hero() {
             </motion.div>
           </div>
 
-          {/* Right column - sliding carousel */}
+          {/* Right column - stacked carousel */}
           <motion.div
             initial={{ opacity: 0, scale: reducedMotion ? 1 : 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -156,25 +153,34 @@ export function Hero() {
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
           >
-            <div className="relative">
-              {/* Glow effect behind card */}
-              <div className="absolute -inset-4 rounded-2xl bg-electric/10 blur-2xl" />
+            {/* Glow effect behind stack */}
+            <div className="absolute -inset-4 rounded-2xl bg-electric/10 blur-2xl" />
 
-              {/* Carousel track */}
-              <div className="relative overflow-hidden rounded-xl">
-                <AnimatePresence initial={false} custom={direction} mode="popLayout">
+            {/* Card stack — all 3 cards rendered, positioned by offset */}
+            <div className="relative" style={{ aspectRatio: "4/3", marginBottom: "3rem" }}>
+              {featuredWork.map((item, i) => {
+                const offset = (i - activeIndex + CARD_COUNT) % CARD_COUNT;
+                const style = getCardStyle(offset);
+                const hostname = item.liveUrl.replace(/^https?:\/\//, "");
+
+                return (
                   <motion.div
-                    key={project.slug}
-                    custom={direction}
-                    variants={slideVariants}
-                    initial="enter"
-                    animate="center"
-                    exit="exit"
-                    transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
-                    className="w-full"
+                    key={item.slug}
+                    animate={{
+                      x: style.x,
+                      y: style.y,
+                      scale: style.scale,
+                      opacity: style.opacity,
+                      zIndex: style.zIndex,
+                    }}
+                    transition={{
+                      duration: reducedMotion ? 0 : 0.6,
+                      ease: [0.4, 0, 0.2, 1],
+                    }}
+                    className="absolute inset-0 origin-bottom-left"
+                    style={{ zIndex: style.zIndex }}
                   >
-                    {/* Browser mockup card */}
-                    <div className="overflow-hidden rounded-xl border bg-card shadow-2xl">
+                    <div className="h-full overflow-hidden rounded-xl border bg-card shadow-2xl">
                       {/* Browser bar */}
                       <div className="flex items-center gap-2 border-b bg-muted/50 px-4 py-3">
                         <div className="flex gap-1.5">
@@ -183,44 +189,32 @@ export function Hero() {
                           <div className="size-3 rounded-full bg-green-500/80" />
                         </div>
                         <div className="ml-4 flex-1 rounded-md bg-background px-3 py-1 text-xs text-muted-foreground">
-                          {project.liveUrl.replace(/^https?:\/\//, "")}
+                          {hostname}
                         </div>
                       </div>
 
                       {/* Website preview */}
-                      <div className="relative aspect-[4/3] overflow-hidden bg-white">
-                        {project.screenshot ? (
-                          <Image
-                            src={project.screenshot}
-                            alt={`${project.title} preview`}
-                            fill
-                            className="object-cover object-top"
-                          />
-                        ) : (
-                          <iframe
-                            src={project.liveUrl}
-                            title={`${project.title} Preview`}
-                            className="h-[200%] w-[200%] origin-top-left scale-50 border-0 pointer-events-none"
-                            loading="lazy"
-                            scrolling="no"
-                          />
-                        )}
+                      <div className="relative flex-1 overflow-hidden bg-white" style={{ height: "calc(100% - 88px)" }}>
+                        <iframe
+                          src={item.liveUrl}
+                          title={`${item.title} Preview`}
+                          className="h-[200%] w-[200%] origin-top-left scale-50 border-0 pointer-events-none"
+                          loading="lazy"
+                          scrolling="no"
+                        />
                       </div>
 
                       {/* Project label bar */}
                       <div className="flex items-center justify-between border-t bg-muted/30 px-4 py-2.5">
                         <div>
-                          <p className="text-sm font-semibold">{project.title}</p>
-                          <p className="text-xs text-muted-foreground">{project.category}</p>
+                          <p className="text-sm font-semibold">{item.title}</p>
+                          <p className="text-xs text-muted-foreground">{item.category}</p>
                         </div>
-                        <span className="text-xs text-muted-foreground">
-                          {activeIndex + 1}/{featuredWork.length}
-                        </span>
                       </div>
                     </div>
                   </motion.div>
-                </AnimatePresence>
-              </div>
+                );
+              })}
             </div>
           </motion.div>
         </div>
