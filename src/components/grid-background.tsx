@@ -17,13 +17,22 @@ export function GridBackground({ variant = "dots", className }: GridBackgroundPr
       )}
     >
       {variant === "dots" && (
-        <div
-          className="absolute inset-0 opacity-[0.4] dark:opacity-[0.15]"
-          style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, var(--muted-foreground) 1px, transparent 0)`,
-            backgroundSize: "40px 40px",
-          }}
-        />
+        <>
+          <div
+            className="absolute inset-0 animate-[dotGlow_4s_ease-in-out_infinite] dark:hidden"
+            style={{
+              backgroundImage: `radial-gradient(circle at 1.5px 1.5px, var(--muted-foreground) 1.5px, transparent 0)`,
+              backgroundSize: "40px 40px",
+            }}
+          />
+          <div
+            className="absolute inset-0 hidden animate-[dotGlowDark_4s_ease-in-out_infinite] dark:block"
+            style={{
+              backgroundImage: `radial-gradient(circle at 1.5px 1.5px, var(--muted-foreground) 1.5px, transparent 0)`,
+              backgroundSize: "40px 40px",
+            }}
+          />
+        </>
       )}
 
       {variant === "lines" && (

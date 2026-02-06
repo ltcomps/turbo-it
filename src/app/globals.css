@@ -197,6 +197,17 @@ html.transitioning *::after {
   background: var(--foreground);
 }
 
+/* Dot background glow pulse */
+@keyframes dotGlow {
+  0%, 100% { opacity: 0.5; filter: brightness(1); }
+  50% { opacity: 0.75; filter: brightness(1.4) drop-shadow(0 0 3px var(--muted-foreground)); }
+}
+
+@keyframes dotGlowDark {
+  0%, 100% { opacity: 0.2; filter: brightness(1); }
+  50% { opacity: 0.38; filter: brightness(1.8) drop-shadow(0 0 4px var(--muted-foreground)); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
