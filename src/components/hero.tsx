@@ -127,19 +127,16 @@ export function Hero() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.5 }}
-              className="mt-16 flex items-center gap-6 sm:gap-8 border-t border-border pt-8"
+              className="mt-16 flex items-center gap-8 sm:gap-12"
             >
               {[
                 { value: "50+", label: "Projects shipped" },
                 { value: "8 yrs", label: "In business" },
                 { value: "4.9★", label: "Client rating" },
-              ].map((stat, i) => (
-                <div key={stat.label} className="flex items-center gap-6 sm:gap-8">
-                  {i > 0 && <div className="h-8 w-px bg-border" />}
-                  <div>
-                    <p className="text-2xl font-bold">{stat.value}</p>
-                    <p className="text-sm text-muted-foreground">{stat.label}</p>
-                  </div>
+              ].map((stat) => (
+                <div key={stat.label}>
+                  <p className="text-2xl font-bold">{stat.value}</p>
+                  <p className="text-sm text-muted-foreground">{stat.label}</p>
                 </div>
               ))}
             </motion.div>
