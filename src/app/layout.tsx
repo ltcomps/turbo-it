@@ -4,7 +4,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { PageLoader } from "@/components/page-loader";
-import { WhatsAppButton } from "@/components/whatsapp-button";
+import { ContactFormButton } from "@/components/contact-form-button";
 import { siteConfig } from "@/lib/content";
 import "./globals.css";
 
@@ -62,7 +62,7 @@ export default function RootLayout({
           <Navbar />
           {children}
           <Footer />
-          <WhatsAppButton />
+          <ContactFormButton />
         </ThemeProvider>
       </body>
     </html>
