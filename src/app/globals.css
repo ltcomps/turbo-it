@@ -208,18 +208,18 @@ html.transitioning *::after {
   50% { opacity: 0.2; filter: drop-shadow(0 0 1.5px var(--muted-foreground)); }
 }
 
-/* Diagonal wave sweep — light (2.3s sweep + 3s pause = 5.3s cycle) */
+/* Diagonal wave sweep — light (4s sweep + 3s pause = 7s cycle) */
 @keyframes dotWave {
   0% { opacity: 0.55; filter: brightness(1.7) drop-shadow(0 0 2px var(--muted-foreground)); mask-position: 100% 100%; -webkit-mask-position: 100% 100%; }
-  43% { opacity: 0.55; filter: brightness(1.7) drop-shadow(0 0 2px var(--muted-foreground)); mask-position: 0% 0%; -webkit-mask-position: 0% 0%; }
-  44%, 100% { opacity: 0; mask-position: 100% 100%; -webkit-mask-position: 100% 100%; }
+  57% { opacity: 0.55; filter: brightness(1.7) drop-shadow(0 0 2px var(--muted-foreground)); mask-position: 0% 0%; -webkit-mask-position: 0% 0%; }
+  58%, 100% { opacity: 0; mask-position: 100% 100%; -webkit-mask-position: 100% 100%; }
 }
 
-/* Diagonal wave sweep — dark (2.3s sweep + 3s pause = 5.3s cycle) */
+/* Diagonal wave sweep — dark (4s sweep + 3s pause = 7s cycle) */
 @keyframes dotWaveDark {
   0% { opacity: 0.45; filter: brightness(2) drop-shadow(0 0 3px var(--muted-foreground)); mask-position: 100% 100%; -webkit-mask-position: 100% 100%; }
-  43% { opacity: 0.45; filter: brightness(2) drop-shadow(0 0 3px var(--muted-foreground)); mask-position: 0% 0%; -webkit-mask-position: 0% 0%; }
-  44%, 100% { opacity: 0; mask-position: 100% 100%; -webkit-mask-position: 100% 100%; }
+  57% { opacity: 0.45; filter: brightness(2) drop-shadow(0 0 3px var(--muted-foreground)); mask-position: 0% 0%; -webkit-mask-position: 0% 0%; }
+  58%, 100% { opacity: 0; mask-position: 100% 100%; -webkit-mask-position: 100% 100%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
