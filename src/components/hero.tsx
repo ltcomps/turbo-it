@@ -202,12 +202,13 @@ export function Hero() {
                         </div>
                       </div>
 
-                      {/* Website preview — fills remaining space */}
+                      {/* Website preview — taller iframe hides cookie banners */}
                       <div className="relative min-h-0 flex-1 overflow-hidden bg-white">
                         <iframe
                           src={item.liveUrl}
                           title={`${item.title} Preview`}
-                          className="h-[200%] w-[200%] origin-top-left scale-50 border-0 pointer-events-none"
+                          className="w-[200%] origin-top-left scale-50 border-0 pointer-events-none"
+                          style={{ height: "250%" }}
                           loading="lazy"
                           scrolling="no"
                         />
