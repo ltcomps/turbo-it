@@ -183,15 +183,15 @@ export function ContactContent() {
           variants={fadeUp}
           initial="hidden"
           animate="visible"
-          className="mx-auto mb-16 max-w-2xl text-center"
+          className="mx-auto mb-8 max-w-2xl text-center sm:mb-12 lg:mb-16"
         >
-          <span className={cn(tokens.typography.caption, "mb-4 inline-block text-electric")}>
+          <span className={cn(tokens.typography.caption, "mb-3 inline-block text-electric sm:mb-4")}>
             Contact
           </span>
           <h1 className={cn(tokens.typography.h1, "mt-2")}>
             Let&rsquo;s Start Something Great
           </h1>
-          <p className={cn(tokens.typography.bodyLg, "mt-4 text-muted-foreground")}>
+          <p className={cn("mt-3 text-base text-muted-foreground sm:mt-4 sm:text-lg")}>
             Choose how you&rsquo;d like to get in touch. We&rsquo;re fast,
             friendly, and ready to help.
           </p>
@@ -202,48 +202,54 @@ export function ContactContent() {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="space-y-6"
+          className="space-y-3 sm:space-y-4 lg:space-y-6"
         >
           {/* === 1. Primary — Instant Quote === */}
           <motion.div variants={itemVariants}>
             <Link
               href={primary.href}
-              className="group relative block overflow-hidden rounded-2xl border border-electric/30 bg-electric/5 p-8 transition-all duration-300 hover:border-electric/60 hover:bg-electric/10 sm:p-10"
+              className="group relative block overflow-hidden rounded-xl border border-electric/30 bg-electric/5 p-5 transition-all duration-300 hover:border-electric/60 hover:bg-electric/10 sm:rounded-2xl sm:p-8 lg:p-10"
             >
-              <div className="absolute -right-12 -top-12 size-40 rounded-full bg-electric/10 blur-3xl transition-all duration-500 group-hover:bg-electric/20" />
-              <div className="relative flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-                <div className="flex items-start gap-5">
-                  <div className="flex size-14 shrink-0 items-center justify-center rounded-xl bg-electric/15 text-electric transition-colors group-hover:bg-electric/25">
-                    <Zap className="size-7" />
+              <div className="absolute -right-12 -top-12 size-32 rounded-full bg-electric/10 blur-3xl transition-all duration-500 group-hover:bg-electric/20 sm:size-40" />
+              <div className="relative">
+                {/* Mobile: stacked layout */}
+                <div className="flex items-start gap-4 sm:gap-5">
+                  <div className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-electric/15 text-electric sm:size-14 sm:rounded-xl">
+                    <Zap className="size-5 sm:size-7" />
                   </div>
-                  <div>
-                    <h2 className={cn(tokens.typography.h4)}>{primary.title}</h2>
-                    <p className="mt-1.5 max-w-md text-sm text-muted-foreground">
+                  <div className="flex-1 min-w-0">
+                    <h2 className="text-lg font-semibold sm:text-xl lg:text-2xl">
+                      {primary.title}
+                    </h2>
+                    <p className="mt-1 text-sm text-muted-foreground sm:mt-1.5 sm:max-w-md">
                       {primary.subtext}
                     </p>
-                    <div className="mt-3 flex items-center gap-1.5 text-xs text-electric">
+                    <div className="mt-2 flex items-center gap-1.5 text-xs text-electric sm:mt-3">
                       <Clock className="size-3.5" />
                       <span>Under 60 seconds</span>
                     </div>
                   </div>
                 </div>
-                <Button
-                  size="lg"
-                  className="shrink-0 bg-electric text-white hover:bg-electric/90 group-hover:shadow-lg group-hover:shadow-electric/20"
-                  tabIndex={-1}
-                  asChild
-                >
-                  <span>
-                    {primary.cta}
-                    <ArrowRight className="ml-2 size-4 transition-transform duration-200 group-hover:translate-x-1" />
-                  </span>
-                </Button>
+                {/* CTA button — full width on mobile */}
+                <div className="mt-4 sm:mt-5 lg:absolute lg:right-0 lg:top-1/2 lg:mt-0 lg:-translate-y-1/2">
+                  <Button
+                    size="lg"
+                    className="w-full bg-electric text-white hover:bg-electric/90 group-hover:shadow-lg group-hover:shadow-electric/20 sm:w-auto"
+                    tabIndex={-1}
+                    asChild
+                  >
+                    <span>
+                      {primary.cta}
+                      <ArrowRight className="ml-2 size-4 transition-transform duration-200 group-hover:translate-x-1" />
+                    </span>
+                  </Button>
+                </div>
               </div>
             </Link>
           </motion.div>
 
           {/* === 2 & 3. Secondary — WhatsApp + Book a Call === */}
-          <div className="grid gap-6 sm:grid-cols-2">
+          <div className="grid gap-3 sm:grid-cols-2 sm:gap-4 lg:gap-6">
             {secondary.map((option) => {
               const Icon = option.icon;
               return (
@@ -252,23 +258,23 @@ export function ContactContent() {
                     href={option.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group flex h-full flex-col rounded-2xl border bg-card p-6 transition-all duration-300 hover:border-electric/40 hover:shadow-lg hover:shadow-electric/5 sm:p-8"
+                    className="group flex h-full items-center gap-4 rounded-xl border bg-card p-4 transition-all duration-300 hover:border-electric/40 hover:shadow-lg hover:shadow-electric/5 sm:flex-col sm:items-start sm:rounded-2xl sm:p-6 lg:p-8"
                   >
-                    <div className="flex items-start gap-4">
-                      <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-electric/10 text-electric transition-colors group-hover:bg-electric/20">
-                        <Icon className="size-6" />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="text-lg font-semibold">{option.title}</h3>
-                        <p className="mt-1 text-sm text-muted-foreground">
-                          {option.subtext}
-                        </p>
-                      </div>
+                    <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-electric/10 text-electric transition-colors group-hover:bg-electric/20 sm:size-12 sm:rounded-xl">
+                      <Icon className="size-5 sm:size-6" />
                     </div>
-                    <div className="mt-6 flex items-center gap-2 text-sm font-medium text-electric">
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-base font-semibold sm:text-lg">{option.title}</h3>
+                      <p className="mt-0.5 text-sm text-muted-foreground sm:mt-1">
+                        {option.subtext}
+                      </p>
+                    </div>
+                    <div className="hidden items-center gap-2 text-sm font-medium text-electric sm:mt-4 sm:flex">
                       {option.cta}
                       <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
                     </div>
+                    {/* Mobile: just show arrow */}
+                    <ArrowRight className="size-4 shrink-0 text-electric sm:hidden" />
                   </a>
                 </motion.div>
               );
@@ -276,23 +282,23 @@ export function ContactContent() {
           </div>
 
           {/* === 4 & 5. Tertiary — Email + Phone === */}
-          <div className="grid gap-6 sm:grid-cols-2">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:gap-6">
             {tertiary.map((option) => {
               const Icon = option.icon;
               return (
                 <motion.div key={option.id} variants={itemVariants}>
                   <a
                     href={option.href}
-                    className="group flex items-center gap-4 rounded-xl border bg-card/50 p-5 transition-all duration-300 hover:border-electric/30 hover:bg-card"
+                    className="group flex flex-col items-center gap-2 rounded-xl border bg-card/50 p-4 text-center transition-all duration-300 hover:border-electric/30 hover:bg-card sm:flex-row sm:items-center sm:gap-4 sm:p-5 sm:text-left"
                   >
-                    <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground transition-colors group-hover:bg-electric/10 group-hover:text-electric">
-                      <Icon className="size-5" />
+                    <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground transition-colors group-hover:bg-electric/10 group-hover:text-electric sm:size-10">
+                      <Icon className="size-4 sm:size-5" />
                     </div>
                     <div className="min-w-0">
-                      <p className="text-sm font-semibold">{option.title}</p>
-                      <p className="text-xs text-muted-foreground">{option.subtext}</p>
+                      <p className="text-xs font-semibold sm:text-sm">{option.title}</p>
+                      <p className="hidden text-xs text-muted-foreground sm:block">{option.subtext}</p>
                       {"value" in option && option.value && (
-                        <p className="mt-1 truncate text-sm font-medium text-electric">
+                        <p className="mt-0.5 truncate text-xs font-medium text-electric sm:mt-1 sm:text-sm">
                           {option.value}
                         </p>
                       )}
@@ -310,12 +316,12 @@ export function ContactContent() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
-          className="my-20"
+          className="my-10 sm:my-16 lg:my-20"
         >
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3 sm:gap-4">
             <div className="h-px flex-1 bg-border" />
-            <span className="text-xs font-medium uppercase tracking-widest text-muted-foreground">
-              Prefer forms? Send us a message
+            <span className="whitespace-nowrap text-[10px] font-medium uppercase tracking-widest text-muted-foreground sm:text-xs">
+              Or send a message
             </span>
             <div className="h-px flex-1 bg-border" />
           </div>
@@ -329,14 +335,14 @@ export function ContactContent() {
           viewport={{ once: true, margin: "-50px" }}
           className="mx-auto max-w-2xl"
         >
-          <div className="rounded-2xl border bg-card/50 p-6 shadow-sm sm:p-8">
+          <div className="rounded-xl border bg-card/50 p-5 shadow-sm sm:rounded-2xl sm:p-8">
             <form
               onSubmit={(e) => e.preventDefault()}
-              className="space-y-6"
+              className="space-y-5 sm:space-y-6"
               noValidate
             >
               {/* Name & Email */}
-              <div className="grid gap-6 sm:grid-cols-2">
+              <div className="grid gap-5 sm:grid-cols-2 sm:gap-6">
                 <div className="space-y-2">
                   <label htmlFor="contact-name" className="text-sm font-medium">
                     Name <span className="text-destructive">*</span>
@@ -381,7 +387,7 @@ export function ContactContent() {
               </div>
 
               {/* Service & Budget */}
-              <div className="grid gap-6 sm:grid-cols-2">
+              <div className="grid gap-5 sm:grid-cols-2 sm:gap-6">
                 <div className="space-y-2">
                   <label htmlFor="contact-service" className="text-sm font-medium">
                     Service Interest <span className="text-destructive">*</span>
@@ -416,8 +422,8 @@ export function ContactContent() {
                 </label>
                 <textarea
                   id="contact-message"
-                  rows={5}
-                  placeholder="Tell us about your project, goals, and timeline..."
+                  rows={4}
+                  placeholder="Tell us about your project..."
                   value={form.message}
                   onChange={(e) => updateField("message")(e.target.value)}
                   required
@@ -432,16 +438,16 @@ export function ContactContent() {
               </div>
 
               {/* Submit */}
-              <div className="flex items-center gap-4 pt-2">
+              <div className="flex flex-col gap-3 pt-1 sm:flex-row sm:items-center sm:gap-4 sm:pt-2">
                 <Button
                   type="button"
                   size="lg"
-                  className="bg-electric text-white hover:bg-electric/90"
+                  className="w-full bg-electric text-white hover:bg-electric/90 sm:w-auto"
                 >
                   <Send className="size-4" />
                   Send Message
                 </Button>
-                <span className="text-xs text-muted-foreground">
+                <span className="text-center text-xs text-muted-foreground sm:text-left">
                   We&rsquo;ll respond within 24 hours.
                 </span>
               </div>
