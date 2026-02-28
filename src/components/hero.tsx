@@ -232,7 +232,7 @@ export function Hero() {
                             transform: isMobile ? "scale(0.3333)" : "scale(0.5)",
                           }}
                           active={offset === 0}
-                          delay={1500}
+                          delay={0}
                           placeholderColor={item.color}
                           scrolling="no"
                         />

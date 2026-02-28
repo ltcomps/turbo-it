@@ -105,7 +105,7 @@ export function CaseStudyCard({
                     title={`${title} Preview`}
                     className="origin-top-left border-0 pointer-events-none"
                     style={{ width: "300%", height: "300%", transform: "scale(0.3333)" }}
-                    delay={500}
+                    delay={0}
                     placeholderColor={color}
                     scrolling="no"
                   />

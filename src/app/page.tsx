@@ -86,7 +86,7 @@ export default function HomePage() {
                           title={`${project.title} Preview`}
                           className="origin-top-left border-0 pointer-events-none"
                           style={{ width: "300%", height: "300%", transform: "scale(0.3333)" }}
-                          delay={500}
+                          delay={0}
                           placeholderColor={project.color}
                           scrolling="no"
                         />
