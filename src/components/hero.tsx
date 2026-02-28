@@ -11,24 +11,33 @@ import { featuredWork } from "@/lib/content";
 import { Button } from "@/components/ui/button";
 import { GridBackground } from "@/components/grid-background";
 import { GradientOrbs } from "@/components/gradient-orbs";
+import { LazyIframe } from "@/components/lazy-iframe";
 
 const ROTATE_INTERVAL = 5000;
 const CARD_COUNT = featuredWork.length;
 
-// Circular carousel positions: front center, back-right, back-left
-function getCardStyle(offset: number, mobile: boolean) {
+// Circular carousel positions: front center, then fan out behind
+function getCardStyle(offset: number, mobile: boolean, total: number) {
   const fan = mobile ? 20 : 35;
-  const shift = mobile ? "22%" : "30%";
+  const shift = mobile ? 22 : 30;
   const depth = mobile ? -80 : -120;
   const backScale = mobile ? 0.88 : 0.85;
 
   if (offset === 0) {
     return { x: "0%", rotateY: 0, z: 0, scale: 1, opacity: 1, zIndex: 30 };
   }
-  if (offset === 1) {
-    return { x: shift, rotateY: -fan, z: depth, scale: backScale, opacity: 0.6, zIndex: 20 };
+
+  // For cards behind: right side = low offsets, left side = high offsets
+  const half = total / 2;
+  if (offset <= Math.floor(half)) {
+    // Right side
+    const factor = Math.min(offset, 2);
+    return { x: `${shift * factor}%`, rotateY: -fan, z: depth * factor, scale: backScale, opacity: offset === 1 ? 0.6 : 0.3, zIndex: 20 - offset };
   }
-  return { x: `-${shift.replace('%','')}%`, rotateY: fan, z: depth, scale: backScale, opacity: 0.6, zIndex: 10 };
+  // Left side
+  const fromEnd = total - offset;
+  const factor = Math.min(fromEnd, 2);
+  return { x: `-${shift * factor}%`, rotateY: fan, z: depth * factor, scale: backScale, opacity: fromEnd === 1 ? 0.6 : 0.3, zIndex: 20 - fromEnd };
 }
 
 export function Hero() {
@@ -171,7 +180,7 @@ export function Hero() {
             >
               {featuredWork.map((item, i) => {
                 const offset = (i - activeIndex + CARD_COUNT) % CARD_COUNT;
-                const pos = getCardStyle(offset, isMobile);
+                const pos = getCardStyle(offset, isMobile, CARD_COUNT);
                 const hostname = item.liveUrl.replace(/^https?:\/\//, "");
 
                 return (
@@ -209,9 +218,9 @@ export function Hero() {
                         </div>
                       </div>
 
-                      {/* Website preview — wider viewport on mobile for desktop layout */}
+                      {/* Website preview — only load iframe for active card */}
                       <div className="relative min-h-0 flex-1 overflow-hidden bg-white">
-                        <iframe
+                        <LazyIframe
                           src={item.liveUrl}
                           title={`${item.title} Preview`}
                           className="origin-top-left border-0 pointer-events-none"
@@ -222,7 +231,9 @@ export function Hero() {
                               : (isMobile ? "300%" : "200%"),
                             transform: isMobile ? "scale(0.3333)" : "scale(0.5)",
                           }}
-                          loading="lazy"
+                          active={offset === 0}
+                          delay={1500}
+                          placeholderColor={item.color}
                           scrolling="no"
                         />
                       </div>

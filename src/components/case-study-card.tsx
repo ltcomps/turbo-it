@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { TagChip } from "@/components/tag-chip";
 import { cn } from "@/lib/utils";
 import { tokens } from "@/lib/tokens";
+import { LazyIframe } from "@/components/lazy-iframe";
 
 interface CaseStudyCardProps {
   slug: string;
@@ -99,12 +100,13 @@ export function CaseStudyCard({
                     loading="lazy"
                   />
                 ) : liveUrl ? (
-                  <iframe
+                  <LazyIframe
                     src={liveUrl}
                     title={`${title} Preview`}
                     className="origin-top-left border-0 pointer-events-none"
                     style={{ width: "300%", height: "300%", transform: "scale(0.3333)" }}
-                    loading="lazy"
+                    delay={500}
+                    placeholderColor={color}
                     scrolling="no"
                   />
                 ) : (

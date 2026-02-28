@@ -74,6 +74,7 @@ export const trustedByLogos = [
   "Studio Style MCR",
   "Renova Construction",
   "Lucky Turbo",
+  "Mr XCA",
   "Local businesses",
   "Startups",
   "E-commerce brands",
@@ -130,6 +131,19 @@ export const featuredWork: {
     tags: ["Next.js", "Payments", "Gamification"],
     color: "#00B0F0",
     liveUrl: "https://luckyturbo.co.uk",
+  },
+  {
+    slug: "mr-xca",
+    title: "Mr XCA",
+    category: "Web Development",
+    categoryTag: "Web",
+    blurb:
+      "Raffles and giveaways platform with a sleek dark aesthetic, real-time competitions, and seamless ticket purchasing.",
+    metric: "Live",
+    metricLabel: "mrxca.co.uk",
+    tags: ["React", "Supabase", "Real-time"],
+    color: "#38BDF8",
+    liveUrl: "https://mrxca.co.uk",
   },
 ];
 
@@ -227,6 +241,31 @@ export const caseStudies: Record<string, {
     ],
     techStack: ["Next.js", "Payment Integration", "User Authentication", "Real-time Updates"],
     liveUrl: "https://luckyturbo.co.uk",
+  },
+  "mr-xca": {
+    slug: "mr-xca",
+    title: "Mr XCA",
+    subtitle: "Raffles & Giveaways Platform",
+    category: "Web Development",
+    client: "Mr XCA",
+    duration: "8 weeks",
+    year: "2025",
+    overview:
+      "Mr XCA is an online raffles and giveaways platform offering exciting competitions with transparent draws and instant results. They needed a modern, trustworthy platform to manage competitions and ticket sales.",
+    problem:
+      "The client needed a competition platform that felt premium and trustworthy while handling real-time ticket sales, multiple concurrent competitions, and automated prize draws seamlessly.",
+    approach:
+      "We built a sleek dark-themed interface with sky-blue accents that creates a modern, premium feel. The platform uses Supabase for real-time data, ensuring instant updates on ticket availability and competition status.",
+    solution:
+      "A polished competition platform with real-time ticket tracking, automated draws, user accounts, and a dark aesthetic that stands out from competitors. The Supabase backend ensures instant updates across all users.",
+    results: [
+      { metric: "Live", label: "Platform", description: "mrxca.co.uk" },
+      { metric: "Real-time", label: "Updates", description: "Instant ticket tracking" },
+      { metric: "Automated", label: "Draws", description: "Transparent prize selection" },
+      { metric: "Mobile", label: "Responsive", description: "Full mobile support" },
+    ],
+    techStack: ["React", "Vite", "Supabase", "Tailwind CSS", "Real-time Subscriptions"],
+    liveUrl: "https://mrxca.co.uk",
   },
 };
 

@@ -7,13 +7,13 @@ import { ArrowRight } from "lucide-react";
 import { Hero } from "@/components/hero";
 import { PageTransition } from "@/components/page-transition";
 import { Button } from "@/components/ui/button";
+import { LazyIframe } from "@/components/lazy-iframe";
 import { featuredWork, testimonials } from "@/lib/content";
 import { containerClass } from "@/lib/tokens";
 import { cn } from "@/lib/utils";
 
 export default function HomePage() {
-  // Show 3 projects
-  const projects = featuredWork.slice(0, 3);
+  const projects = featuredWork;
   const testimonial = testimonials[1]; // Dr. Sarah Chen's quote
 
   return (
@@ -81,12 +81,13 @@ export default function HomePage() {
                           loading="lazy"
                         />
                       ) : project.liveUrl ? (
-                        <iframe
+                        <LazyIframe
                           src={project.liveUrl}
                           title={`${project.title} Preview`}
                           className="origin-top-left border-0 pointer-events-none"
                           style={{ width: "300%", height: "300%", transform: "scale(0.3333)" }}
-                          loading="lazy"
+                          delay={500}
+                          placeholderColor={project.color}
                           scrolling="no"
                         />
                       ) : (
