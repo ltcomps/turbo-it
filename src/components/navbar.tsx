@@ -8,15 +8,12 @@ import {
   Menu,
   X,
   ChevronDown,
-  Palette,
-  Code,
-  ShoppingCart,
-  Server,
-  Headphones,
-  Search,
+  Trophy,
+  CreditCard,
+  Timer,
+  ShieldCheck,
   Target,
-  Globe,
-  Share2,
+  Server,
   Zap,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
@@ -31,15 +28,12 @@ import { ThemeToggle } from "@/components/theme-toggle";
 // Icon resolver – maps string names from content.ts to Lucide components
 // ---------------------------------------------------------------------------
 const iconMap: Record<string, LucideIcon> = {
-  Palette,
-  Code,
-  ShoppingCart,
-  Server,
-  Headphones,
-  Search,
+  Trophy,
+  CreditCard,
+  Timer,
+  ShieldCheck,
   Target,
-  Globe,
-  Share2,
+  Server,
 };
 
 // ---------------------------------------------------------------------------

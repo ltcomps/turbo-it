@@ -4,13 +4,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import {
-  Palette,
-  Code,
-  ShoppingCart,
-  Search,
+  Trophy,
+  CreditCard,
+  Timer,
+  ShieldCheck,
   Target,
   Server,
-  Headphones,
   ArrowRight,
   Check,
   ExternalLink,
@@ -27,180 +26,156 @@ import { CtaSection } from "@/components/cta-section";
 import { PageTransition } from "@/components/page-transition";
 
 const iconMap: Record<string, LucideIcon> = {
-  Palette,
-  Code,
-  ShoppingCart,
-  Search,
+  Trophy,
+  CreditCard,
+  Timer,
+  ShieldCheck,
   Target,
   Server,
-  Headphones,
 };
 
-// Map services to their portfolio examples (only use each example once)
+// Map services to their portfolio examples
 const serviceExamples: Record<string, string | null> = {
-  "web-design": "renova-construction",
-  "web-dev": "lucky-turbo",
-  "ecommerce": "studio-style-mcr",
-  "seo": null,
-  "ads": null,
+  "platform-dev": "lucky-turbo",
+  "payments": "mr-xca",
+  "draws": null,
+  "compliance": null,
+  "marketing": null,
   "hosting": null,
-  "it-support": null,
 };
 
 // Full service data with extended descriptions
 const servicesData = [
   {
-    id: "web-design",
-    title: "Web Design",
-    icon: "Palette",
-    tagline: "Beautiful designs that convert visitors into customers",
+    id: "platform-dev",
+    title: "Platform Development",
+    icon: "Trophy",
+    tagline: "Custom competition websites built to sell tickets",
     description:
-      "Great design isn't just about looking good — it's about guiding users towards action. We create bespoke, conversion-focused designs that capture your brand's personality while delivering real business results. Every element is intentional, every interaction is considered.",
+      "We design and develop bespoke competition, raffle, and prize draw platforms from scratch. Every platform is built to create excitement, build trust with players, and drive ticket sales. From user registration to admin dashboards — we handle the full stack.",
     features: [
-      "Custom UI/UX design tailored to your brand",
-      "Mobile-first responsive layouts",
-      "Interactive prototypes for stakeholder approval",
-      "Design systems for consistency at scale",
-      "Accessibility compliance (WCAG 2.1)",
-      "User research and journey mapping",
+      "Custom raffle & competition websites",
+      "Player registration & account management",
+      "Mobile-first responsive design",
+      "Admin dashboard for competition management",
+      "Winner showcase & social proof features",
+      "SEO-optimised for competition keywords",
+    ],
+    benefits: [
+      "Higher ticket sales",
+      "Player trust & retention",
+      "Full brand control",
+      "Scalable architecture",
+    ],
+  },
+  {
+    id: "payments",
+    title: "Payment & Ticketing",
+    icon: "CreditCard",
+    tagline: "Secure, fast ticket purchasing that converts",
+    description:
+      "Ticket sales are the lifeblood of any competition business. We build seamless checkout experiences with cart functionality, multiple payment methods, and instant confirmation. Every payment flow is optimised for conversion and built to handle peak traffic during competition launches.",
+    features: [
+      "Stripe, PayPal & specialist gateway integration",
+      "Shopping cart with multi-ticket purchases",
+      "One-click repeat purchases for returning players",
+      "Automatic ticket allocation & confirmation",
+      "Refund & dispute management tools",
+      "PCI-compliant payment handling",
     ],
     benefits: [
       "Higher conversion rates",
-      "Stronger brand perception",
-      "Better user engagement",
-      "Reduced bounce rates",
+      "Faster checkout",
+      "Reduced cart abandonment",
+      "Secure transactions",
     ],
   },
   {
-    id: "web-dev",
-    title: "Web Development",
-    icon: "Code",
-    tagline: "Fast, scalable web applications built to last",
+    id: "draws",
+    title: "Draw & Prize Systems",
+    icon: "Timer",
+    tagline: "Automated, transparent draws that players trust",
     description:
-      "We build websites and web applications using modern technologies like Next.js, React, and TypeScript. Our code is clean, maintainable, and optimised for performance. Whether you need a marketing site, a web app, or a complex platform — we've got the expertise to deliver.",
+      "Trust is everything in competitions. We build automated draw systems with provably fair selection, live countdown timers, instant win mechanics, and public winner announcements. Players see the process, trust the results, and come back for more.",
     features: [
-      "Next.js & React development",
-      "Custom API development",
-      "CMS integration (WordPress, Sanity, etc.)",
-      "Third-party integrations",
-      "Performance optimisation",
-      "Progressive Web Apps (PWAs)",
+      "Automated random prize draws",
+      "Instant win game mechanics",
+      "Live countdown timers",
+      "Winner notification (email, SMS, in-app)",
+      "Public draw results & winner history",
+      "Provably fair selection algorithms",
     ],
     benefits: [
-      "Lightning-fast load times",
-      "Easy content management",
-      "Scalable architecture",
-      "Future-proof technology",
+      "Player trust",
+      "Automated operations",
+      "Repeat engagement",
+      "Transparent results",
     ],
   },
   {
-    id: "ecommerce",
-    title: "E-commerce",
-    icon: "ShoppingCart",
-    tagline: "Online stores that turn browsers into buyers",
+    id: "compliance",
+    title: "Compliance & Regulation",
+    icon: "ShieldCheck",
+    tagline: "UK competition law compliant from day one",
     description:
-      "We build e-commerce experiences that sell. From Shopify and WooCommerce to fully custom solutions, we create online stores with seamless checkout flows, smart product discovery, and features that keep customers coming back. Your products deserve a platform that does them justice.",
+      "Running competitions in the UK comes with legal requirements. We build compliance into every platform — age verification, responsible gambling features, proper terms and conditions, and data protection. You focus on prizes; we handle the regulations.",
     features: [
-      "Shopify & WooCommerce expertise",
-      "Custom e-commerce development",
-      "Payment gateway integration",
-      "Inventory & order management",
-      "Product filtering & search",
-      "Abandoned cart recovery",
+      "UK Gambling Commission awareness",
+      "Competition terms & conditions framework",
+      "Age verification integration",
+      "Responsible gambling tools & self-exclusion",
+      "GDPR-compliant data handling",
+      "Anti-fraud measures",
     ],
     benefits: [
-      "Increased sales conversions",
-      "Lower cart abandonment",
-      "Repeat customer growth",
-      "Streamlined operations",
+      "Legal compliance",
+      "Player protection",
+      "Reduced risk",
+      "Industry credibility",
     ],
   },
   {
-    id: "seo",
-    title: "SEO",
-    icon: "Search",
-    tagline: "Get found on Google. Rank higher. Drive traffic.",
-    description:
-      "Search engine optimisation is how people find you. We use data-driven strategies to improve your visibility on Google, drive organic traffic, and outrank your competitors. From technical audits to content strategy — we cover all the bases.",
-    features: [
-      "Comprehensive keyword research",
-      "On-page SEO optimisation",
-      "Technical SEO audits & fixes",
-      "Local SEO & Google Business Profile",
-      "Content strategy & creation",
-      "Link building & outreach",
-    ],
-    benefits: [
-      "More organic traffic",
-      "Higher search rankings",
-      "Better qualified leads",
-      "Long-term ROI",
-    ],
-  },
-  {
-    id: "ads",
-    title: "Google & Meta Ads",
+    id: "marketing",
+    title: "Marketing & Growth",
     icon: "Target",
-    tagline: "Paid advertising that delivers real ROI",
+    tagline: "Acquire players and keep them coming back",
     description:
-      "Cut through the noise with targeted paid advertising. We run Google Search, Display, and Shopping campaigns alongside Facebook and Instagram ads — all optimised for maximum return on your ad spend. Stop wasting budget on clicks that don't convert.",
+      "Building the platform is only half the battle — you need players. We help competition businesses grow with targeted advertising, SEO for competition keywords, social media strategy, and player retention campaigns. We understand what drives ticket sales.",
     features: [
+      "SEO for competition & raffle keywords",
       "Google Search & Display campaigns",
-      "Google Shopping ads",
       "Facebook & Instagram advertising",
-      "Remarketing & retargeting",
-      "A/B testing & optimisation",
-      "Conversion tracking setup",
+      "Email & SMS marketing automation",
+      "Referral & loyalty programmes",
+      "Social media content strategy",
     ],
     benefits: [
-      "Immediate visibility",
-      "Precise audience targeting",
-      "Measurable results",
+      "More players",
+      "Lower acquisition cost",
+      "Higher retention",
       "Scalable growth",
     ],
   },
   {
     id: "hosting",
-    title: "Hosting & Maintenance",
+    title: "Hosting & Infrastructure",
     icon: "Server",
-    tagline: "99.9% uptime. Zero stress.",
+    tagline: "99.9% uptime — even during competition launches",
     description:
-      "Your website is your digital storefront — it needs to be online, fast, and secure 24/7. We provide managed hosting with automatic backups, security monitoring, SSL certificates, and regular updates. Sleep easy knowing your site is in safe hands.",
+      "Competition launches create massive traffic spikes. Your platform can't go down when thousands of players are trying to buy tickets. We build on edge-hosted infrastructure with real-time capabilities, global CDN, and 24/7 monitoring to keep your competitions running flawlessly.",
     features: [
-      "Managed cloud hosting",
-      "SSL certificates & security",
+      "Edge-hosted on Cloudflare (global CDN)",
+      "Real-time infrastructure for live updates",
+      "Auto-scaling for traffic spikes",
+      "SSL certificates & DDoS protection",
       "Automatic daily backups",
-      "24/7 uptime monitoring",
-      "Regular software updates",
-      "Performance optimisation",
+      "24/7 uptime monitoring & alerts",
     ],
     benefits: [
+      "Zero downtime launches",
+      "Global performance",
+      "Real-time updates",
       "Peace of mind",
-      "Faster load times",
-      "Enhanced security",
-      "Expert support",
-    ],
-  },
-  {
-    id: "it-support",
-    title: "IT Support",
-    icon: "Headphones",
-    tagline: "Reliable tech support for your business",
-    description:
-      "Technology should help your business run smoothly, not slow it down. We provide responsive IT support for small and medium businesses — from helpdesk and network management to cloud migration and cyber security. Real humans, real solutions.",
-    features: [
-      "Helpdesk & remote support",
-      "Network setup & management",
-      "Cloud migration (Microsoft 365, Google)",
-      "Cyber security assessments",
-      "Hardware procurement",
-      "IT strategy consulting",
-    ],
-    benefits: [
-      "Reduced downtime",
-      "Improved productivity",
-      "Cost-effective IT",
-      "Expert guidance",
     ],
   },
 ];
@@ -240,7 +215,7 @@ export default function ServicesPage() {
             transition={{ duration: 0.4 }}
             className={cn(tokens.typography.caption, "mb-4 inline-block text-electric")}
           >
-            What We Do
+            What We Build
           </motion.span>
 
           <motion.h1
@@ -249,7 +224,7 @@ export default function ServicesPage() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className={cn(tokens.typography.h1, "mx-auto max-w-4xl")}
           >
-            Digital services that drive real results
+            Everything you need to launch and grow a competition business
           </motion.h1>
 
           <motion.p
@@ -261,8 +236,8 @@ export default function ServicesPage() {
               "mx-auto mt-6 max-w-2xl text-muted-foreground"
             )}
           >
-            From concept to launch and beyond — comprehensive solutions for
-            businesses that want to grow online.
+            From platform development to payment integration, automated draws,
+            and player acquisition — we handle it all.
           </motion.p>
 
           {/* Quick nav */}

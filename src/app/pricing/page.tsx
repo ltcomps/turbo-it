@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 export const metadata: Metadata = {
   title: "Pricing | Turbo IT",
   description:
-    "Simple, transparent monthly pricing for web design, development, e-commerce, and digital services. No hidden fees. Get started from £299/month.",
+    "Simple, transparent monthly pricing for competition and raffle platform development. No hidden fees. Get started from £499/month.",
 };
 
 export default function PricingPage() {

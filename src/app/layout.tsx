@@ -19,7 +19,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Turbo IT | UK Web Agency & IT Consultancy",
+  title: "Turbo IT | UK Competition & Raffle Platform Specialists",
   description: siteConfig.description,
   icons: {
     icon: [
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     apple: "/icon.svg",
   },
   openGraph: {
-    title: "Turbo IT | UK Web Agency & IT Consultancy",
+    title: "Turbo IT | UK Competition & Raffle Platform Specialists",
     description: siteConfig.description,
     url: "https://turboit.uk",
     siteName: "Turbo IT",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Turbo IT | UK Web Agency & IT Consultancy",
+    title: "Turbo IT | UK Competition & Raffle Platform Specialists",
     description: siteConfig.description,
   },
 };
@@ -50,12 +50,8 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="dns-prefetch" href="https://studiostylemcr.co.uk" />
-        <link rel="dns-prefetch" href="https://renovaconstruction.uk" />
         <link rel="dns-prefetch" href="https://luckyturbo.co.uk" />
         <link rel="dns-prefetch" href="https://mrxca.co.uk" />
-        <link rel="preconnect" href="https://studiostylemcr.co.uk" />
-        <link rel="preconnect" href="https://renovaconstruction.uk" />
         <link rel="preconnect" href="https://luckyturbo.co.uk" />
         <link rel="preconnect" href="https://mrxca.co.uk" />
       </head>

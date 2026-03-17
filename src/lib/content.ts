@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: "Turbo IT",
-  tagline: "We build digital experiences that accelerate growth.",
-  description: "Manchester-based IT consultancy and web studio delivering premium digital solutions worldwide.",
+  tagline: "We build competition platforms that sell tickets.",
+  description: "UK specialists in raffle, competition, and prize draw platform development. We design and build high-converting competition websites that players trust.",
   email: "info@turboit.uk",
   phone: "+44 161 123 4567",
   address: "Manchester, UK · Operating Worldwide",
@@ -18,66 +18,57 @@ export const navLinks = [
 
 export const servicesMegaMenu = [
   {
-    title: "Web Design",
-    description: "Bespoke UI/UX that converts",
-    href: "/services#web-design",
-    icon: "Palette",
+    title: "Platform Development",
+    description: "Custom-built competition websites",
+    href: "/services#platform-dev",
+    icon: "Trophy",
   },
   {
-    title: "Web Development",
-    description: "Robust, scalable web apps",
-    href: "/services#web-dev",
-    icon: "Code",
+    title: "Payment & Ticketing",
+    description: "Secure ticket sales & checkout",
+    href: "/services#payments",
+    icon: "CreditCard",
   },
   {
-    title: "E-commerce",
-    description: "Online stores that sell",
-    href: "/services#ecommerce",
-    icon: "ShoppingCart",
+    title: "Draw & Prize Systems",
+    description: "Automated, transparent draws",
+    href: "/services#draws",
+    icon: "Timer",
   },
   {
-    title: "SEO",
-    description: "Get found, rank higher",
-    href: "/services#seo",
-    icon: "Search",
+    title: "Compliance & Regulation",
+    description: "UK gambling law compliant",
+    href: "/services#compliance",
+    icon: "ShieldCheck",
   },
   {
-    title: "Google & Meta Ads",
-    description: "Paid ads that deliver ROI",
-    href: "/services#ads",
+    title: "Marketing & Growth",
+    description: "Acquire and retain players",
+    href: "/services#marketing",
     icon: "Target",
   },
   {
-    title: "Hosting & Maintenance",
-    description: "99.9% uptime, zero stress",
+    title: "Hosting & Infrastructure",
+    description: "99.9% uptime, real-time scale",
     href: "/services#hosting",
     icon: "Server",
-  },
-  {
-    title: "IT Support",
-    description: "Reliable tech, always on",
-    href: "/services#it-support",
-    icon: "Headphones",
   },
 ];
 
 export const heroContent = {
-  badge: "Web Design · Development · SEO · Ads",
-  headline: "We build digital\nexperiences that\naccelerate growth.",
+  badge: "Raffles · Competitions · Prize Draws · Gambling",
+  headline: "We build competition\nplatforms that\nsell tickets.",
   subheadline:
-    "From stunning websites to SEO and paid advertising — Turbo IT is the partner ambitious businesses trust to grow online.",
+    "From raffle websites to full-scale prize draw platforms — Turbo IT is the UK specialist competition businesses trust to launch and grow.",
   primaryCTA: "Get a Quote",
   secondaryCTA: "View Work",
 };
 
 export const trustedByLogos = [
-  "Studio Style MCR",
-  "Renova Construction",
   "Lucky Turbo",
   "Mr XCA",
-  "Local businesses",
-  "Startups",
-  "E-commerce brands",
+  "Competition operators",
+  "Raffle startups",
 ];
 
 export const featuredWork: {
@@ -94,54 +85,28 @@ export const featuredWork: {
   screenshot?: string;
 }[] = [
   {
-    slug: "studio-style-mcr",
-    title: "Studio Style MCR",
-    category: "E-commerce",
-    categoryTag: "Ecom",
-    blurb:
-      "Fashion boutique e-commerce site with style quiz, click & collect, and WhatsApp integration. Based in Worsley, Manchester.",
-    metric: "Live",
-    metricLabel: "studiostylemcr.co.uk",
-    tags: ["E-commerce", "Style Quiz", "Click & Collect"],
-    color: "#EC4899",
-    liveUrl: "https://studiostylemcr.co.uk",
-  },
-  {
-    slug: "renova-construction",
-    title: "Renova Construction",
-    category: "Web Design",
-    categoryTag: "Web",
-    blurb:
-      "Premium construction company site with AI project estimator, review aggregation, and a sleek dark/gold aesthetic.",
-    metric: "Live",
-    metricLabel: "renovaconstruction.uk",
-    tags: ["Next.js", "AI Chat", "Reviews Integration"],
-    color: "#D4AF37",
-    liveUrl: "https://renovaconstruction.uk",
-  },
-  {
     slug: "lucky-turbo",
     title: "Lucky Turbo",
-    category: "Web Development",
-    categoryTag: "Web",
+    category: "Raffle Platform",
+    categoryTag: "Raffle",
     blurb:
-      "UK raffle competition platform with instant wins, countdown timers, and a high-energy design that drives engagement.",
+      "UK raffle competition platform with instant wins, countdown timers, cart system, and a high-energy design that drives ticket sales and repeat engagement.",
     metric: "Live",
     metricLabel: "luckyturbo.co.uk",
-    tags: ["Next.js", "Payments", "Gamification"],
+    tags: ["Next.js", "Payments", "Instant Wins", "Gamification"],
     color: "#00B0F0",
     liveUrl: "https://luckyturbo.co.uk",
   },
   {
     slug: "mr-xca",
     title: "Mr XCA",
-    category: "Web Development",
-    categoryTag: "Web",
+    category: "Competition Platform",
+    categoryTag: "Competition",
     blurb:
-      "Raffles and giveaways platform with a sleek dark aesthetic, real-time competitions, and seamless ticket purchasing.",
+      "Raffles and giveaways platform with a sleek dark aesthetic, real-time competitions, automated draws, and seamless ticket purchasing.",
     metric: "Live",
     metricLabel: "mrxca.co.uk",
-    tags: ["React", "Supabase", "Real-time"],
+    tags: ["React", "Supabase", "Real-time", "Automated Draws"],
     color: "#38BDF8",
     liveUrl: "https://mrxca.co.uk",
   },
@@ -167,95 +132,45 @@ export const caseStudies: Record<string, {
   techStack: string[];
   liveUrl: string;
 }> = {
-  "studio-style-mcr": {
-    slug: "studio-style-mcr",
-    title: "Studio Style MCR",
-    subtitle: "E-commerce for Manchester Fashion Boutique",
-    category: "E-commerce",
-    client: "Studio Style MCR",
-    duration: "8 weeks",
-    year: "2024",
-    overview:
-      "Studio Style MCR is a women's fashion boutique based in Worsley, Manchester. They needed an online store that captured their curated, personal approach to fashion while handling the full e-commerce experience.",
-    problem:
-      "The client was selling through social media and wanted a proper online presence. They needed an e-commerce site that felt as personal as their in-store experience, with local Manchester identity.",
-    approach:
-      "We focused on features that set them apart: a style quiz to help customers find their look, click & collect for local Manchester customers, and WhatsApp integration for that personal touch.",
-    solution:
-      "A clean, modern e-commerce site with style quiz functionality, local pickup options, and seamless social integration. The design is approachable and community-focused.",
-    results: [
-      { metric: "Live", label: "Website", description: "studiostylemcr.co.uk" },
-      { metric: "10%", label: "First Order", description: "STUDIO10 discount code" },
-      { metric: "£100+", label: "Free Delivery", description: "Threshold for free shipping" },
-      { metric: "4", label: "Socials", description: "Instagram, Facebook, TikTok, WhatsApp" },
-    ],
-    techStack: ["E-commerce Platform", "Style Quiz", "Click & Collect", "WhatsApp Integration"],
-    liveUrl: "https://studiostylemcr.co.uk",
-  },
-  "renova-construction": {
-    slug: "renova-construction",
-    title: "Renova Construction",
-    subtitle: "Premium Website for Manchester Builders",
-    category: "Web Design",
-    client: "Renova Construction",
-    duration: "6 weeks",
-    year: "2024",
-    overview:
-      "Renova Construction needed a website that reflected their premium positioning in the Greater Manchester construction market. They wanted to stand out from typical builder websites.",
-    problem:
-      "Most construction company websites look the same — generic templates with stock photos. Renova wanted something that matched the quality of their actual work and justified their premium pricing.",
-    approach:
-      "We went with a bold dark theme with gold accents to signal premium quality. Added an AI project estimator for instant quotes, and aggregated their excellent reviews from Google, Checkatrade, and Trustatrader.",
-    solution:
-      "A sleek, modern site with luxury aesthetic — black backgrounds, gold gradients, animated elements. The AI chat tool lets visitors get instant project estimates, and the review aggregation shows their 4.9/5 rating.",
-    results: [
-      { metric: "4.9/5", label: "Rating", description: "Aggregated from 47 reviews" },
-      { metric: "50km", label: "Service Area", description: "Greater Manchester coverage" },
-      { metric: "AI", label: "Estimator", description: "Instant project quotes" },
-      { metric: "3", label: "Platforms", description: "Google, Checkatrade, Trustatrader" },
-    ],
-    techStack: ["Next.js", "AI Chat Integration", "Review Aggregation", "Framer Motion"],
-    liveUrl: "https://renovaconstruction.uk",
-  },
   "lucky-turbo": {
     slug: "lucky-turbo",
     title: "Lucky Turbo",
     subtitle: "UK Raffle Competition Platform",
-    category: "Web Development",
+    category: "Raffle Platform",
     client: "Lucky Turbo",
     duration: "10 weeks",
     year: "2024",
     overview:
-      "Lucky Turbo is a UK-based online raffle competition platform. They needed a site that created excitement and drove engagement while handling payments and competition management.",
+      "Lucky Turbo is a UK-based online raffle competition platform. They needed a website that created excitement and drove engagement while handling secure payments, competition management, and a seamless player experience.",
     problem:
-      "Competition sites need to feel exciting and trustworthy at the same time. The platform needed to handle ticket purchases, countdown timers, instant wins, and winner announcements seamlessly.",
+      "Competition sites need to feel exciting and trustworthy at the same time. The platform needed to handle ticket purchases, countdown timers, instant wins, winner announcements, and cart functionality — all while meeting UK competition regulations.",
     approach:
-      "We focused on creating energy — bright blues, animations, progress bars, and pulsing winner badges. The gamification elements keep users engaged while the clean UI builds trust.",
+      "We focused on creating energy — bright blues, animations, progress bars, and pulsing winner badges. The gamification elements keep players engaged while the clean UI and transparent draws build trust. Payment integration was built for speed and security.",
     solution:
-      "A high-energy competition platform with instant win games, countdown timers, user accounts, and shopping cart functionality. The design creates excitement while staying professional.",
+      "A high-energy raffle platform with instant win games, countdown timers, user accounts, shopping cart, and automated draw management. The design creates excitement while staying professional and compliant.",
     results: [
       { metric: "Live", label: "Platform", description: "luckyturbo.co.uk" },
       { metric: "Instant", label: "Wins", description: "Real-time prize reveals" },
       { metric: "Timers", label: "Countdowns", description: "Competition deadlines" },
       { metric: "Mobile", label: "Responsive", description: "Full mobile support" },
     ],
-    techStack: ["Next.js", "Payment Integration", "User Authentication", "Real-time Updates"],
+    techStack: ["Next.js", "Supabase", "Cloudflare Workers", "Payment Integration", "Real-time Updates", "Tailwind CSS"],
     liveUrl: "https://luckyturbo.co.uk",
   },
   "mr-xca": {
     slug: "mr-xca",
     title: "Mr XCA",
     subtitle: "Raffles & Giveaways Platform",
-    category: "Web Development",
+    category: "Competition Platform",
     client: "Mr XCA",
     duration: "8 weeks",
     year: "2025",
     overview:
-      "Mr XCA is an online raffles and giveaways platform offering exciting competitions with transparent draws and instant results. They needed a modern, trustworthy platform to manage competitions and ticket sales.",
+      "Mr XCA is an online raffles and giveaways platform offering exciting competitions with transparent draws and instant results. They needed a modern, trustworthy platform to manage competitions and ticket sales at scale.",
     problem:
       "The client needed a competition platform that felt premium and trustworthy while handling real-time ticket sales, multiple concurrent competitions, and automated prize draws seamlessly.",
     approach:
-      "We built a sleek dark-themed interface with sky-blue accents that creates a modern, premium feel. The platform uses Supabase for real-time data, ensuring instant updates on ticket availability and competition status.",
+      "We built a sleek dark-themed interface with sky-blue accents that creates a modern, premium feel. The platform uses Supabase for real-time data, ensuring instant updates on ticket availability and competition status across all connected players.",
     solution:
       "A polished competition platform with real-time ticket tracking, automated draws, user accounts, and a dark aesthetic that stands out from competitors. The Supabase backend ensures instant updates across all users.",
     results: [
@@ -264,94 +179,82 @@ export const caseStudies: Record<string, {
       { metric: "Automated", label: "Draws", description: "Transparent prize selection" },
       { metric: "Mobile", label: "Responsive", description: "Full mobile support" },
     ],
-    techStack: ["React", "Vite", "Supabase", "Tailwind CSS", "Real-time Subscriptions"],
+    techStack: ["React", "Vite", "Supabase", "Tailwind CSS", "Real-time Subscriptions", "Payment Integration"],
     liveUrl: "https://mrxca.co.uk",
   },
 };
 
 export const services = [
   {
-    title: "Web Design",
+    title: "Platform Development",
     description:
-      "Bespoke, conversion-focused designs that look stunning and perform. Every pixel serves a purpose.",
-    icon: "Palette",
+      "Custom-built competition and raffle websites designed to sell tickets and create excitement.",
+    icon: "Trophy",
     features: [
-      "Custom UI/UX Design",
-      "Design Systems",
-      "Responsive Layouts",
-      "Prototyping & Testing",
+      "Custom Competition Sites",
+      "User Registration & Accounts",
+      "Mobile-First Design",
+      "Admin Dashboard",
     ],
   },
   {
-    title: "Web Development",
+    title: "Payment & Ticketing",
     description:
-      "Robust, scalable web applications built with modern frameworks and best practices.",
-    icon: "Code",
+      "Secure ticket purchasing systems with fast checkout, cart functionality, and multiple payment methods.",
+    icon: "CreditCard",
     features: [
-      "Next.js / React",
-      "API Development",
-      "CMS Integration",
-      "Performance Optimisation",
+      "Secure Payment Gateways",
+      "Shopping Cart System",
+      "Ticket Management",
+      "Refund & Dispute Handling",
     ],
   },
   {
-    title: "E-commerce",
+    title: "Draw & Prize Systems",
     description:
-      "Online stores that convert browsers into buyers. Shopify, WooCommerce, or fully custom.",
-    icon: "ShoppingCart",
+      "Automated, transparent draw systems with instant wins, countdown timers, and winner announcements.",
+    icon: "Timer",
     features: [
-      "Shopify / WooCommerce",
-      "Payment Integration",
-      "Inventory Management",
-      "Conversion Optimisation",
+      "Automated Prize Draws",
+      "Instant Win Games",
+      "Countdown Timers",
+      "Winner Notifications",
     ],
   },
   {
-    title: "SEO",
+    title: "Compliance & Regulation",
     description:
-      "Get found on Google. We optimise your site to rank higher and drive organic traffic that converts.",
-    icon: "Search",
+      "Competition platforms built to meet UK gambling and competition law from day one.",
+    icon: "ShieldCheck",
     features: [
-      "Keyword Research",
-      "On-Page Optimisation",
-      "Technical SEO Audits",
-      "Local SEO & Google Business",
+      "UK Competition Law",
+      "Terms & Conditions",
+      "Age Verification",
+      "Responsible Gambling",
     ],
   },
   {
-    title: "Google & Meta Ads",
+    title: "Marketing & Growth",
     description:
-      "Targeted paid advertising on Google, Facebook & Instagram that delivers real ROI.",
+      "Player acquisition and retention strategies including SEO, paid ads, and social media.",
     icon: "Target",
     features: [
-      "Google Search & Display",
-      "Facebook & Instagram Ads",
-      "Remarketing Campaigns",
-      "Conversion Tracking",
+      "SEO for Competitions",
+      "Google & Meta Ads",
+      "Social Media Strategy",
+      "Email & SMS Marketing",
     ],
   },
   {
-    title: "Hosting & Maintenance",
+    title: "Hosting & Infrastructure",
     description:
-      "99.9% uptime guaranteed. Managed hosting, updates, backups, and 24/7 monitoring.",
+      "High-availability hosting built to handle traffic spikes during competition launches and draw events.",
     icon: "Server",
     features: [
-      "Managed Hosting",
-      "SSL & Security",
-      "Daily Backups",
-      "Performance Monitoring",
-    ],
-  },
-  {
-    title: "IT Support",
-    description:
-      "Reliable tech support for your business. From helpdesk to infrastructure, we've got you covered.",
-    icon: "Headphones",
-    features: [
-      "Helpdesk Support",
-      "Network Management",
-      "Cloud Migration",
-      "Cyber Security",
+      "99.9% Uptime Guarantee",
+      "Real-time Infrastructure",
+      "CDN & Edge Hosting",
+      "24/7 Monitoring",
     ],
   },
 ];
@@ -361,61 +264,61 @@ export const processSteps = [
     step: 1,
     title: "Discover",
     description:
-      "Deep-dive into your goals, audience, and competitors. We map the landscape before we build.",
+      "We learn your competition model, audience, and regulations. What prizes? What ticket price? How many entries? We map it all out.",
   },
   {
     step: 2,
     title: "Design",
     description:
-      "Wireframes, prototypes, and visual design — iterated until it's perfect.",
+      "We design an experience that builds trust and drives ticket sales — from countdown timers to winner showcases.",
   },
   {
     step: 3,
     title: "Build",
     description:
-      "Clean, maintainable code. Built with performance and scalability in mind.",
+      "Custom platform development with payments, automated draws, real-time updates, and admin tools.",
   },
   {
     step: 4,
     title: "Launch",
     description:
-      "Rigorous QA, performance testing, and a smooth deployment to production.",
+      "Full testing, compliance review, and a smooth go-live. Your first competition can be running within hours.",
   },
   {
     step: 5,
-    title: "Support",
+    title: "Grow",
     description:
-      "Ongoing maintenance, monitoring, and optimisation to keep you ahead.",
+      "Ongoing support, analytics, marketing integration, and feature development to scale your business.",
   },
 ];
 
 export const metrics = [
-  { value: "99.9%", label: "Uptime", description: "Across all managed sites" },
-  { value: "0.8s", label: "Avg. Load Time", description: "Lighthouse performance" },
-  { value: "+156%", label: "Lead Increase", description: "Average across clients" },
-  { value: "50+", label: "Projects Delivered", description: "In the last 2 years" },
+  { value: "99.9%", label: "Uptime", description: "Across all platforms" },
+  { value: "< 1s", label: "Load Time", description: "Edge-hosted globally" },
+  { value: "2", label: "Live Platforms", description: "Processing tickets now" },
+  { value: "8 yrs", label: "Experience", description: "Building web platforms" },
 ];
 
 export const testimonials = [
   {
     quote:
-      "They actually listened to what we wanted and delivered exactly that. No nonsense, just a great website that works.",
-    author: "Happy Client",
-    role: "Business Owner",
-    company: "Manchester",
-  },
-  {
-    quote:
-      "Professional from start to finish. The site looks amazing and we've had great feedback from customers.",
-    author: "Satisfied Customer",
-    role: "E-commerce Owner",
+      "They built us a competition platform that looks incredible and handles everything — payments, draws, winner announcements. Our players love it.",
+    author: "Competition Operator",
+    role: "Platform Owner",
     company: "UK",
   },
   {
     quote:
-      "Quick turnaround, fair pricing, and they were always available when we had questions. Would recommend.",
+      "Professional from start to finish. They understood the competition space and built exactly what we needed. The automated draws are flawless.",
+    author: "Raffle Business Owner",
+    role: "Founder",
+    company: "Manchester",
+  },
+  {
+    quote:
+      "Quick turnaround, great design, and they handled all the technical complexity of real-time ticketing. Would recommend to anyone starting a competition site.",
     author: "Returning Client",
-    role: "Company Director",
+    role: "Competition Founder",
     company: "Greater Manchester",
   },
 ];
@@ -423,16 +326,16 @@ export const testimonials = [
 export const pricingPlans = [
   {
     name: "Starter",
-    price: "299",
+    price: "499",
     period: "/month",
-    description: "Perfect for small businesses wanting a professional online presence.",
+    description: "Everything you need to launch your first competition website.",
     features: [
-      "Custom designed website",
-      "Mobile responsive",
-      "Basic SEO setup",
-      "Contact form",
+      "Custom competition website",
+      "Mobile responsive design",
+      "Payment integration",
+      "Manual draw management",
+      "Basic admin dashboard",
       "Hosting & SSL included",
-      "Monthly updates",
       "Email support",
     ],
     highlighted: false,
@@ -440,18 +343,18 @@ export const pricingPlans = [
   },
   {
     name: "Growth",
-    price: "499",
+    price: "899",
     period: "/month",
-    description: "For businesses ready to sell online and grow their customer base.",
+    description: "For established competition businesses ready to scale.",
     features: [
       "Everything in Starter",
-      "E-commerce / online orders",
-      "Payment processing",
-      "Inventory management",
-      "Monthly SEO work",
-      "Analytics & reporting",
+      "Automated prize draws",
+      "Instant win games",
+      "Real-time ticket tracking",
+      "Player analytics dashboard",
+      "SEO & marketing setup",
       "Priority support",
-      "Social media integration",
+      "SMS & email notifications",
     ],
     highlighted: true,
     cta: "Get Started",
@@ -460,16 +363,16 @@ export const pricingPlans = [
     name: "Scale",
     price: "Custom",
     period: "",
-    description: "Bespoke solutions for complex requirements and larger businesses.",
+    description: "Bespoke platform for high-traffic competition operations.",
     features: [
       "Everything in Growth",
-      "Custom web application",
+      "Custom feature development",
       "API integrations",
-      "Advanced functionality",
+      "Multi-competition management",
       "Dedicated account manager",
       "Same-day support",
-      "Strategy & consulting",
-      "Unlimited revisions",
+      "Compliance consulting",
+      "White-label options",
     ],
     highlighted: false,
     cta: "Let's Talk",
@@ -478,34 +381,34 @@ export const pricingPlans = [
 
 export const faqItems = [
   {
-    question: "How long does a typical project take?",
+    question: "How long does it take to build a competition platform?",
     answer:
-      "Most website projects take 6-12 weeks from kickoff to launch. Complex web applications or e-commerce builds may take longer. We'll give you a clear timeline during our discovery phase.",
+      "Most competition platforms take 8-12 weeks from kickoff to launch. Simpler raffle sites can be faster. We'll give you a clear timeline during our discovery phase.",
   },
   {
-    question: "Do you work with businesses outside the UK?",
+    question: "Do you handle UK gambling and competition regulations?",
     answer:
-      "Absolutely. While we're based in Manchester, we work with clients globally. We use modern collaboration tools to ensure seamless communication regardless of timezone.",
+      "Yes. We build platforms with compliance in mind from day one — including terms and conditions, age verification, responsible gambling measures, and adherence to UK competition law.",
   },
   {
-    question: "What technologies do you use?",
+    question: "What payment providers do you integrate?",
     answer:
-      "We primarily work with Next.js, React, TypeScript, and Node.js for web applications. For e-commerce, we're experts in Shopify Plus and WooCommerce. We choose the best tool for each project.",
+      "We integrate with major payment providers including Stripe, PayPal, and specialist gaming payment gateways. We'll recommend the best option for your competition model and ticket price points.",
   },
   {
-    question: "Do you offer ongoing support?",
+    question: "Can you build automated draw systems?",
     answer:
-      "Yes. All our packages include a support period, and we offer monthly retainer plans for ongoing maintenance, updates, and optimisation. We're in it for the long haul.",
+      "Absolutely. We build fully automated, transparent draw systems with provably fair selection, winner notifications, and public draw results. Instant win mechanics are also available.",
   },
   {
-    question: "Do you build websites for tradespeople?",
+    question: "Do you offer ongoing support after launch?",
     answer:
-      "Yes — we specialise in websites for builders, construction companies, and tradespeople. Check out our work for Renova Construction as an example. We know what works for trades.",
+      "Yes. All our packages include a support period, and we offer monthly retainer plans for ongoing maintenance, feature development, and marketing support. We grow with your business.",
   },
   {
-    question: "Can you redesign our existing website?",
+    question: "Can you help with marketing and player acquisition?",
     answer:
-      "Of course. We regularly take on redesign projects. We'll audit your current site, identify what's working and what's not, and create a strategy to improve performance and conversions.",
+      "Yes — we offer SEO, Google Ads, Meta Ads, and social media strategy specifically for competition businesses. We understand what drives ticket sales and player retention.",
   },
 ];
 
@@ -513,59 +416,58 @@ export const teamMembers = [
   {
     name: "Alex Morgan",
     role: "Founder & Technical Director",
-    bio: "15 years in software engineering. Previously led engineering teams at Monzo and Deliveroo.",
+    bio: "15 years in software engineering. Specialises in real-time platforms, payment systems, and high-availability architecture.",
   },
   {
     name: "Sophie Chen",
     role: "Head of Design",
-    bio: "Award-winning designer with a passion for accessible, beautiful interfaces. Ex-Fjord.",
+    bio: "Award-winning designer focused on conversion-driven interfaces. Designs platforms that players trust and love to use.",
   },
   {
     name: "Marcus Williams",
     role: "Lead Developer",
-    bio: "Full-stack specialist with deep expertise in React, Node.js, and cloud architecture.",
+    bio: "Full-stack specialist with deep expertise in React, Next.js, Supabase, and real-time systems for competition platforms.",
   },
   {
     name: "Priya Patel",
     role: "Project Manager",
-    bio: "Keeps everything running smoothly. Certified Scrum Master with 8 years in digital delivery.",
+    bio: "Keeps everything running smoothly. Certified Scrum Master with 8 years in digital delivery for regulated industries.",
   },
 ];
 
 export const companyValues = [
   {
-    title: "Quality Over Quantity",
-    description: "We take on fewer projects so we can give each one the attention it deserves.",
+    title: "Player Trust First",
+    description: "Competitions depend on trust. We build transparent platforms with provably fair draws and secure payments.",
   },
   {
-    title: "Transparent Communication",
-    description: "No jargon, no surprises. You'll always know where your project stands.",
+    title: "Compliance Built-In",
+    description: "Regulatory compliance isn't an afterthought. We build it into every platform from day one.",
   },
   {
-    title: "Results-Driven",
-    description: "Every design decision and line of code is measured against real business outcomes.",
+    title: "Performance Under Load",
+    description: "Competition launches create traffic spikes. Our platforms are built to handle the rush without breaking a sweat.",
   },
   {
     title: "Long-Term Partnership",
-    description: "We're not a one-and-done shop. We build relationships that last years.",
+    description: "We're not a one-and-done shop. We grow with your competition business as it scales.",
   },
 ];
 
 export const footerLinks = {
   services: [
-    { label: "Web Design", href: "/services#web-design" },
-    { label: "Web Development", href: "/services#web-dev" },
-    { label: "E-commerce", href: "/services#ecommerce" },
-    { label: "Construction", href: "/services#construction" },
-    { label: "Hosting & Maintenance", href: "/services#hosting" },
-    { label: "IT Support", href: "/services#it-support" },
+    { label: "Platform Development", href: "/services#platform-dev" },
+    { label: "Payment & Ticketing", href: "/services#payments" },
+    { label: "Draw & Prize Systems", href: "/services#draws" },
+    { label: "Compliance", href: "/services#compliance" },
+    { label: "Marketing & Growth", href: "/services#marketing" },
+    { label: "Hosting", href: "/services#hosting" },
   ],
   company: [
     { label: "About", href: "/about" },
     { label: "Work", href: "/work" },
     { label: "Pricing", href: "/pricing" },
     { label: "Contact", href: "/contact" },
-    { label: "Styleguide", href: "/styleguide" },
   ],
   legal: [
     { label: "Privacy Policy", href: "/privacy" },

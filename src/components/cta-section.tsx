@@ -66,12 +66,12 @@ export function CtaSection() {
               "text-white"
             )}
           >
-            Ready to accelerate your digital growth?
+            Ready to launch your competition platform?
           </h2>
           <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-white/70">
-            Let&apos;s talk about your project. Whether you need a new website,
-            an e-commerce platform, or reliable IT support — we&apos;re here to
-            help.
+            Let&apos;s talk about your project. Whether you&apos;re starting
+            a new raffle business or scaling an existing competition platform
+            — we&apos;re the specialists you need.
           </p>
 
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">

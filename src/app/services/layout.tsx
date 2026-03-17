@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Our Services | Turbo IT",
   description:
-    "Comprehensive digital solutions from web design and development to e-commerce, SEO, Google & Meta Ads, hosting, and IT support. Discover how Turbo IT accelerates your growth.",
+    "Competition and raffle platform specialists. From platform development and payment integration to automated draws, compliance, marketing, and hosting.",
 };
 
 export default function ServicesLayout({

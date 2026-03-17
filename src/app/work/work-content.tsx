@@ -13,10 +13,8 @@ import { useReducedMotion, staggerContainer, pickVariants } from "@/lib/motion";
 
 const filters = [
   { label: "All", value: "All" },
-  { label: "Web", value: "Web" },
-  { label: "Ecom", value: "Ecom" },
-  { label: "SEO", value: "SEO" },
-  { label: "IT", value: "IT" },
+  { label: "Raffle", value: "Raffle" },
+  { label: "Competition", value: "Competition" },
 ] as const;
 
 type FilterValue = (typeof filters)[number]["value"];
@@ -79,7 +77,7 @@ export function WorkContent() {
           initial="hidden"
           animate="visible"
           exit={{ opacity: 0, transition: { duration: 0.15 } }}
-          className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
+          className="grid gap-8 sm:grid-cols-2 lg:grid-cols-2"
         >
           {filteredItems.map((item) => (
             <CaseStudyCard

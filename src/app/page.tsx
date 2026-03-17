@@ -26,10 +26,10 @@ export default function HomePage() {
         <div className="flex items-end justify-between">
           <div>
             <p className="text-sm font-medium text-muted-foreground">
-              Recent work
+              Live platforms
             </p>
             <h2 className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">
-              A few things we&apos;ve built
+              Platforms we&apos;ve built
             </h2>
           </div>
           <Link
@@ -165,10 +165,10 @@ export default function HomePage() {
           className="mx-auto max-w-xl text-center"
         >
           <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
-            Got a project in mind?
+            Ready to launch your competition site?
           </h2>
           <p className="mt-4 text-muted-foreground">
-            We&apos;d love to hear about it. Drop us a line and we&apos;ll get
+            Tell us about your raffle or competition idea and we&apos;ll get
             back to you within 24 hours.
           </p>
           <Button asChild size="lg" className="mt-8">

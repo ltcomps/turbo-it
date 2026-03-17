@@ -36,9 +36,9 @@ export default function TermsPage() {
           <section>
             <h2 className="text-xl font-semibold mb-4">2. Services</h2>
             <p className="text-muted-foreground leading-relaxed">
-              Turbo IT provides web design, web development, e-commerce solutions, SEO,
-              digital advertising, hosting, and IT support services. Specific deliverables,
-              timelines, and costs will be outlined in individual project proposals or contracts.
+              Turbo IT provides competition platform development, payment and ticketing integration,
+              draw and prize systems, compliance consulting, marketing, and hosting services.
+              Specific deliverables, timelines, and costs will be outlined in individual project proposals or contracts.
             </p>
           </section>
 

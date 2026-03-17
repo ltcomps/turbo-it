@@ -7,7 +7,7 @@ import { containerClass, sectionPadding } from "@/lib/tokens";
 export const metadata: Metadata = {
   title: "Our Work | Turbo IT",
   description:
-    "Explore our portfolio of high-impact web design, e-commerce, SEO, and IT projects. Real results for ambitious businesses.",
+    "Explore our portfolio of competition and raffle platforms. Live platforms processing tickets and running automated draws.",
 };
 
 export default function WorkPage() {
@@ -22,7 +22,7 @@ export default function WorkPage() {
             <SectionHeader
               badge="Portfolio"
               title="Our Work"
-              subtitle="Real projects, real results. We partner with ambitious businesses to deliver digital experiences that move the needle. Browse our latest case studies below."
+              subtitle="Live competition platforms we've built. Real platforms, real ticket sales, real winners. Browse our case studies below."
               align="center"
             />
           </div>

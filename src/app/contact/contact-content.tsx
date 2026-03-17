@@ -147,11 +147,11 @@ export function ContactContent() {
             Contact
           </span>
           <h1 className={cn(tokens.typography.h1, "mt-2")}>
-            Let&rsquo;s Start Something Great
+            Let&rsquo;s Build Your Competition Platform
           </h1>
           <p className="mt-3 text-base text-muted-foreground sm:mt-4 sm:text-lg">
-            Fill in the form below and we&rsquo;ll get back to you within 24 hours.
-            All fields are required.
+            Tell us about your raffle or competition project and we&rsquo;ll
+            get back to you within 24 hours. All fields are required.
           </p>
         </motion.div>
 

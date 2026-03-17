@@ -13,7 +13,7 @@ import { AboutContent } from "./about-content";
 export const metadata: Metadata = {
   title: "About | Turbo IT",
   description:
-    "Meet the team behind Turbo IT. A Manchester-based digital agency building premium websites, web apps, and IT solutions for ambitious businesses worldwide.",
+    "Meet the team behind Turbo IT. UK specialists in competition, raffle, and prize draw platform development for ambitious operators.",
 };
 
 export default function AboutPage() {
@@ -49,10 +49,10 @@ export default function AboutPage() {
               "mx-auto mt-6 max-w-2xl text-muted-foreground"
             )}
           >
-            Founded in Manchester by a team of engineers and designers who believed
-            digital agencies could do better. Less bloat, more craft. Fewer
-            clients, deeper partnerships. That conviction drives every project
-            we take on.
+            Founded in Manchester by a team of engineers who saw an opportunity
+            to build better competition platforms. We specialise in raffle,
+            competition, and prize draw websites — combining deep technical
+            expertise with an understanding of what makes players buy tickets.
           </p>
         </div>
       </section>
@@ -77,9 +77,9 @@ export default function AboutPage() {
                 "text-foreground"
               )}
             >
-              We exist to prove that small, focused teams can outperform large
-              agencies — by caring more, communicating better, and delivering
-              work that actually moves the needle.
+              Competition platforms need to do two things brilliantly: build
+              trust and drive ticket sales. Every decision we make is measured
+              against those two outcomes.
             </blockquote>
 
             <p

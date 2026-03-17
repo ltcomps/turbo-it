@@ -86,7 +86,7 @@ export function Hero() {
               transition={{ duration: 0.5 }}
               className="text-sm font-medium text-muted-foreground"
             >
-              Manchester-based · Worldwide reach
+              UK Competition Platform Specialists
             </motion.p>
 
             {/* Main headline */}
@@ -95,9 +95,9 @@ export function Hero() {
               transition={{ duration: 0.5, delay: 0.1 }}
               className="mt-4 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl"
             >
-              We make websites
+              We build competition
               <br />
-              <span className="text-muted-foreground">that actually work.</span>
+              <span className="text-muted-foreground">platforms that sell.</span>
             </motion.h1>
 
             {/* Subtext */}
@@ -106,8 +106,8 @@ export function Hero() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="mt-6 max-w-lg text-lg text-muted-foreground"
             >
-              No fluff. No jargon. Just fast, good-looking sites that bring in customers.
-              We&apos;ve been doing this for 8 years.
+              Raffle websites, prize draw platforms, and competition sites — built to
+              sell tickets, automate draws, and keep players coming back.
             </motion.p>
 
             {/* CTAs */}
@@ -149,9 +149,9 @@ export function Hero() {
               className="mt-16 flex items-center gap-8 sm:gap-12"
             >
               {[
-                { value: "50+", label: "Projects shipped" },
+                { value: "2", label: "Live platforms" },
                 { value: "8 yrs", label: "In business" },
-                { value: "4.9★", label: "Client rating" },
+                { value: "99.9%", label: "Uptime" },
               ].map((stat) => (
                 <div key={stat.label}>
                   <p className="text-2xl font-bold">{stat.value}</p>
