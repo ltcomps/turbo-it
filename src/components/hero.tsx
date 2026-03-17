@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, ExternalLink, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, ExternalLink } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { containerClass } from "@/lib/tokens";
@@ -13,26 +13,32 @@ import { GridBackground } from "@/components/grid-background";
 import { GradientOrbs } from "@/components/gradient-orbs";
 import { LazyIframe } from "@/components/lazy-iframe";
 
-const ROTATE_INTERVAL = 6000;
+const ROTATE_INTERVAL = 5000;
 const CARD_COUNT = featuredWork.length;
+
+function getCardStyle(offset: number, total: number) {
+  if (offset === 0) {
+    return { x: "0%", rotateY: 0, z: 0, scale: 1, opacity: 1, zIndex: 30 };
+  }
+  const half = total / 2;
+  if (offset <= Math.floor(half)) {
+    const factor = Math.min(offset, 2);
+    return { x: `${30 * factor}%`, rotateY: -30, z: -120 * factor, scale: 0.88, opacity: 0.5, zIndex: 20 - offset };
+  }
+  const fromEnd = total - offset;
+  const factor = Math.min(fromEnd, 2);
+  return { x: `-${30 * factor}%`, rotateY: 30, z: -120 * factor, scale: 0.88, opacity: 0.5, zIndex: 20 - fromEnd };
+}
 
 export function Hero() {
   const reducedMotion = useReducedMotion();
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const [direction, setDirection] = useState(1);
 
   const goToNext = useCallback(() => {
-    setDirection(1);
     setActiveIndex((prev) => (prev + 1) % CARD_COUNT);
   }, []);
 
-  const goToPrev = useCallback(() => {
-    setDirection(-1);
-    setActiveIndex((prev) => (prev - 1 + CARD_COUNT) % CARD_COUNT);
-  }, []);
-
-  // Auto-rotate
   useEffect(() => {
     if (isPaused || reducedMotion) return;
     const timer = setInterval(goToNext, ROTATE_INTERVAL);
@@ -44,19 +50,14 @@ export function Hero() {
     animate: { opacity: 1, y: 0 },
   };
 
-  const activeItem = featuredWork[activeIndex];
-  const hostname = activeItem.liveUrl.replace(/^https?:\/\//, "");
-
   return (
     <section className="noise relative overflow-hidden pb-16 pt-24 sm:pb-24 sm:pt-32 lg:pb-32 lg:pt-40">
-      {/* Background layers */}
       <GridBackground variant="dots" />
       <GradientOrbs />
 
       <div className={cn(containerClass, "relative z-10")}>
-        {/* ── Centered headline block ── */}
+        {/* ── Centered headline ── */}
         <div className="mx-auto max-w-4xl text-center">
-          {/* Animated status badge */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -70,7 +71,6 @@ export function Hero() {
             UK Competition Platform Specialists
           </motion.div>
 
-          {/* Main headline — gradient text */}
           <motion.h1
             {...fadeUp}
             transition={{ duration: 0.6, delay: 0.1 }}
@@ -83,7 +83,6 @@ export function Hero() {
             <span className="block text-muted-foreground">that sell.</span>
           </motion.h1>
 
-          {/* Subtext */}
           <motion.p
             {...fadeUp}
             transition={{ duration: 0.5, delay: 0.2 }}
@@ -93,7 +92,6 @@ export function Hero() {
             to sell tickets, automate draws, and keep players coming back.
           </motion.p>
 
-          {/* CTAs */}
           <motion.div
             {...fadeUp}
             transition={{ duration: 0.5, delay: 0.3 }}
@@ -120,154 +118,143 @@ export function Hero() {
           </motion.div>
         </div>
 
-        {/* ── Carousel ── */}
+        {/* ── 3D Carousel ── */}
         <motion.div
           initial={{ opacity: 0, y: reducedMotion ? 0 : 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="mx-auto mt-20 max-w-4xl"
+          className="mx-auto mt-20 max-w-5xl"
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
-          <div className="relative">
-            {/* Animated gradient border wrapper */}
-            <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-r from-violet-500/50 via-electric/50 to-cyan-400/50 opacity-40 blur-[1px] animate-gradient-shift" />
+          {/* 3D perspective container */}
+          <div
+            className="relative mx-auto h-[280px] sm:h-[340px] lg:h-[420px]"
+            style={{ perspective: "1200px", width: "100%" }}
+          >
+            {featuredWork.map((item, i) => {
+              const offset = (i - activeIndex + CARD_COUNT) % CARD_COUNT;
+              const pos = getCardStyle(offset, CARD_COUNT);
+              const hostname = item.liveUrl.replace(/^https?:\/\//, "");
+              const isActive = offset === 0;
 
-            {/* Glow behind active card */}
-            <div
-              className="absolute -inset-6 rounded-3xl opacity-40 blur-3xl transition-colors duration-700"
-              style={{
-                background: `radial-gradient(ellipse, ${activeItem.color}30, transparent 70%)`,
-              }}
-            />
-
-            {/* Glass card */}
-            <div className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-card/80 shadow-2xl backdrop-blur-sm">
-              {/* Browser chrome */}
-              <div className="flex items-center gap-2 border-b border-white/[0.06] bg-white/[0.03] px-4 py-2.5">
-                <div className="flex gap-1.5">
-                  <div className="size-2.5 rounded-full bg-red-500/70" />
-                  <div className="size-2.5 rounded-full bg-yellow-500/70" />
-                  <div className="size-2.5 rounded-full bg-green-500/70" />
-                </div>
-
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={activeIndex}
-                    initial={{ opacity: 0, y: -8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 8 }}
-                    transition={{ duration: 0.2 }}
-                    className="ml-3 flex-1 rounded-lg bg-white/[0.05] px-3 py-1 text-xs text-muted-foreground"
-                  >
-                    {hostname}
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-
-              {/* Iframe carousel */}
-              <div className="relative aspect-[16/9] overflow-hidden">
-                <AnimatePresence initial={false} custom={direction}>
-                  <motion.div
-                    key={activeIndex}
-                    custom={direction}
-                    initial={{ opacity: 0, x: direction > 0 ? 80 : -80 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: direction > 0 ? -80 : 80 }}
-                    transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                    className="absolute inset-0"
-                  >
-                    <LazyIframe
-                      src={activeItem.liveUrl}
-                      title={`${activeItem.title} Preview`}
-                      className="origin-top-left border-0 pointer-events-none"
-                      style={{
-                        width: "200%",
-                        height: "200%",
-                        transform: "scale(0.5)",
-                      }}
-                      delay={0}
-                      placeholderColor={activeItem.color}
-                      scrolling="no"
-                    />
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-
-              {/* Bottom bar with navigation */}
-              <div className="flex items-center justify-between border-t border-white/[0.06] bg-white/[0.03] px-4 py-3 sm:px-6">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={activeIndex}
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -8 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <p className="text-sm font-semibold sm:text-base">{activeItem.title}</p>
-                    <p className="text-xs text-muted-foreground">{activeItem.category}</p>
-                  </motion.div>
-                </AnimatePresence>
-
-                <div className="flex items-center gap-3">
-                  {/* Dot indicators */}
-                  <div className="flex gap-2">
-                    {featuredWork.map((_, i) => (
-                      <button
-                        key={i}
-                        onClick={() => {
-                          setDirection(i > activeIndex ? 1 : -1);
-                          setActiveIndex(i);
-                        }}
-                        className={cn(
-                          "h-2 rounded-full transition-all duration-300",
-                          i === activeIndex
-                            ? "w-6 bg-electric"
-                            : "w-2 bg-muted-foreground/30 hover:bg-muted-foreground/50"
-                        )}
-                        aria-label={`Go to ${featuredWork[i].title}`}
-                      />
-                    ))}
-                  </div>
-
-                  {/* Nav arrows */}
-                  <div className="flex gap-1.5">
-                    <button
-                      onClick={goToPrev}
-                      className="flex size-8 items-center justify-center rounded-lg border border-white/[0.08] bg-white/[0.03] text-muted-foreground transition-all hover:border-electric/40 hover:bg-electric/10 hover:text-electric"
-                      aria-label="Previous"
-                    >
-                      <ChevronLeft className="size-4" />
-                    </button>
-                    <button
-                      onClick={goToNext}
-                      className="flex size-8 items-center justify-center rounded-lg border border-white/[0.08] bg-white/[0.03] text-muted-foreground transition-all hover:border-electric/40 hover:bg-electric/10 hover:text-electric"
-                      aria-label="Next"
-                    >
-                      <ChevronRight className="size-4" />
-                    </button>
-                  </div>
-
-                  {/* View link */}
+              return (
+                <motion.div
+                  key={item.slug}
+                  animate={{
+                    x: pos.x,
+                    rotateY: pos.rotateY,
+                    z: pos.z,
+                    scale: pos.scale,
+                    opacity: pos.opacity,
+                  }}
+                  transition={{
+                    duration: reducedMotion ? 0 : 0.7,
+                    ease: [0.4, 0, 0.2, 1],
+                  }}
+                  className="absolute inset-x-0 top-0 mx-auto"
+                  style={{
+                    zIndex: pos.zIndex,
+                    width: "85%",
+                    height: "100%",
+                    transformStyle: "preserve-3d",
+                  }}
+                >
                   <Link
-                    href={`/work/${activeItem.slug}`}
-                    className="hidden items-center gap-1.5 rounded-full bg-electric/10 px-3 py-1.5 text-xs font-medium text-electric transition-all hover:bg-electric/20 sm:flex"
+                    href={`/work/${item.slug}`}
+                    className="group block h-full"
+                    tabIndex={isActive ? 0 : -1}
                   >
-                    View case study
-                    <ExternalLink className="size-3" />
+                    {/* Animated gradient border */}
+                    {isActive && (
+                      <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-r from-violet-500/50 via-electric/50 to-cyan-400/50 opacity-50 blur-[1px] animate-gradient-shift" />
+                    )}
+
+                    {/* Glow */}
+                    {isActive && (
+                      <div
+                        className="absolute -inset-4 rounded-3xl opacity-30 blur-2xl"
+                        style={{
+                          background: `radial-gradient(ellipse, ${item.color}30, transparent 70%)`,
+                        }}
+                      />
+                    )}
+
+                    <div className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/[0.08] bg-card/80 shadow-2xl backdrop-blur-sm transition-all duration-300 group-hover:border-white/[0.15]">
+                      {/* Browser bar */}
+                      <div className="flex shrink-0 items-center gap-2 border-b border-white/[0.06] bg-white/[0.03] px-3 py-1.5 sm:px-4 sm:py-2.5">
+                        <div className="flex gap-1">
+                          <div className="size-2 rounded-full bg-red-500/70 sm:size-2.5" />
+                          <div className="size-2 rounded-full bg-yellow-500/70 sm:size-2.5" />
+                          <div className="size-2 rounded-full bg-green-500/70 sm:size-2.5" />
+                        </div>
+                        <div className="ml-2 flex-1 rounded-lg bg-white/[0.05] px-2 py-0.5 text-[10px] text-muted-foreground sm:ml-3 sm:px-3 sm:py-1 sm:text-xs">
+                          {hostname}
+                        </div>
+                      </div>
+
+                      {/* Iframe preview */}
+                      <div className="relative min-h-0 flex-1 overflow-hidden">
+                        <LazyIframe
+                          src={item.liveUrl}
+                          title={`${item.title} Preview`}
+                          className="origin-top-left border-0 pointer-events-none"
+                          style={{
+                            width: "200%",
+                            height: "200%",
+                            transform: "scale(0.5)",
+                          }}
+                          active={isActive}
+                          delay={0}
+                          placeholderColor={item.color}
+                          scrolling="no"
+                        />
+                      </div>
+
+                      {/* Label bar */}
+                      <div className="flex shrink-0 items-center justify-between border-t border-white/[0.06] bg-white/[0.03] px-3 py-1.5 sm:px-4 sm:py-2.5">
+                        <div>
+                          <p className="text-xs font-semibold sm:text-sm">{item.title}</p>
+                          <p className="text-[10px] text-muted-foreground sm:text-xs">{item.category}</p>
+                        </div>
+                        {isActive && (
+                          <span className="hidden items-center gap-1 rounded-full bg-electric/10 px-2.5 py-1 text-[10px] font-medium text-electric sm:flex sm:text-xs">
+                            View
+                            <ExternalLink className="size-3" />
+                          </span>
+                        )}
+                      </div>
+                    </div>
                   </Link>
-                </div>
-              </div>
-            </div>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {/* Dot indicators */}
+          <div className="mt-6 flex justify-center gap-2">
+            {featuredWork.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setActiveIndex(i)}
+                className={cn(
+                  "h-2 rounded-full transition-all duration-300",
+                  i === activeIndex
+                    ? "w-8 bg-electric shadow-[0_0_10px_var(--glow)]"
+                    : "w-2 bg-muted-foreground/30 hover:bg-muted-foreground/50"
+                )}
+                aria-label={`Go to ${featuredWork[i].title}`}
+              />
+            ))}
           </div>
         </motion.div>
 
-        {/* ── Stats bar — glass card ── */}
+        {/* ── Stats bar ── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.7 }}
-          className="mx-auto mt-16 max-w-2xl"
+          className="mx-auto mt-14 max-w-2xl"
         >
           <div className="flex items-center justify-center gap-6 rounded-2xl border border-white/[0.06] bg-white/[0.03] px-6 py-5 backdrop-blur-sm sm:gap-12 sm:px-10">
             {[
@@ -278,9 +265,7 @@ export function Hero() {
             ].map((stat) => (
               <div key={stat.label} className="text-center">
                 <p className="text-lg font-bold sm:text-2xl">{stat.value}</p>
-                <p className="text-[11px] text-muted-foreground sm:text-xs">
-                  {stat.label}
-                </p>
+                <p className="text-[11px] text-muted-foreground sm:text-xs">{stat.label}</p>
               </div>
             ))}
           </div>
