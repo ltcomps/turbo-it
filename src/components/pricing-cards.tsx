@@ -38,7 +38,7 @@ export function PricingCards() {
             Pricing
           </span>
           <h2 className={cn(tokens.typography.h2, "mt-4")}>
-            Transparent pricing, no surprises
+            Simple, transparent pricing
           </h2>
           <p
             className={cn(
@@ -46,7 +46,7 @@ export function PricingCards() {
               "mt-4 text-muted-foreground"
             )}
           >
-            Choose the plan that fits your ambition. All prices exclude VAT.
+            No hidden fees. Choose the plan that fits your competition business. All prices exclude VAT.
           </p>
         </motion.div>
 

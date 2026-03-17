@@ -22,43 +22,7 @@ export default function PricingPage() {
   return (
     <PageTransition>
       {/* ------------------------------------------------------------------ */}
-      {/* Hero                                                                */}
-      {/* ------------------------------------------------------------------ */}
-      <section className={cn(sectionPadding, "relative overflow-hidden")}>
-        {/* Subtle background glow */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -top-40 left-1/2 h-[600px] w-[800px] -translate-x-1/2 rounded-full bg-electric/5 blur-[120px]"
-        />
-
-        <div className={cn(containerClass, "relative z-10 text-center")}>
-          <span
-            className={cn(
-              tokens.typography.caption,
-              "mb-4 inline-block text-electric"
-            )}
-          >
-            Pricing
-          </span>
-
-          <h1 className={cn(tokens.typography.h1, "mx-auto max-w-3xl")}>
-            Simple, Transparent Pricing
-          </h1>
-
-          <p
-            className={cn(
-              tokens.typography.bodyLg,
-              "mx-auto mt-6 max-w-2xl text-muted-foreground"
-            )}
-          >
-            No hidden fees, no scope creep surprises. Choose a plan that matches
-            your ambition and let us handle the rest.
-          </p>
-        </div>
-      </section>
-
-      {/* ------------------------------------------------------------------ */}
-      {/* Pricing Cards (self-contained section)                              */}
+      {/* Pricing Cards (includes its own header)                             */}
       {/* ------------------------------------------------------------------ */}
       <PricingCards />
 
