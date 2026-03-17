@@ -79,10 +79,15 @@ export function Hero() {
             <span className="block">
               We build{" "}
               <span className="bg-gradient-to-r from-violet-400 via-electric to-cyan-300 bg-clip-text text-transparent">
-                competition platforms
+                competition
               </span>
             </span>
-            <span className="block text-muted-foreground">that sell.</span>
+            <span className="block">
+              <span className="bg-gradient-to-r from-electric to-cyan-300 bg-clip-text text-transparent">
+                platforms
+              </span>{" "}
+              <span className="text-muted-foreground">that sell.</span>
+            </span>
           </motion.h1>
 
           <motion.p
