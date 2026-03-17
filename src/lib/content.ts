@@ -108,7 +108,7 @@ export const featuredWork: {
     metricLabel: "mrxca.co.uk",
     tags: ["React", "Supabase", "Real-time", "Automated Draws"],
     color: "#38BDF8",
-    liveUrl: "https://mrxca.co.uk",
+    liveUrl: "https://mrxca.co.uk?preview=true",
   },
 ];
 
@@ -180,7 +180,7 @@ export const caseStudies: Record<string, {
       { metric: "Mobile", label: "Responsive", description: "Full mobile support" },
     ],
     techStack: ["React", "Vite", "Supabase", "Tailwind CSS", "Real-time Subscriptions", "Payment Integration"],
-    liveUrl: "https://mrxca.co.uk",
+    liveUrl: "https://mrxca.co.uk?preview=true",
   },
 };
 
