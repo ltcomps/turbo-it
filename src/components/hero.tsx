@@ -76,9 +76,11 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-4xl font-extrabold tracking-tight sm:text-6xl md:text-7xl lg:text-8xl"
           >
-            <span className="block">We build</span>
-            <span className="bg-gradient-to-r from-violet-400 via-electric to-cyan-300 bg-clip-text text-transparent">
-              competition platforms
+            <span className="block">
+              We build{" "}
+              <span className="bg-gradient-to-r from-violet-400 via-electric to-cyan-300 bg-clip-text text-transparent">
+                competition platforms
+              </span>
             </span>
             <span className="block text-muted-foreground">that sell.</span>
           </motion.h1>
