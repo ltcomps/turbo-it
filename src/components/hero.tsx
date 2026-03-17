@@ -178,7 +178,7 @@ export function Hero() {
 
             {/* 3D perspective container — responsive height */}
             <div
-              className="relative mx-auto h-[360px] sm:h-[420px] lg:h-[520px]"
+              className="relative mx-auto h-[260px] sm:h-[300px] lg:h-[360px]"
               style={{ perspective: isMobile ? "800px" : "1200px", width: "100%" }}
             >
               {featuredWork.map((item, i) => {
@@ -204,11 +204,10 @@ export function Hero() {
                     style={{
                       zIndex: pos.zIndex,
                       width: isMobile ? "90%" : "95%",
-                      height: "100%",
                       transformStyle: "preserve-3d",
                     }}
                   >
-                    <div className="flex h-full flex-col overflow-hidden rounded-lg border bg-card shadow-2xl sm:rounded-xl">
+                    <div className="flex flex-col overflow-hidden rounded-lg border bg-card shadow-2xl sm:rounded-xl">
                       {/* Browser bar */}
                       <div className="flex shrink-0 items-center gap-1.5 border-b bg-muted/50 px-3 py-1.5 sm:gap-2 sm:px-4 sm:py-2.5">
                         <div className="flex gap-1">
@@ -222,7 +221,7 @@ export function Hero() {
                       </div>
 
                       {/* Website preview — only load iframe for active card */}
-                      <div className="relative min-h-0 flex-1 overflow-hidden bg-white">
+                      <div className="relative aspect-[16/9] overflow-hidden bg-white">
                         <LazyIframe
                           src={item.liveUrl}
                           title={`${item.title} Preview`}
