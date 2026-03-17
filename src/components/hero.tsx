@@ -27,14 +27,17 @@ function getCardStyle(offset: number, mobile: boolean, total: number) {
     return { x: "0%", rotateY: 0, z: 0, scale: 1, opacity: 1, zIndex: 30 };
   }
 
-  // For cards behind: right side = low offsets, left side = high offsets
+  // On mobile: hide non-active cards completely for a clean single-card look
+  if (mobile) {
+    return { x: "0%", rotateY: 0, z: -100, scale: 0.9, opacity: 0, zIndex: 10 };
+  }
+
+  // Desktop: fan out behind
   const half = total / 2;
   if (offset <= Math.floor(half)) {
-    // Right side
     const factor = Math.min(offset, 2);
     return { x: `${shift * factor}%`, rotateY: -fan, z: depth * factor, scale: backScale, opacity: offset === 1 ? 0.6 : 0.3, zIndex: 20 - offset };
   }
-  // Left side
   const fromEnd = total - offset;
   const factor = Math.min(fromEnd, 2);
   return { x: `-${shift * factor}%`, rotateY: fan, z: depth * factor, scale: backScale, opacity: fromEnd === 1 ? 0.6 : 0.3, zIndex: 20 - fromEnd };
@@ -70,7 +73,7 @@ export function Hero() {
   };
 
   return (
-    <section className="relative min-h-[90vh] overflow-hidden">
+    <section className="relative min-h-0 lg:min-h-[90vh] overflow-hidden">
       {/* Background layers */}
       <GridBackground variant="dots" />
       <GradientOrbs />
@@ -175,7 +178,7 @@ export function Hero() {
 
             {/* 3D perspective container — responsive height */}
             <div
-              className="relative mx-auto h-[280px] sm:h-[340px] lg:h-[500px]"
+              className="relative mx-auto h-[360px] sm:h-[420px] lg:h-[520px]"
               style={{ perspective: isMobile ? "800px" : "1200px", width: "100%" }}
             >
               {featuredWork.map((item, i) => {
@@ -200,7 +203,7 @@ export function Hero() {
                     className="absolute inset-x-0 top-0 mx-auto"
                     style={{
                       zIndex: pos.zIndex,
-                      width: isMobile ? "82%" : "95%",
+                      width: isMobile ? "90%" : "95%",
                       height: "100%",
                       transformStyle: "preserve-3d",
                     }}
