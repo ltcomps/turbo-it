@@ -63,41 +63,6 @@ export default function PricingPage() {
       <PricingCards />
 
       {/* ------------------------------------------------------------------ */}
-      {/* Custom / Enterprise CTA                                             */}
-      {/* ------------------------------------------------------------------ */}
-      <section className={cn(sectionPadding)}>
-        <div className={containerClass}>
-          <div className="mx-auto max-w-2xl rounded-2xl border border-dashed border-electric/30 bg-electric/[0.03] p-8 text-center sm:p-12">
-            <h2 className={cn(tokens.typography.h3)}>
-              Need something custom?
-            </h2>
-            <p
-              className={cn(
-                tokens.typography.body,
-                "mx-auto mt-4 max-w-lg text-muted-foreground"
-              )}
-            >
-              Every business is different. If our standard plans do not quite
-              fit, we will build a bespoke package tailored to your exact
-              requirements and budget.
-            </p>
-            <div className="mt-8">
-              <Button
-                asChild
-                size="lg"
-                className="bg-electric text-white hover:bg-electric/90"
-              >
-                <Link href="/contact">
-                  Contact Us
-                  <ArrowRight className="ml-1 size-4" />
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ------------------------------------------------------------------ */}
       {/* FAQ (self-contained section)                                        */}
       {/* ------------------------------------------------------------------ */}
       <FaqAccordion />
