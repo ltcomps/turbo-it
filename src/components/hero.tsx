@@ -175,7 +175,7 @@ export function Hero() {
 
             {/* 3D perspective container — responsive height */}
             <div
-              className="relative mx-auto h-[280px] sm:h-[340px] lg:h-[420px]"
+              className="relative mx-auto h-[280px] sm:h-[340px] lg:h-[500px]"
               style={{ perspective: isMobile ? "800px" : "1200px", width: "100%" }}
             >
               {featuredWork.map((item, i) => {
@@ -200,7 +200,7 @@ export function Hero() {
                     className="absolute inset-x-0 top-0 mx-auto"
                     style={{
                       zIndex: pos.zIndex,
-                      width: isMobile ? "82%" : "88%",
+                      width: isMobile ? "82%" : "95%",
                       height: "100%",
                       transformStyle: "preserve-3d",
                     }}
