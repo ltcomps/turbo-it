@@ -1,9 +1,8 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, Play } from "lucide-react";
+import { ArrowRight, ExternalLink } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { containerClass } from "@/lib/tokens";
@@ -13,243 +12,182 @@ import { GridBackground } from "@/components/grid-background";
 import { GradientOrbs } from "@/components/gradient-orbs";
 import { LazyIframe } from "@/components/lazy-iframe";
 
-const ROTATE_INTERVAL = 5000;
-const CARD_COUNT = featuredWork.length;
-
-// Circular carousel positions: front center, then fan out behind
-function getCardStyle(offset: number, mobile: boolean, total: number) {
-  const fan = mobile ? 20 : 35;
-  const shift = mobile ? 22 : 30;
-  const depth = mobile ? -80 : -120;
-  const backScale = mobile ? 0.88 : 0.85;
-
-  if (offset === 0) {
-    return { x: "0%", rotateY: 0, z: 0, scale: 1, opacity: 1, zIndex: 30 };
-  }
-
-  // On mobile: hide non-active cards completely for a clean single-card look
-  if (mobile) {
-    return { x: "0%", rotateY: 0, z: -100, scale: 0.9, opacity: 0, zIndex: 10 };
-  }
-
-  // Desktop: fan out behind
-  const half = total / 2;
-  if (offset <= Math.floor(half)) {
-    const factor = Math.min(offset, 2);
-    return { x: `${shift * factor}%`, rotateY: -fan, z: depth * factor, scale: backScale, opacity: offset === 1 ? 0.6 : 0.3, zIndex: 20 - offset };
-  }
-  const fromEnd = total - offset;
-  const factor = Math.min(fromEnd, 2);
-  return { x: `-${shift * factor}%`, rotateY: fan, z: depth * factor, scale: backScale, opacity: fromEnd === 1 ? 0.6 : 0.3, zIndex: 20 - fromEnd };
-}
-
 export function Hero() {
   const reducedMotion = useReducedMotion();
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 1024);
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
-  }, []);
-
-  const goToNext = useCallback(() => {
-    setActiveIndex((prev) => (prev + 1) % CARD_COUNT);
-  }, []);
-
-  // Auto-rotate timer
-  useEffect(() => {
-    if (isPaused || reducedMotion) return;
-    const timer = setInterval(goToNext, ROTATE_INTERVAL);
-    return () => clearInterval(timer);
-  }, [isPaused, reducedMotion, goToNext]);
 
   const fadeUp = {
-    initial: { opacity: 0, y: reducedMotion ? 0 : 20 },
+    initial: { opacity: 0, y: reducedMotion ? 0 : 24 },
     animate: { opacity: 1, y: 0 },
   };
 
   return (
-    <section className="relative min-h-0 lg:min-h-[90vh] overflow-hidden">
+    <section className="relative overflow-hidden pb-12 pt-24 sm:pb-20 sm:pt-32 lg:pb-28 lg:pt-40">
       {/* Background layers */}
       <GridBackground variant="dots" />
       <GradientOrbs />
 
-      <div className={cn(containerClass, "relative z-10 pt-20 sm:pt-32 lg:pt-40")}>
-        <div className="grid gap-8 lg:grid-cols-12 lg:gap-8">
-          {/* Left column - main content */}
-          <div className="lg:col-span-7">
-            {/* Small intro line */}
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
-              className="text-sm font-medium text-muted-foreground"
-            >
-              UK Competition Platform Specialists
-            </motion.p>
+      {/* Extra glow behind mockups area */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/2 top-[60%] h-[600px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-electric/8 blur-[150px]"
+      />
 
-            {/* Main headline */}
-            <motion.h1
-              {...fadeUp}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="mt-4 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl"
-            >
-              We build competition
-              <br />
-              <span className="text-muted-foreground">platforms that sell.</span>
-            </motion.h1>
-
-            {/* Subtext */}
-            <motion.p
-              {...fadeUp}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="mt-6 max-w-lg text-lg text-muted-foreground"
-            >
-              Raffle websites, prize draw platforms, and competition sites — built to
-              sell tickets, automate draws, and keep players coming back.
-            </motion.p>
-
-            {/* CTAs */}
-            <motion.div
-              {...fadeUp}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="mt-8 flex flex-wrap items-center gap-4"
-            >
-              <Button
-                asChild
-                size="lg"
-                className="group bg-foreground text-background hover:bg-foreground/90 transition-all duration-200"
-              >
-                <Link href="/contact">
-                  Start a project
-                  <ArrowRight className="ml-2 size-4 transition-transform duration-200 group-hover:translate-x-1" />
-                </Link>
-              </Button>
-              <Button
-                asChild
-                variant="ghost"
-                size="lg"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <Link href="/work" className="flex items-center gap-2">
-                  <span className="relative flex size-8 items-center justify-center rounded-full border border-border bg-background transition-colors group-hover:border-electric">
-                    <Play className="size-3 fill-current" />
-                  </span>
-                  See our work
-                </Link>
-              </Button>
-            </motion.div>
-
-            {/* Quick proof */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
-              className="mt-16 flex items-center gap-8 sm:gap-12"
-            >
-              {[
-                { value: "2", label: "Live platforms" },
-                { value: "8 yrs", label: "In business" },
-                { value: "99.9%", label: "Uptime" },
-              ].map((stat) => (
-                <div key={stat.label}>
-                  <p className="text-2xl font-bold">{stat.value}</p>
-                  <p className="text-sm text-muted-foreground">{stat.label}</p>
-                </div>
-              ))}
-            </motion.div>
-          </div>
-
-          {/* Right column / below on mobile - 3D circular carousel */}
+      <div className={cn(containerClass, "relative z-10")}>
+        {/* ── Centered headline block ── */}
+        <div className="mx-auto max-w-4xl text-center">
           <motion.div
-            initial={{ opacity: 0, scale: reducedMotion ? 1 : 0.95 }}
+            initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="relative lg:col-span-5"
-            onMouseEnter={() => setIsPaused(true)}
-            onMouseLeave={() => setIsPaused(false)}
+            transition={{ duration: 0.5 }}
+            className="mb-6 inline-flex items-center gap-2 rounded-full border border-electric/30 bg-electric/10 px-4 py-1.5 text-sm font-medium text-electric"
           >
-            {/* Glow effect behind carousel */}
-            <div className="absolute -inset-4 rounded-2xl bg-electric/10 blur-2xl" />
+            <span className="relative flex size-2">
+              <span className="absolute inline-flex size-full animate-ping rounded-full bg-electric opacity-75" />
+              <span className="relative inline-flex size-2 rounded-full bg-electric" />
+            </span>
+            UK Competition Platform Specialists
+          </motion.div>
 
-            {/* 3D perspective container — responsive height */}
-            <div
-              className="relative mx-auto h-[260px] sm:h-[300px] lg:h-[360px]"
-              style={{ perspective: isMobile ? "800px" : "1200px", width: "100%" }}
+          <motion.h1
+            {...fadeUp}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
+          >
+            We build competition{" "}
+            <span className="bg-gradient-to-r from-electric via-sky-400 to-cyan-300 bg-clip-text text-transparent">
+              platforms that sell.
+            </span>
+          </motion.h1>
+
+          <motion.p
+            {...fadeUp}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="mx-auto mt-6 max-w-2xl text-base text-muted-foreground sm:text-lg"
+          >
+            Raffle websites, prize draw platforms, and competition sites — built
+            to sell tickets, automate draws, and keep players coming back.
+          </motion.p>
+
+          {/* CTAs */}
+          <motion.div
+            {...fadeUp}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="mt-8 flex flex-wrap items-center justify-center gap-4"
+          >
+            <Button
+              asChild
+              size="lg"
+              className="group relative overflow-hidden bg-electric text-white hover:bg-electric/90 shadow-[0_0_30px_-5px_var(--glow)]"
             >
-              {featuredWork.map((item, i) => {
-                const offset = (i - activeIndex + CARD_COUNT) % CARD_COUNT;
-                const pos = getCardStyle(offset, isMobile, CARD_COUNT);
-                const hostname = item.liveUrl.replace(/^https?:\/\//, "");
-
-                return (
-                  <motion.div
-                    key={item.slug}
-                    animate={{
-                      x: pos.x,
-                      rotateY: pos.rotateY,
-                      z: pos.z,
-                      scale: pos.scale,
-                      opacity: pos.opacity,
-                    }}
-                    transition={{
-                      duration: reducedMotion ? 0 : 0.7,
-                      ease: [0.4, 0, 0.2, 1],
-                    }}
-                    className="absolute inset-x-0 top-0 mx-auto"
-                    style={{
-                      zIndex: pos.zIndex,
-                      width: isMobile ? "90%" : "95%",
-                      transformStyle: "preserve-3d",
-                    }}
-                  >
-                    <div className="flex flex-col overflow-hidden rounded-lg border bg-card shadow-2xl sm:rounded-xl">
-                      {/* Browser bar */}
-                      <div className="flex shrink-0 items-center gap-1.5 border-b bg-muted/50 px-3 py-1.5 sm:gap-2 sm:px-4 sm:py-2.5">
-                        <div className="flex gap-1">
-                          <div className="size-2 rounded-full bg-red-500/80 sm:size-2.5" />
-                          <div className="size-2 rounded-full bg-yellow-500/80 sm:size-2.5" />
-                          <div className="size-2 rounded-full bg-green-500/80 sm:size-2.5" />
-                        </div>
-                        <div className="ml-2 flex-1 rounded bg-background px-2 py-0.5 text-[10px] text-muted-foreground sm:ml-3 sm:rounded-md sm:px-3 sm:py-1 sm:text-xs">
-                          {hostname}
-                        </div>
-                      </div>
-
-                      {/* Website preview — only load iframe for active card */}
-                      <div className="relative aspect-[16/9] overflow-hidden bg-white">
-                        <LazyIframe
-                          src={item.liveUrl}
-                          title={`${item.title} Preview`}
-                          className="origin-top-left border-0 pointer-events-none"
-                          style={{
-                            width: isMobile ? "300%" : "200%",
-                            height: isMobile ? "300%" : "200%",
-                            transform: isMobile ? "scale(0.3333)" : "scale(0.5)",
-                          }}
-                          active={offset === 0}
-                          delay={0}
-                          placeholderColor={item.color}
-                          scrolling="no"
-                        />
-                      </div>
-
-                      {/* Project label */}
-                      <div className="shrink-0 border-t bg-muted/30 px-3 py-1.5 sm:px-4 sm:py-2">
-                        <p className="text-xs font-semibold sm:text-sm">{item.title}</p>
-                        <p className="text-[10px] text-muted-foreground sm:text-xs">{item.category}</p>
-                      </div>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
+              <Link href="/contact">
+                Start a project
+                <ArrowRight className="ml-2 size-4 transition-transform duration-200 group-hover:translate-x-1" />
+              </Link>
+            </Button>
+            <Button
+              asChild
+              variant="outline"
+              size="lg"
+              className="border-border/60 hover:border-electric/50 hover:bg-electric/5"
+            >
+              <Link href="/work">See our work</Link>
+            </Button>
           </motion.div>
         </div>
+
+        {/* ── Two browser mockups side by side ── */}
+        <motion.div
+          initial={{ opacity: 0, y: reducedMotion ? 0 : 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          className="mx-auto mt-16 grid max-w-5xl gap-5 sm:grid-cols-2 sm:gap-6"
+        >
+          {featuredWork.map((item) => {
+            const hostname = item.liveUrl.replace(/^https?:\/\//, "");
+            return (
+              <Link
+                key={item.slug}
+                href={`/work/${item.slug}`}
+                className="group relative block"
+              >
+                {/* Hover glow */}
+                <div
+                  className="absolute -inset-1 rounded-2xl opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-100"
+                  style={{
+                    background: `linear-gradient(135deg, ${item.color}40, ${item.color}10)`,
+                  }}
+                />
+
+                <div className="relative overflow-hidden rounded-xl border border-border/60 bg-card shadow-2xl transition-all duration-300 group-hover:border-electric/40 group-hover:shadow-[0_0_40px_-10px_var(--glow)]">
+                  {/* Browser chrome */}
+                  <div className="flex items-center gap-2 border-b bg-muted/50 px-4 py-2.5">
+                    <div className="flex gap-1.5">
+                      <div className="size-2.5 rounded-full bg-red-500/80" />
+                      <div className="size-2.5 rounded-full bg-yellow-500/80" />
+                      <div className="size-2.5 rounded-full bg-green-500/80" />
+                    </div>
+                    <div className="ml-3 flex-1 rounded-md bg-background px-3 py-1 text-xs text-muted-foreground">
+                      {hostname}
+                    </div>
+                  </div>
+
+                  {/* 16:9 iframe preview */}
+                  <div className="aspect-[16/9] overflow-hidden bg-white">
+                    <LazyIframe
+                      src={item.liveUrl}
+                      title={`${item.title} Preview`}
+                      className="origin-top-left border-0 pointer-events-none"
+                      style={{
+                        width: "200%",
+                        height: "200%",
+                        transform: "scale(0.5)",
+                      }}
+                      delay={0}
+                      placeholderColor={item.color}
+                      scrolling="no"
+                    />
+                  </div>
+
+                  {/* Label bar */}
+                  <div className="flex items-center justify-between border-t bg-muted/30 px-4 py-2.5">
+                    <div>
+                      <p className="text-sm font-semibold">{item.title}</p>
+                      <p className="text-xs text-muted-foreground">
+                        {item.category}
+                      </p>
+                    </div>
+                    <span className="flex items-center gap-1 text-xs font-medium text-electric opacity-0 transition-opacity group-hover:opacity-100">
+                      View
+                      <ExternalLink className="size-3" />
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
+        </motion.div>
+
+        {/* ── Stats bar ── */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+          className="mx-auto mt-14 flex max-w-2xl items-center justify-center gap-8 sm:gap-16"
+        >
+          {[
+            { value: "2", label: "Live platforms" },
+            { value: "8 yrs", label: "In business" },
+            { value: "99.9%", label: "Uptime" },
+            { value: "< 1s", label: "Load time" },
+          ].map((stat, i) => (
+            <div key={stat.label} className="text-center">
+              <p className="text-xl font-bold sm:text-2xl">{stat.value}</p>
+              <p className="text-xs text-muted-foreground sm:text-sm">
+                {stat.label}
+              </p>
+            </div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );
