@@ -226,9 +226,7 @@ export function Hero() {
                           className="origin-top-left border-0 pointer-events-none"
                           style={{
                             width: isMobile ? "300%" : "200%",
-                            height: item.slug === "lucky-turbo"
-                              ? (isMobile ? "350%" : "250%")
-                              : (isMobile ? "300%" : "200%"),
+                            height: isMobile ? "300%" : "200%",
                             transform: isMobile ? "scale(0.3333)" : "scale(0.5)",
                           }}
                           active={offset === 0}
