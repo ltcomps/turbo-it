@@ -44,7 +44,7 @@ const comparisons: ComparisonRow[] = [
   {
     label: "Scaling Costs",
     diy: "Per-order fees that grow with you (\u00A30.17/order = \u00A3850/month at 5k orders)",
-    custom: "Flat monthly fee. No per-order charges. Ever.",
+    custom: "Flat monthly fee. No per-order charges.",
   },
   {
     label: "Code Ownership",

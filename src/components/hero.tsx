@@ -267,7 +267,7 @@ export function Hero() {
           <div className="flex items-center justify-center gap-6 rounded-2xl border border-white/[0.06] bg-white/[0.03] px-6 py-5 backdrop-blur-sm sm:gap-12 sm:px-10">
             {[
               { value: "2", label: "Live platforms" },
-              { value: "67ms", label: "Avg load time" },
+              { value: "< 1s", label: "Edge TTFB" },
               { value: "99.9%", label: "Uptime" },
               { value: "£0", label: "Per-order fees" },
             ].map((stat) => (

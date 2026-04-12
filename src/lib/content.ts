@@ -56,7 +56,7 @@ export const servicesMegaMenu = [
 ];
 
 export const heroContent = {
-  badge: "Raffles · Competitions · Prize Draws · Gambling",
+  badge: "Raffles · Competitions · Prize Draws",
   headline: "We build competition\nplatforms that\nsell tickets.",
   subheadline:
     "From raffle websites to full-scale prize draw platforms — Turbo IT is the UK specialist competition businesses trust to launch and grow.",
@@ -296,15 +296,15 @@ export const metrics = [
   { value: "99.9%", label: "Uptime", description: "Across all platforms" },
   { value: "< 1s", label: "Load Time", description: "Edge-hosted globally" },
   { value: "2", label: "Live Platforms", description: "Processing tickets now" },
-  { value: "8 yrs", label: "Experience", description: "Building web platforms" },
+  { value: "10+", label: "Game Modes", description: "Scratch cards, spin, leaderboards & more" },
 ];
 
 export const testimonials = [
   {
     quote:
-      "We moved from a DIY template to a custom Turbo IT build and the difference was night and day. Faster checkout, better design, and our conversion rate doubled in the first month.",
+      "The platform they built handles everything — payments, instant wins, automated draws, SMS campaigns — all under one roof. It feels like a product, not a website.",
     author: "Lucky Turbo",
-    role: "Flagship Platform",
+    role: "Live Platform",
     company: "luckyturbo.co.uk",
   },
 ];
@@ -380,7 +380,7 @@ export const faqItems = [
   {
     question: "What payment providers do you integrate?",
     answer:
-      "We integrate with major payment providers including Stripe, PayPal, and specialist gaming payment gateways. We'll recommend the best option for your competition model and ticket price points.",
+      "We integrate with specialist gaming payment gateways like Cashflows, as well as providers like Stripe and PayPal. We'll recommend the best option for your competition model and ticket price points.",
   },
   {
     question: "Can you build automated draw systems?",

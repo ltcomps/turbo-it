@@ -97,7 +97,6 @@ export function ContactContent() {
     form.name.trim() &&
     form.email.trim() &&
     form.phone.trim() &&
-    form.company.trim() &&
     form.service &&
     form.budget &&
     form.message.trim();
@@ -222,7 +221,7 @@ export function ContactContent() {
                   </div>
                   <div className="space-y-2">
                     <label htmlFor="contact-company" className="text-sm font-medium">
-                      Company <span className="text-destructive">*</span>
+                      Company <span className="text-muted-foreground text-xs font-normal">(optional)</span>
                     </label>
                     <Input
                       id="contact-company"
@@ -230,7 +229,6 @@ export function ContactContent() {
                       placeholder="Company Ltd."
                       value={form.company}
                       onChange={(e) => updateField("company")(e.target.value)}
-                      required
                     />
                   </div>
                 </div>

@@ -49,10 +49,10 @@ export default function AboutPage() {
               "mx-auto mt-6 max-w-2xl text-muted-foreground"
             )}
           >
-            Founded in Manchester by a team of engineers who saw an opportunity
-            to build better competition platforms. We specialise in raffle,
-            competition, and prize draw websites — combining deep technical
-            expertise with an understanding of what makes players buy tickets.
+            Founded in Manchester, Turbo IT is a specialist studio focused
+            exclusively on competition and raffle platform development. We
+            combine deep technical expertise with an understanding of what
+            makes players buy tickets — and what makes them come back.
           </p>
         </div>
       </section>
@@ -88,27 +88,9 @@ export default function AboutPage() {
                 "mt-6 text-muted-foreground"
               )}
             >
-              — Alex Morgan, Founder &amp; Technical Director
+              — Turbo IT, Manchester
             </p>
           </div>
-        </div>
-      </section>
-
-      {/* ------------------------------------------------------------------ */}
-      {/* Team                                                                */}
-      {/* ------------------------------------------------------------------ */}
-      <section className={cn(sectionPadding)}>
-        <div className={containerClass}>
-          <SectionHeader
-            badge="The Team"
-            title="The people behind the pixels"
-            subtitle="A tight-knit crew of engineers, designers, and strategists who genuinely love what they do."
-          />
-          {/* Client component handles animations for team + values */}
-          <AboutContent
-            teamMembers={teamMembers}
-            companyValues={[]}
-          />
         </div>
       </section>
 
