@@ -11,7 +11,6 @@ import { featuredWork } from "@/lib/content";
 import { Button } from "@/components/ui/button";
 import { GridBackground } from "@/components/grid-background";
 import { GradientOrbs } from "@/components/gradient-orbs";
-import { LazyIframe } from "@/components/lazy-iframe";
 
 const ROTATE_INTERVAL = 5000;
 const CARD_COUNT = featuredWork.length;
@@ -201,21 +200,13 @@ export function Hero() {
                         </div>
                       </div>
 
-                      {/* Iframe preview */}
+                      {/* Screenshot preview */}
                       <div className="relative min-h-0 flex-1 overflow-hidden">
-                        <LazyIframe
-                          src={item.liveUrl}
-                          title={`${item.title} Preview`}
-                          className="origin-top-left border-0 pointer-events-none"
-                          style={{
-                            width: "200%",
-                            height: "200%",
-                            transform: "scale(0.5)",
-                          }}
-                          active={isActive}
-                          delay={0}
-                          placeholderColor={item.color}
-                          scrolling="no"
+                        <img
+                          src={`/screenshots/${item.slug === "lucky-turbo" ? "luckyturbo" : "mrxca"}-hero.webp`}
+                          alt={`${item.title} Preview`}
+                          className="h-full w-full object-cover object-top"
+                          loading={isActive ? "eager" : "lazy"}
                         />
                       </div>
 
@@ -269,7 +260,7 @@ export function Hero() {
               { value: "2", label: "Live platforms" },
               { value: "< 1s", label: "Edge TTFB" },
               { value: "99.9%", label: "Uptime" },
-              { value: "£0", label: "Per-order fees" },
+              { value: "White", label: "Label ready" },
             ].map((stat) => (
               <div key={stat.label} className="text-center">
                 <p className="text-lg font-bold sm:text-2xl">{stat.value}</p>

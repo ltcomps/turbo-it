@@ -43,13 +43,13 @@ const comparisons: ComparisonRow[] = [
   },
   {
     label: "Scaling Costs",
-    diy: "Per-order fees that grow with you (\u00A30.17/order = \u00A3850/month at 5k orders)",
-    custom: "Flat monthly fee. No per-order charges.",
+    diy: "High per-order fees on shared infrastructure (\u00A30.17/order = \u00A3850/month at 5k orders)",
+    custom: "Transparent per-transaction pricing. No hidden fees or surprise charges.",
   },
   {
-    label: "Code Ownership",
-    diy: "Locked into closed-source SaaS. No code access.",
-    custom: "You own your platform. Full source code. No lock-in.",
+    label: "White-Label",
+    diy: "Locked into closed-source SaaS. No code access. Every site looks the same.",
+    custom: "White-label platform you own. Prevents copying, protects your brand.",
   },
   {
     label: "Security",

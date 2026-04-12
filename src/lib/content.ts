@@ -314,7 +314,7 @@ export const pricingPlans = [
     name: "Starter",
     price: "499",
     period: "/month",
-    description: "Everything you need to launch your first competition website. No per-order fees.",
+    description: "Everything you need to launch your first competition website.",
     features: [
       "Custom competition website",
       "Mobile responsive design",
@@ -323,7 +323,7 @@ export const pricingPlans = [
       "Basic admin dashboard",
       "Hosting & SSL included",
       "Email support",
-      "No per-order fees",
+      "White-label platform",
     ],
     highlighted: false,
     cta: "Get Started",
@@ -350,7 +350,7 @@ export const pricingPlans = [
     name: "Scale",
     price: "Custom",
     period: "",
-    description: "Bespoke platform for high-traffic competition operations. No per-order fees.",
+    description: "Bespoke platform for high-traffic competition operations.",
     features: [
       "Everything in Growth",
       "Custom feature development",

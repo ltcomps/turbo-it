@@ -193,10 +193,11 @@ export function CaseStudyContent({ item, caseStudy }: CaseStudyContentProps) {
           {/* Hero image */}
           <RevealSection>
             <div className="overflow-hidden rounded-2xl">
-              <PlaceholderImage
-                color={item.color}
-                aspectRatio="21/9"
-                className="w-full"
+              <img
+                src={`/screenshots/${item.slug === "lucky-turbo" ? "luckyturbo" : "mrxca"}-hero.webp`}
+                alt={`${item.title} preview`}
+                className="w-full object-cover object-top"
+                style={{ aspectRatio: "21/9" }}
               />
             </div>
           </RevealSection>
@@ -277,10 +278,12 @@ export function CaseStudyContent({ item, caseStudy }: CaseStudyContentProps) {
 
             <RevealSection delay={0.15}>
               <div className="overflow-hidden rounded-2xl">
-                <PlaceholderImage
-                  color={item.color}
-                  aspectRatio="4/3"
-                  className="w-full"
+                <img
+                  src={`/screenshots/${item.slug === "lucky-turbo" ? "luckyturbo" : "mrxca"}-full.webp`}
+                  alt={`${item.title} - platform overview`}
+                  className="w-full object-cover object-top"
+                  style={{ aspectRatio: "4/3" }}
+                  loading="lazy"
                 />
               </div>
             </RevealSection>
@@ -342,75 +345,29 @@ export function CaseStudyContent({ item, caseStudy }: CaseStudyContentProps) {
             />
           </RevealSection>
 
-          {/* Top row - 3 different sections of the site */}
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            <RevealSection delay={0}>
-              <div className="overflow-hidden rounded-xl bg-white">
-                <img
-                  src={`https://image.thum.io/get/width/800/crop/600/${caseStudy.liveUrl}`}
-                  alt={`${item.title} - Hero section`}
-                  className="aspect-[4/3] w-full object-cover object-top transition-transform duration-500 hover:scale-105"
-                  loading="lazy"
-                />
-              </div>
-            </RevealSection>
-            <RevealSection delay={0.1}>
-              <div className="overflow-hidden rounded-xl bg-white">
-                <img
-                  src={`https://image.thum.io/get/width/800/crop/600/viewportHeight/1200/${caseStudy.liveUrl}`}
-                  alt={`${item.title} - Middle section`}
-                  className="aspect-[4/3] w-full object-cover object-bottom transition-transform duration-500 hover:scale-105"
-                  loading="lazy"
-                />
-              </div>
-            </RevealSection>
-            <RevealSection delay={0.2}>
-              <div className="overflow-hidden rounded-xl bg-white">
-                <img
-                  src={`https://image.thum.io/get/width/800/crop/600/viewportHeight/2000/${caseStudy.liveUrl}`}
-                  alt={`${item.title} - Lower section`}
-                  className="aspect-[4/3] w-full object-cover object-center transition-transform duration-500 hover:scale-105"
-                  loading="lazy"
-                />
-              </div>
-            </RevealSection>
-          </div>
-
-          {/* Full-width hero screenshot */}
-          <RevealSection className="mt-4">
-            <div className="overflow-hidden rounded-xl bg-white">
+          {/* Hero screenshot */}
+          <RevealSection>
+            <div className="overflow-hidden rounded-xl">
               <img
-                src={`https://image.thum.io/get/width/1400/crop/600/${caseStudy.liveUrl}`}
-                alt={`${item.title} - Full width view`}
-                className="aspect-[21/9] w-full object-cover object-top"
+                src={`/screenshots/${item.slug === "lucky-turbo" ? "luckyturbo" : "mrxca"}-hero.webp`}
+                alt={`${item.title} - Homepage`}
+                className="aspect-[16/9] w-full object-cover object-top transition-transform duration-500 hover:scale-105"
                 loading="lazy"
               />
             </div>
           </RevealSection>
 
-          {/* Bottom row - 2 more views */}
-          <div className="mt-4 grid gap-4 sm:grid-cols-2">
-            <RevealSection delay={0}>
-              <div className="overflow-hidden rounded-xl bg-white">
-                <img
-                  src={`https://image.thum.io/get/width/900/crop/506/viewportHeight/800/${caseStudy.liveUrl}`}
-                  alt={`${item.title} - Feature section`}
-                  className="aspect-[16/9] w-full object-cover object-top transition-transform duration-500 hover:scale-105"
-                  loading="lazy"
-                />
-              </div>
-            </RevealSection>
-            <RevealSection delay={0.1}>
-              <div className="overflow-hidden rounded-xl bg-white">
-                <img
-                  src={`https://image.thum.io/get/width/900/crop/506/viewportHeight/1500/${caseStudy.liveUrl}`}
-                  alt={`${item.title} - Content section`}
-                  className="aspect-[16/9] w-full object-cover object-center transition-transform duration-500 hover:scale-105"
-                  loading="lazy"
-                />
-              </div>
-            </RevealSection>
-          </div>
+          {/* Full-page screenshot */}
+          <RevealSection className="mt-4">
+            <div className="overflow-hidden rounded-xl">
+              <img
+                src={`/screenshots/${item.slug === "lucky-turbo" ? "luckyturbo" : "mrxca"}-full.webp`}
+                alt={`${item.title} - Full page view`}
+                className="w-full object-cover object-top"
+                loading="lazy"
+              />
+            </div>
+          </RevealSection>
         </div>
       </section>
 

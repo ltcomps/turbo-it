@@ -52,12 +52,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <link rel="dns-prefetch" href="https://luckyturbo.co.uk" />
-        <link rel="dns-prefetch" href="https://mrxca.co.uk" />
-        <link rel="preconnect" href="https://luckyturbo.co.uk" />
-        <link rel="preconnect" href="https://mrxca.co.uk" />
-      </head>
+      <head />
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
