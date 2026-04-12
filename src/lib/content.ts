@@ -397,6 +397,16 @@ export const faqItems = [
     answer:
       "Yes — we offer SEO, Google Ads, Meta Ads, and social media strategy specifically for competition businesses. We understand what drives ticket sales and player retention.",
   },
+  {
+    question: "Can you migrate my WordPress competition site?",
+    answer:
+      "Yes. We regularly migrate competition businesses from WordPress and other platforms. We rebuild your site on modern edge infrastructure with better performance, custom game modes, and full white-label branding — all while keeping your domain, customers, and brand. No more plugin conflicts, no more expensive hosting, and this time you own the platform.",
+  },
+  {
+    question: "What makes you different from WordPress competition agencies?",
+    answer:
+      "WordPress agencies build on a general-purpose CMS with third-party plugins. We build purpose-built competition platforms from the ground up using Next.js, Supabase, and Cloudflare edge hosting. The result is faster load times, custom game modes that WordPress simply can't replicate, built-in marketing tools (SMS, email automation, Meta tracking), and a white-label platform you actually own.",
+  },
 ];
 
 export const teamMembers: { name: string; role: string; bio: string }[] = [];

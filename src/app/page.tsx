@@ -15,6 +15,7 @@ import {
 
 import { Hero } from "@/components/hero";
 import { WhyCustom } from "@/components/why-custom";
+import { WordPressMigration } from "@/components/wordpress-migration";
 import { PageTransition } from "@/components/page-transition";
 import { CtaSection } from "@/components/cta-section";
 import { Button } from "@/components/ui/button";
@@ -200,6 +201,9 @@ export default function HomePage() {
 
       {/* ── Why Custom? ── */}
       <WhyCustom />
+
+      {/* ── WordPress Migration ── */}
+      <WordPressMigration />
 
       {/* ── How We Work — Process ── */}
       <section className="noise relative overflow-hidden">

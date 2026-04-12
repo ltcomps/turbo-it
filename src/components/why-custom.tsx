@@ -21,41 +21,41 @@ interface ComparisonRow {
 const comparisons: ComparisonRow[] = [
   {
     label: "Performance",
-    diy: "Server-rendered PHP, shared hosting",
-    custom: "Edge SSR, sub-100ms load times worldwide",
+    diy: "Server-rendered PHP with multiple caching layers just to keep up",
+    custom: "Edge SSR on Cloudflare \u2014 sub-100ms load times, no caching hacks needed",
   },
   {
     label: "Design",
-    diy: "Cookie-cutter templates, every site looks the same",
-    custom: "Fully custom design built around your brand",
+    diy: "Templates or agency-built WordPress themes that all look the same",
+    custom: "Fully custom design built around your brand and audience",
   },
   {
     label: "Game Modes",
-    diy: "5 fixed game templates",
+    diy: "Limited to whatever plugins or templates offer (usually 3\u20135)",
     custom:
-      "Unlimited custom games \u2014 scratch cards, spin wheels, leaderboard challenges & more",
+      "Unlimited custom games \u2014 scratch cards, spin wheels, coin flip, ball drop, leaderboard challenges & more",
   },
   {
     label: "Marketing Tools",
-    diy: "Basic transactional email only",
+    diy: "Basic email only. SMS, analytics, and ad tracking bolted on as extras",
     custom:
-      "SMS campaigns, email automation, Meta CAPI, referral programmes",
+      "Built-in SMS campaigns, email automation, Meta CAPI, referral programmes",
   },
   {
     label: "Scaling Costs",
-    diy: "High per-order fees on shared infrastructure (\u00A30.17/order = \u00A3850/month at 5k orders)",
-    custom: "Transparent per-transaction pricing. No hidden fees or surprise charges.",
+    diy: "Hosting fees that spike with traffic. Some agencies charge \u00A3500+/month for hosting alone",
+    custom: "Predictable pricing with transparent per-transaction fees. No surprise invoices.",
   },
   {
     label: "White-Label",
-    diy: "Locked into closed-source SaaS. No code access. Every site looks the same.",
+    diy: "Agency retains all IP. You leave, you leave empty-handed \u2014 no code, no plugins.",
     custom: "White-label platform you own. Prevents copying, protects your brand.",
   },
   {
     label: "Security",
-    diy: "\u2018Security through obscurity\u2019 on shared platform",
+    diy: "WordPress: the most attacked software in the world. Plugins = attack surface.",
     custom:
-      "Row-level security, CAPTCHA, bot prevention, dedicated infrastructure",
+      "Row-level security, Turnstile CAPTCHA, bot prevention, dedicated infrastructure",
   },
 ];
 
@@ -123,7 +123,7 @@ export function WhyCustom() {
           {/* DIY header */}
           <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] px-5 py-3 text-center backdrop-blur-sm">
             <span className="text-sm font-semibold text-muted-foreground">
-              DIY Template Platforms
+              Templates &amp; WordPress
             </span>
           </div>
           {/* Custom header */}
@@ -158,7 +158,7 @@ export function WhyCustom() {
                 {/* Mobile column label */}
                 <div className="flex flex-col gap-1">
                   <span className="text-xs font-medium text-muted-foreground/60 lg:hidden">
-                    DIY Template
+                    Templates &amp; WordPress
                   </span>
                   <div className="flex items-start gap-3">
                     <div className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-red-500/10">
