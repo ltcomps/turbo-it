@@ -105,23 +105,25 @@ export function Footer() {
         {/* ---- Bottom bar ---- */}
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 sm:flex-row">
           {/* Social icons */}
-          <div className="flex items-center gap-3">
-            {socialLinks.map((social) => {
-              const Icon = socialIconMap[social.icon];
-              return (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={social.label}
-                  className="flex size-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
-                >
-                  {Icon && <Icon className="size-4" />}
-                </a>
-              );
-            })}
-          </div>
+          {socialLinks.length > 0 && (
+            <div className="flex items-center gap-3">
+              {socialLinks.map((social) => {
+                const Icon = socialIconMap[social.icon];
+                return (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={social.label}
+                    className="flex size-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                  >
+                    {Icon && <Icon className="size-4" />}
+                  </a>
+                );
+              })}
+            </div>
+          )}
 
           {/* Copyright */}
           <p className="text-xs text-muted-foreground">

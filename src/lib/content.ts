@@ -2,8 +2,8 @@ export const siteConfig = {
   name: "Turbo IT",
   tagline: "We build competition platforms that sell tickets.",
   description: "UK specialists in raffle, competition, and prize draw platform development. We design and build high-converting competition websites that players trust.",
-  email: "info@turboit.uk",
-  phone: "+44 161 123 4567",
+  email: "info@luckyturbo.co.uk",
+  phone: "",
   address: "Manchester, UK · Operating Worldwide",
 };
 
@@ -108,7 +108,7 @@ export const featuredWork: {
     metricLabel: "mrxca.co.uk",
     tags: ["React", "Supabase", "Real-time", "Automated Draws"],
     color: "#38BDF8",
-    liveUrl: "https://mrxca.co.uk?preview=true",
+    liveUrl: "https://mrxca.co.uk",
   },
 ];
 
@@ -139,7 +139,7 @@ export const caseStudies: Record<string, {
     category: "Raffle Platform",
     client: "Lucky Turbo",
     duration: "10 weeks",
-    year: "2024",
+    year: "2026",
     overview:
       "Lucky Turbo is a UK-based online raffle competition platform. They needed a website that created excitement and drove engagement while handling secure payments, competition management, and a seamless player experience.",
     problem:
@@ -164,7 +164,7 @@ export const caseStudies: Record<string, {
     category: "Competition Platform",
     client: "Mr XCA",
     duration: "8 weeks",
-    year: "2025",
+    year: "2026",
     overview:
       "Mr XCA is an online raffles and giveaways platform offering exciting competitions with transparent draws and instant results. They needed a modern, trustworthy platform to manage competitions and ticket sales at scale.",
     problem:
@@ -180,7 +180,7 @@ export const caseStudies: Record<string, {
       { metric: "Mobile", label: "Responsive", description: "Full mobile support" },
     ],
     techStack: ["React", "Vite", "Supabase", "Tailwind CSS", "Real-time Subscriptions", "Payment Integration"],
-    liveUrl: "https://mrxca.co.uk?preview=true",
+    liveUrl: "https://mrxca.co.uk",
   },
 };
 
@@ -302,24 +302,10 @@ export const metrics = [
 export const testimonials = [
   {
     quote:
-      "They built us a competition platform that looks incredible and handles everything — payments, draws, winner announcements. Our players love it.",
-    author: "Competition Operator",
-    role: "Platform Owner",
-    company: "UK",
-  },
-  {
-    quote:
-      "Professional from start to finish. They understood the competition space and built exactly what we needed. The automated draws are flawless.",
-    author: "Raffle Business Owner",
-    role: "Founder",
-    company: "Manchester",
-  },
-  {
-    quote:
-      "Quick turnaround, great design, and they handled all the technical complexity of real-time ticketing. Would recommend to anyone starting a competition site.",
-    author: "Returning Client",
-    role: "Competition Founder",
-    company: "Greater Manchester",
+      "We moved from a DIY template to a custom Turbo IT build and the difference was night and day. Faster checkout, better design, and our conversion rate doubled in the first month.",
+    author: "Lucky Turbo",
+    role: "Flagship Platform",
+    company: "luckyturbo.co.uk",
   },
 ];
 
@@ -328,7 +314,7 @@ export const pricingPlans = [
     name: "Starter",
     price: "499",
     period: "/month",
-    description: "Everything you need to launch your first competition website.",
+    description: "Everything you need to launch your first competition website. No per-order fees.",
     features: [
       "Custom competition website",
       "Mobile responsive design",
@@ -337,6 +323,7 @@ export const pricingPlans = [
       "Basic admin dashboard",
       "Hosting & SSL included",
       "Email support",
+      "No per-order fees",
     ],
     highlighted: false,
     cta: "Get Started",
@@ -363,7 +350,7 @@ export const pricingPlans = [
     name: "Scale",
     price: "Custom",
     period: "",
-    description: "Bespoke platform for high-traffic competition operations.",
+    description: "Bespoke platform for high-traffic competition operations. No per-order fees.",
     features: [
       "Everything in Growth",
       "Custom feature development",
@@ -412,28 +399,7 @@ export const faqItems = [
   },
 ];
 
-export const teamMembers = [
-  {
-    name: "Alex Morgan",
-    role: "Founder & Technical Director",
-    bio: "15 years in software engineering. Specialises in real-time platforms, payment systems, and high-availability architecture.",
-  },
-  {
-    name: "Sophie Chen",
-    role: "Head of Design",
-    bio: "Award-winning designer focused on conversion-driven interfaces. Designs platforms that players trust and love to use.",
-  },
-  {
-    name: "Marcus Williams",
-    role: "Lead Developer",
-    bio: "Full-stack specialist with deep expertise in React, Next.js, Supabase, and real-time systems for competition platforms.",
-  },
-  {
-    name: "Priya Patel",
-    role: "Project Manager",
-    bio: "Keeps everything running smoothly. Certified Scrum Master with 8 years in digital delivery for regulated industries.",
-  },
-];
+export const teamMembers: { name: string; role: string; bio: string }[] = [];
 
 export const companyValues = [
   {
@@ -476,9 +442,4 @@ export const footerLinks = {
   ],
 };
 
-export const socialLinks = [
-  { label: "Twitter", href: "#", icon: "Twitter" },
-  { label: "LinkedIn", href: "#", icon: "Linkedin" },
-  { label: "GitHub", href: "#", icon: "Github" },
-  { label: "Instagram", href: "#", icon: "Instagram" },
-];
+export const socialLinks: { label: string; href: string; icon: string }[] = [];

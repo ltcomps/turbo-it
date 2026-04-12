@@ -15,9 +15,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-const GOOGLE_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbwfNsyHnXNKJVWEq3Scn501p-h7BWpVjtFJ67mbWZv63VvlcAzlkqN5PgoZ2Nt4ksU5/exec";
-
 const budgetOptions = [
   "Under \u00a32.5k",
   "\u00a32.5k\u2013\u00a35k",
@@ -74,6 +71,7 @@ interface FormState {
   service: string;
   budget: string;
   message: string;
+  website: string; // honeypot
 }
 
 export function ContactContent() {
@@ -89,6 +87,7 @@ export function ContactContent() {
     service: "",
     budget: "",
     message: "",
+    website: "",
   });
 
   const updateField = (field: keyof FormState) => (value: string) =>
@@ -109,12 +108,10 @@ export function ContactContent() {
 
     setStatus("sending");
     try {
-      await fetch(GOOGLE_SCRIPT_URL, {
+      const res = await fetch("/api/contact", {
         method: "POST",
-        mode: "no-cors",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          timestamp: new Date().toISOString(),
           name: form.name.trim(),
           email: form.email.trim(),
           phone: form.phone.trim(),
@@ -123,10 +120,12 @@ export function ContactContent() {
           budget: form.budget,
           message: form.message.trim(),
           source: "contact-page",
+          website: form.website,
         }),
       });
+      if (!res.ok) throw new Error("Send failed");
       setStatus("sent");
-      setForm({ name: "", email: "", phone: "", company: "", service: "", budget: "", message: "" });
+      setForm({ name: "", email: "", phone: "", company: "", service: "", budget: "", message: "", website: "" });
     } catch {
       setStatus("error");
       setTimeout(() => setStatus("idle"), 3000);
@@ -285,6 +284,18 @@ export function ContactContent() {
                     )}
                   />
                 </div>
+
+                {/* Honeypot — hidden from real users */}
+                <input
+                  type="text"
+                  name="website"
+                  value={form.website}
+                  onChange={(e) => updateField("website")(e.target.value)}
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  className="absolute -left-[9999px] h-0 w-0 overflow-hidden opacity-0"
+                />
 
                 {/* Submit */}
                 <div className="flex flex-col gap-3 pt-1 sm:flex-row sm:items-center sm:gap-4 sm:pt-2">

@@ -3,12 +3,10 @@
 import { useState, FormEvent } from "react";
 import { MessageCircle, X, Send, Loader2 } from "lucide-react";
 
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwfNsyHnXNKJVWEq3Scn501p-h7BWpVjtFJ67mbWZv63VvlcAzlkqN5PgoZ2Nt4ksU5/exec";
-
 export function ContactFormButton() {
   const [isOpen, setIsOpen] = useState(false);
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
-  const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
+  const [form, setForm] = useState({ name: "", email: "", phone: "", message: "", website: "" });
 
   const allFilled = form.name.trim() && form.email.trim() && form.phone.trim() && form.message.trim();
 
@@ -18,20 +16,21 @@ export function ContactFormButton() {
 
     setStatus("sending");
     try {
-      await fetch(GOOGLE_SCRIPT_URL, {
+      const res = await fetch("/api/contact", {
         method: "POST",
-        mode: "no-cors",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: form.name.trim(),
           email: form.email.trim(),
           phone: form.phone.trim(),
           message: form.message.trim(),
-          timestamp: new Date().toISOString(),
+          source: "chat-widget",
+          website: form.website,
         }),
       });
+      if (!res.ok) throw new Error("Send failed");
       setStatus("sent");
-      setForm({ name: "", email: "", phone: "", message: "" });
+      setForm({ name: "", email: "", phone: "", message: "", website: "" });
       setTimeout(() => {
         setStatus("idle");
         setIsOpen(false);
@@ -102,6 +101,17 @@ export function ContactFormButton() {
                 value={form.message}
                 onChange={(e) => setForm({ ...form, message: e.target.value })}
                 className="resize-none rounded-lg border border-border bg-background px-3 py-2.5 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-electric"
+              />
+              {/* Honeypot — hidden from real users */}
+              <input
+                type="text"
+                name="website"
+                value={form.website}
+                onChange={(e) => setForm({ ...form, website: e.target.value })}
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                className="absolute -left-[9999px] h-0 w-0 overflow-hidden opacity-0"
               />
               <button
                 type="submit"

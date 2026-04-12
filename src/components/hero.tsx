@@ -77,7 +77,7 @@ export function Hero() {
             className="text-4xl font-extrabold tracking-tighter sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl"
           >
             <span className="block">
-              We build{" "}
+              Custom-built{" "}
               <span className="bg-gradient-to-r from-violet-400 via-electric to-cyan-300 bg-clip-text text-transparent">
                 competition
               </span>
@@ -86,7 +86,7 @@ export function Hero() {
               <span className="bg-gradient-to-r from-electric to-cyan-300 bg-clip-text text-transparent">
                 platforms
               </span>{" "}
-              <span className="text-muted-foreground">that sell.</span>
+              <span className="text-muted-foreground">that outperform templates.</span>
             </span>
           </motion.h1>
 
@@ -95,8 +95,9 @@ export function Hero() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="mx-auto mt-6 max-w-2xl text-base text-muted-foreground sm:text-lg sm:leading-relaxed"
           >
-            Raffle websites, prize draw platforms, and competition sites — built
-            to sell tickets, automate draws, and keep players coming back.
+            Not another DIY template. We design and build bespoke raffle platforms
+            with edge-hosted performance, custom game modes, and marketing tools
+            that template platforms simply can&apos;t offer.
           </motion.p>
 
           <motion.div
@@ -266,9 +267,9 @@ export function Hero() {
           <div className="flex items-center justify-center gap-6 rounded-2xl border border-white/[0.06] bg-white/[0.03] px-6 py-5 backdrop-blur-sm sm:gap-12 sm:px-10">
             {[
               { value: "2", label: "Live platforms" },
-              { value: "8 yrs", label: "In business" },
+              { value: "67ms", label: "Avg load time" },
               { value: "99.9%", label: "Uptime" },
-              { value: "< 1s", label: "Load time" },
+              { value: "£0", label: "Per-order fees" },
             ].map((stat) => (
               <div key={stat.label} className="text-center">
                 <p className="text-lg font-bold sm:text-2xl">{stat.value}</p>

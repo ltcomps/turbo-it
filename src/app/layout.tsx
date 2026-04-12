@@ -21,6 +21,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Turbo IT | UK Competition & Raffle Platform Specialists",
   description: siteConfig.description,
+  alternates: {
+    canonical: "https://turboit.uk",
+  },
   icons: {
     icon: [
       { url: "/favicon.svg", type: "image/svg+xml" },

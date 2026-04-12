@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 
 import { Hero } from "@/components/hero";
+import { WhyCustom } from "@/components/why-custom";
 import { PageTransition } from "@/components/page-transition";
 import { CtaSection } from "@/components/cta-section";
 import { Button } from "@/components/ui/button";
@@ -196,6 +197,9 @@ export default function HomePage() {
           </motion.div>
         </div>
       </section>
+
+      {/* ── Why Custom? ── */}
+      <WhyCustom />
 
       {/* ── How We Work — Process ── */}
       <section className="noise relative overflow-hidden">
