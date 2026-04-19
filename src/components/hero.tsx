@@ -132,13 +132,13 @@ export function Hero() {
           initial={{ opacity: 0, y: reducedMotion ? 0 : 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="mx-auto mt-20 max-w-5xl"
+          className="mx-auto mt-20 max-w-6xl"
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
           {/* 3D perspective container */}
           <div
-            className="relative mx-auto h-[280px] sm:h-[340px] lg:h-[420px]"
+            className="relative mx-auto h-[400px] sm:h-[520px] lg:h-[680px]"
             style={{ perspective: "1200px", width: "100%" }}
           >
             {featuredWork.map((item, i) => {
@@ -164,7 +164,7 @@ export function Hero() {
                   className="absolute inset-x-0 top-0 mx-auto"
                   style={{
                     zIndex: pos.zIndex,
-                    width: "85%",
+                    width: "92%",
                     height: "100%",
                     transformStyle: "preserve-3d",
                   }}
@@ -176,7 +176,7 @@ export function Hero() {
                   >
                     {/* Animated gradient border */}
                     {isActive && (
-                      <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-r from-violet-500/50 via-electric/50 to-cyan-400/50 opacity-50 blur-[1px] animate-gradient-shift" />
+                      <div className="absolute -inset-[2px] rounded-2xl bg-gradient-to-r from-violet-500/70 via-electric/70 to-cyan-400/70 opacity-80 blur-[2px] animate-gradient-shift" />
                     )}
 
                     {/* Glow */}
@@ -189,19 +189,7 @@ export function Hero() {
                       />
                     )}
 
-                    <div className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/[0.08] bg-card/80 shadow-2xl backdrop-blur-sm transition-all duration-300 group-hover:border-white/[0.15]">
-                      {/* Browser bar */}
-                      <div className="flex shrink-0 items-center gap-2 border-b border-white/[0.06] bg-white/[0.03] px-3 py-1.5 sm:px-4 sm:py-2.5">
-                        <div className="flex gap-1">
-                          <div className="size-2 rounded-full bg-red-500/70 sm:size-2.5" />
-                          <div className="size-2 rounded-full bg-yellow-500/70 sm:size-2.5" />
-                          <div className="size-2 rounded-full bg-green-500/70 sm:size-2.5" />
-                        </div>
-                        <div className="ml-2 flex-1 rounded-lg bg-white/[0.05] px-2 py-0.5 text-[10px] text-muted-foreground sm:ml-3 sm:px-3 sm:py-1 sm:text-xs">
-                          {hostname}
-                        </div>
-                      </div>
-
+                    <div className="relative flex h-full flex-col overflow-hidden rounded-2xl border-2 border-electric/30 bg-card/80 shadow-2xl backdrop-blur-sm transition-all duration-300 group-hover:border-electric/60">
                       {/* Screenshot preview */}
                       <div className="relative min-h-0 flex-1 overflow-hidden">
                         <img
@@ -213,10 +201,10 @@ export function Hero() {
                       </div>
 
                       {/* Label bar */}
-                      <div className="flex shrink-0 items-center justify-between border-t border-white/[0.06] bg-white/[0.03] px-3 py-1.5 sm:px-4 sm:py-2.5">
+                      <div className="flex shrink-0 items-center justify-between border-t-2 border-electric/30 bg-background/80 px-3 py-2 sm:px-4 sm:py-3">
                         <div>
                           <p className="text-xs font-semibold sm:text-sm">{item.title}</p>
-                          <p className="text-[10px] text-muted-foreground sm:text-xs">{item.category}</p>
+                          <p className="text-[10px] text-muted-foreground sm:text-xs">{hostname}</p>
                         </div>
                         {isActive && (
                           <span className="hidden items-center gap-1 rounded-full bg-electric/10 px-2.5 py-1 text-[10px] font-medium text-electric sm:flex sm:text-xs">

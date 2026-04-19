@@ -77,8 +77,9 @@ export function WhyCustom() {
               Not a one-off build.
             </span>
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-muted-foreground sm:text-lg">
+          <p className="mx-auto mt-4 max-w-2xl text-muted-foreground sm:text-lg">
             We sit in the middle — a platform you licence, not a product you rent or a stack you inherit.
+            We own and protect the code; you own your brand, your customers, and your data.
           </p>
         </motion.div>
 

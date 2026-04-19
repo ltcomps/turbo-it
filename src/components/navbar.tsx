@@ -22,7 +22,6 @@ import { cn } from "@/lib/utils";
 import { navLinks, servicesMegaMenu, siteConfig } from "@/lib/content";
 import { containerClass } from "@/lib/tokens";
 import { Button } from "@/components/ui/button";
-import { ThemeToggle } from "@/components/theme-toggle";
 
 // ---------------------------------------------------------------------------
 // Icon resolver – maps string names from content.ts to Lucide components
@@ -216,8 +215,6 @@ export function Navbar() {
 
         {/* ---- Right actions ---- */}
         <div className="flex items-center gap-2">
-          <ThemeToggle />
-
           <Button asChild size="sm" className="hidden sm:inline-flex">
             <Link href="/contact">Get a Quote</Link>
           </Button>

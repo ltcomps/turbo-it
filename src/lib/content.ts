@@ -206,7 +206,8 @@ export const comparisonMatrix: {
   { feature: "Edge-hosted (< 200ms TTFB)", turboIt: true, templateSaas: "Varies", traditionalAgency: "Depends on host" },
   { feature: "Upfront build fee", turboIt: "Minimal", templateSaas: "None", traditionalAgency: "£10k–£50k" },
   { feature: "Ongoing cost model", turboIt: "Monthly licence", templateSaas: "Per-order + subscription", traditionalAgency: "Per-sprint retainers" },
-  { feature: "Code ownership", turboIt: "We own, you licence", templateSaas: "Vendor locked", traditionalAgency: "You own (and maintain)" },
+  { feature: "Code ownership", turboIt: "We own — proprietary IP", templateSaas: "Vendor locked", traditionalAgency: "You own (and maintain)" },
+  { feature: "Your brand + customer data", turboIt: "Yours — fully portable", templateSaas: "Locked to vendor", traditionalAgency: "Yours" },
   { feature: "Product improvements shipped to you automatically", turboIt: true, templateSaas: true, traditionalAgency: false },
 ];
 
