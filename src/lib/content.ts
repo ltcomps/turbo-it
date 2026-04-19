@@ -69,8 +69,8 @@ export const heroContent = {
 export const platformStats = [
   { value: "50,000+", label: "Tickets sold", description: "Across our platforms" },
   { value: "12,000+", label: "Prizes awarded", description: "Instant wins + draws" },
-  { value: "41,000", label: "Tickets · 1 day", description: "Lucky Turbo launch day" },
-  { value: "2", label: "Live brands", description: "Lucky Turbo + Mr XCA" },
+  { value: "40,000+", label: "Tickets · 1 day", description: "Lucky Turbo launch day" },
+  { value: "7", label: "Game modes", description: "All native, all included" },
 ];
 
 export const trustedByLogos = [
@@ -110,10 +110,10 @@ export const featuredWork: {
     category: "White-Label Client",
     categoryTag: "Client",
     blurb:
-      "Our first white-label licensee. Same platform as Lucky Turbo, re-skinned with Mr XCA's brand, live draws running since March 2026. Proof the multi-tenant works end-to-end — from admin panel to £500 cash payouts to winners.",
-    metric: "Mar 2026",
-    metricLabel: "live since",
-    tags: ["White-label", "Supabase", "Real-time Draws", "Cash Instant Wins"],
+      "Our first white-label licensee. Built on the same Turbo IT platform as Lucky Turbo, re-themed end-to-end, onboarded and ready to run public draws. Proof the multi-tenant architecture works — not just in theory, but with real customer traffic on their own brand.",
+    metric: "Client #1",
+    metricLabel: "our first licensee",
+    tags: ["White-label", "Multi-tenant", "Full re-theme", "Admin panel"],
     color: "#38BDF8",
     liveUrl: "https://mrxca.co.uk",
   },
@@ -158,7 +158,7 @@ export const caseStudies: Record<string, {
     results: [
       { metric: "50,000+", label: "Tickets sold", description: "Since public launch 7 March 2026" },
       { metric: "12,000+", label: "Prizes awarded", description: "Instant wins + draws combined" },
-      { metric: "41,000", label: "Launch-day tickets", description: "Sold in a single 24-hour window" },
+      { metric: "40,000+", label: "Launch-day tickets", description: "Sold in a single 24-hour window" },
       { metric: "7", label: "Game modes", description: "All custom — none of them off-the-shelf" },
     ],
     techStack: ["Next.js 16", "Cloudflare Pages", "Cloudflare Workers", "Supabase", "Cashflows", "Twilio", "Resend", "Tailwind CSS"],
@@ -167,26 +167,26 @@ export const caseStudies: Record<string, {
   "mr-xca": {
     slug: "mr-xca",
     title: "Mr XCA",
-    subtitle: "Our first white-label client — same platform, different brand, live since March 2026",
+    subtitle: "Our first white-label client — same Turbo IT platform, different brand, onboarded in weeks",
     category: "White-Label Licensing",
     client: "Mr XCA",
-    duration: "8 weeks from kickoff to live draws",
+    duration: "8 weeks from kickoff to handover",
     year: "2026",
     overview:
-      "Mr XCA is the proof that the Turbo IT platform is genuinely multi-tenant. Same core codebase as Lucky Turbo. Different brand. Different admin panel. Different payment destination. No forks — one platform, two tenants, clean separation. Their first public draws ran in March 2026 and they've been paying out cash instant-wins to winners ever since.",
+      "Mr XCA is the proof that the Turbo IT platform is genuinely multi-tenant. Same core codebase as Lucky Turbo. Different brand. Different admin panel. Different payment destination. No forks — one platform, two tenants, clean separation. The Mr XCA team has full control of their own competition business, running on infrastructure we keep running for them.",
     problem:
       "A new competition brand needed to go live fast without the two-year build timeline (and six-figure bill) of a traditional agency. They also didn't want a Rafflex-style template that would make them look identical to every other raffle site on Google.",
     approach:
-      "Started from the Lucky Turbo reference implementation. Re-themed to Mr XCA's brand in Figma. Stood up their own Supabase project, their own payment gateway, their own admin panel. Kept the shared components, game modes, and automated draw engine. 8 weeks from kickoff to live paying customers.",
+      "Started from the Lucky Turbo reference implementation. Re-themed to Mr XCA's brand. Stood up their own Supabase project, their own payment gateway, their own admin panel. Kept the shared components, game modes, and automated draw engine. 8 weeks from kickoff to a handover-ready platform.",
     solution:
       "A branded competition platform at mrxca.co.uk running on Turbo IT infrastructure. Their team uses the same admin panel we use for Lucky Turbo. When we ship a platform improvement, they benefit automatically.",
     results: [
-      { metric: "March 2026", label: "Live since", description: "First paid draws from launch" },
-      { metric: "£500", label: "Cash instant-win paid", description: "Real payout to a real winner" },
-      { metric: "100+", label: "Prizes drawn", description: "Across automated and live draws" },
-      { metric: "8 weeks", label: "Kickoff to live", description: "vs. 6-12 months for bespoke agency builds" },
+      { metric: "8 weeks", label: "Kickoff to live", description: "vs. 6–12 months for bespoke agency builds" },
+      { metric: "Full re-theme", label: "End-to-end", description: "Every surface branded Mr XCA" },
+      { metric: "Shared codebase", label: "Multi-tenant proven", description: "No forks, no stale clones" },
+      { metric: "Admin panel", label: "Fully handed over", description: "Their team runs their draws" },
     ],
-    techStack: ["Shared Turbo IT codebase", "Supabase (dedicated tenant)", "Cloudflare Pages", "Real-time Draws", "Cash Instant Wins"],
+    techStack: ["Shared Turbo IT codebase", "Supabase (dedicated tenant)", "Cloudflare Pages", "Automated draw engine", "Admin panel"],
     liveUrl: "https://mrxca.co.uk",
   },
 };
@@ -338,7 +338,7 @@ export const processSteps = [
 
 export const metrics = [
   { value: "50K+", label: "Tickets sold", description: "Across our platforms" },
-  { value: "41,000", label: "Launch day tickets", description: "Lucky Turbo, 7 March 2026" },
+  { value: "40K+", label: "Launch day tickets", description: "Lucky Turbo, 7 March 2026" },
   { value: "< 200ms", label: "Edge TTFB", description: "On Cloudflare Pages globally" },
   { value: "7", label: "Game modes", description: "All custom, all on the licence" },
 ];
@@ -463,7 +463,7 @@ export const companyValues = [
   },
   {
     title: "Performance at launch",
-    description: "Lucky Turbo sold 41,000 tickets in its launch day. The platform you'd license is the same one.",
+    description: "Lucky Turbo sold 40,000+ tickets in its launch day. The platform you'd license is the same one.",
   },
   {
     title: "Improvements travel with the licence",

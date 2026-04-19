@@ -57,7 +57,9 @@ export function DemoCoinFlip({ className, onComplete }: DemoGameProps) {
     setShowResult(false);
     controls.set({ rotateY: 0 });
     const fullSpins = 5 + Math.floor(Math.random() * 3);
-    const target = currentFlip.isWinner ? fullSpins * 360 : fullSpins * 360 + 180;
+    // Silver TRY side is now at rotateY(0) (front), Gold WIN at rotateY(180).
+    // Winners end on the gold face (+180); losers end back on silver (0).
+    const target = currentFlip.isWinner ? fullSpins * 360 + 180 : fullSpins * 360;
     await controls.start({ rotateY: target, transition: { duration: 2.2, ease: [0.12, 0.8, 0.2, 1] } });
     if (!mountedRef.current) return;
     setFlipping(false);
@@ -108,24 +110,25 @@ export function DemoCoinFlip({ className, onComplete }: DemoGameProps) {
               onClick={() => !flipping && !showResult && doFlip()}
               whileHover={!flipping && !showResult ? { scale: 1.05 } : {}}
             >
+              {/* Silver TRY side — front, shown by default (no pre-reveal of WIN) */}
               <div className="absolute inset-0 rounded-full flex flex-col items-center justify-center select-none"
                 style={{
                   backfaceVisibility: "hidden",
+                  background: "radial-gradient(ellipse at 35% 35%, #e2e8f0 0%, #94a3b8 30%, #64748b 60%, #334155 100%)",
+                  border: "4px solid #94a3b8",
+                  boxShadow: "inset 0 -4px 12px rgba(51,65,85,0.4), inset 0 4px 12px rgba(226,232,240,0.3)",
+                }}>
+                <Coins className="size-8 text-slate-200/80" />
+              </div>
+              {/* Gold WIN side — back, only revealed after a winning flip */}
+              <div className="absolute inset-0 rounded-full flex flex-col items-center justify-center select-none"
+                style={{
+                  backfaceVisibility: "hidden", transform: "rotateY(180deg)",
                   background: "radial-gradient(ellipse at 35% 35%, #fde68a 0%, #f59e0b 30%, #d97706 60%, #92400e 100%)",
                   border: "4px solid #fbbf24",
                   boxShadow: "inset 0 -4px 12px rgba(146,64,14,0.4), inset 0 4px 12px rgba(253,230,138,0.3), 0 0 30px rgba(245,158,11,0.4)",
                 }}>
                 <span className="text-xl font-black text-amber-900 tracking-widest drop-shadow-sm">WIN</span>
-              </div>
-              <div className="absolute inset-0 rounded-full flex flex-col items-center justify-center select-none"
-                style={{
-                  backfaceVisibility: "hidden", transform: "rotateY(180deg)",
-                  background: "radial-gradient(ellipse at 35% 35%, #e2e8f0 0%, #94a3b8 30%, #64748b 60%, #334155 100%)",
-                  border: "4px solid #94a3b8",
-                  boxShadow: "inset 0 -4px 12px rgba(51,65,85,0.4), inset 0 4px 12px rgba(226,232,240,0.3)",
-                }}>
-                <span className="text-xs font-bold text-slate-300 tracking-wider uppercase">TRY</span>
-                <span className="text-xs font-bold text-slate-300 tracking-wider uppercase">AGAIN</span>
               </div>
             </motion.div>
           </div>

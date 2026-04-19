@@ -294,7 +294,7 @@ export default function HomePage() {
                 We're not a generic agency. Lucky Turbo is our own competition business —
                 it's done <strong className="text-foreground">50,000+ ticket sales</strong>,
                 awarded <strong className="text-foreground">12,000+ prizes</strong>, and sold{" "}
-                <strong className="text-foreground">41,000 tickets on its launch day alone</strong>.
+                <strong className="text-foreground">40,000+ tickets on its launch day alone</strong>.
               </p>
               <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
                 The platform that runs it is the platform we license to you under the

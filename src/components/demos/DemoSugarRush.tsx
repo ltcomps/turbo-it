@@ -15,17 +15,28 @@
 import { useState, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Trophy, PartyPopper, X, Wallet } from "lucide-react";
+import { Trophy, PartyPopper, X, Wallet, Candy as CandyIcon, Cookie, Heart, Star, Gem } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { formatPence, type DemoGameProps } from "./_shared";
 
 const GRID = 6;
 const MOVES = 8;
-const CANDIES = ["🍬", "🍭", "🍫", "🍩", "🧁"] as const;
-type Candy = (typeof CANDIES)[number];
+
+type Candy = "candy" | "cookie" | "heart" | "star" | "gem";
+const CANDIES: Candy[] = ["candy", "cookie", "heart", "star", "gem"];
+
+/* Distinct icon + colour per candy — avoids emoji-font rendering failures */
+const CANDY_STYLE: Record<Candy, { Icon: LucideIcon; bg: string; fg: string; ring: string }> = {
+  candy:  { Icon: CandyIcon, bg: "#fee2e2", fg: "#dc2626", ring: "#fca5a5" },
+  cookie: { Icon: Cookie,    bg: "#fef3c7", fg: "#b45309", ring: "#fcd34d" },
+  heart:  { Icon: Heart,     bg: "#fce7f3", fg: "#be185d", ring: "#f9a8d4" },
+  star:   { Icon: Star,      bg: "#fef9c3", fg: "#ca8a04", ring: "#fde047" },
+  gem:    { Icon: Gem,       bg: "#ede9fe", fg: "#7c3aed", ring: "#c4b5fd" },
+};
 
 function randBoard(): Candy[] {
-  return Array.from({ length: GRID * GRID }, () => CANDIES[Math.floor(Math.random() * CANDIES.length)]);
+  return Array.from({ length: GRID * GRID }, () => CANDIES[Math.floor(Math.random() * CANDIES.length)]!);
 }
 
 function findMatches(board: Candy[]): Set<number> {
@@ -71,7 +82,7 @@ function resolveBoard(board: Candy[]): { board: Candy[]; scored: number } {
         const i = r * GRID + c;
         if (!m.has(i)) col.push(b[i]);
       }
-      while (col.length < GRID) col.push(CANDIES[Math.floor(Math.random() * CANDIES.length)]);
+      while (col.length < GRID) col.push(CANDIES[Math.floor(Math.random() * CANDIES.length)]!);
       for (let r = GRID - 1; r >= 0; r--) b[r * GRID + c] = col[GRID - 1 - r];
     }
   }
@@ -121,7 +132,9 @@ export function DemoSugarRush({ className, onComplete }: DemoGameProps) {
       style={{ background: "linear-gradient(135deg, #ff6ec7 0%, #ff9ed6 40%, #ffb4d8 70%, #ff6ec7 100%)" }}
     >
       <div className="flex items-center justify-between pb-1">
-        <h2 className="text-white font-bold text-sm drop-shadow">🍬 Sugar Rush</h2>
+        <h2 className="flex items-center gap-1.5 text-white font-bold text-sm drop-shadow">
+          <CandyIcon className="h-4 w-4" /> Sugar Rush
+        </h2>
         <button onClick={onComplete} className="text-white/70 hover:text-white"><X className="h-4 w-4" /></button>
       </div>
       <div className="flex items-center justify-between text-[11px] pb-1 text-white">
@@ -130,21 +143,29 @@ export function DemoSugarRush({ className, onComplete }: DemoGameProps) {
       </div>
       <div className="flex-1 flex items-center justify-center min-h-0">
         <div className="grid gap-1 p-1 rounded-lg bg-white/20 backdrop-blur-sm" style={{ gridTemplateColumns: `repeat(${GRID}, minmax(0, 1fr))` }}>
-          {board.map((c, i) => (
-            <motion.button
-              key={i}
-              onClick={() => onCell(i)}
-              whileTap={{ scale: 0.85 }}
-              className={cn(
-                "aspect-square rounded-md flex items-center justify-center text-lg sm:text-xl select-none",
-                selected === i ? "bg-yellow-300 ring-2 ring-yellow-500" : "bg-white/50 hover:bg-white/70",
-              )}
-              style={{ width: "min(8vw, 36px)" }}
-              disabled={done}
-            >
-              {c}
-            </motion.button>
-          ))}
+          {board.map((c, i) => {
+            const s = CANDY_STYLE[c];
+            const isSelected = selected === i;
+            return (
+              <motion.button
+                key={i}
+                onClick={() => onCell(i)}
+                whileTap={{ scale: 0.85 }}
+                className={cn(
+                  "aspect-square rounded-md flex items-center justify-center select-none transition-all",
+                  isSelected && "ring-2 ring-yellow-400 ring-offset-1 ring-offset-pink-400 scale-110",
+                )}
+                style={{
+                  width: "min(8vw, 36px)",
+                  background: isSelected ? "#fde047" : s.bg,
+                  border: `1.5px solid ${isSelected ? "#ca8a04" : s.ring}`,
+                }}
+                disabled={done}
+              >
+                <s.Icon className="h-4 w-4 sm:h-5 sm:w-5" style={{ color: s.fg }} strokeWidth={2.5} />
+              </motion.button>
+            );
+          })}
         </div>
       </div>
       <div className="pt-1.5 space-y-1.5">

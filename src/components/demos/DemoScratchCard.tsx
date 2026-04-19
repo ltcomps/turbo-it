@@ -8,7 +8,7 @@
 import { useState, useCallback, useEffect, useMemo, useRef } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Trophy, PartyPopper, X, Wallet } from "lucide-react";
+import { Trophy, PartyPopper, X, Wallet, CreditCard } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { demoFixture, formatPence, type DemoGameProps } from "./_shared";
 
@@ -178,7 +178,9 @@ export function DemoScratchCard({ className, onComplete }: DemoGameProps) {
       style={{ background: "linear-gradient(160deg, #1a1d2e 0%, #222638 40%, #2a2f45 70%, #1a1d2e 100%)" }}
     >
       <div className="flex items-center justify-between px-1 pb-1">
-        <h2 className="text-white font-bold text-sm">🎟️ Scratch to Win</h2>
+        <h2 className="flex items-center gap-1.5 text-white font-bold text-sm">
+          <CreditCard className="h-4 w-4" /> Scratch to Win
+        </h2>
         <button onClick={onComplete} className="text-slate-400/50 hover:text-white"><X className="h-4 w-4" /></button>
       </div>
       <div className="flex-1 flex items-center justify-center min-h-0">
