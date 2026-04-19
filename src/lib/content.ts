@@ -1,16 +1,17 @@
 export const siteConfig = {
   name: "Turbo IT",
-  tagline: "We build competition platforms that sell tickets.",
-  description: "UK specialists in raffle, competition, and prize draw platform development. We design and build high-converting competition websites that players trust.",
-  email: "info@luckyturbo.co.uk",
+  tagline: "The white-label competition platform behind Lucky Turbo.",
+  description:
+    "Turbo IT is the licensing arm of Lucky Turbo Ltd. We run our own raffle business on the platform — and license the same stack to other competition operators, white-label, live in weeks.",
+  email: "info@turboit.uk",
   phone: "",
-  address: "Manchester, UK · Operating Worldwide",
+  address: "Manchester, UK · Lucky Turbo Ltd",
 };
 
 export const navLinks = [
   { label: "Home", href: "/" },
+  { label: "Platform", href: "/demo" },
   { label: "Work", href: "/work" },
-  { label: "Services", href: "/services" },
   { label: "Pricing", href: "/pricing" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
@@ -19,7 +20,7 @@ export const navLinks = [
 export const servicesMegaMenu = [
   {
     title: "Platform Development",
-    description: "Custom-built competition websites",
+    description: "White-label competition websites",
     href: "/services#platform-dev",
     icon: "Trophy",
   },
@@ -37,7 +38,7 @@ export const servicesMegaMenu = [
   },
   {
     title: "Compliance & Regulation",
-    description: "UK gambling law compliant",
+    description: "UK competition law compliant",
     href: "/services#compliance",
     icon: "ShieldCheck",
   },
@@ -49,26 +50,32 @@ export const servicesMegaMenu = [
   },
   {
     title: "Hosting & Infrastructure",
-    description: "99.9% uptime, real-time scale",
+    description: "Edge-hosted, 99.9% uptime",
     href: "/services#hosting",
     icon: "Server",
   },
 ];
 
 export const heroContent = {
-  badge: "Raffles · Competitions · Prize Draws",
-  headline: "We build competition\nplatforms that\nsell tickets.",
+  badge: "White-Label Competition Platform · UK",
+  headline: "The raffle platform\nwe run ourselves.\nNow licensed to you.",
   subheadline:
-    "From raffle websites to full-scale prize draw platforms — Turbo IT is the UK specialist competition businesses trust to launch and grow.",
-  primaryCTA: "Get a Quote",
-  secondaryCTA: "View Work",
+    "Turbo IT is the tech behind Lucky Turbo — our own competition business. Same platform, same edge infrastructure, branded as yours. Live in weeks, not quarters.",
+  primaryCTA: "See the Platform",
+  secondaryCTA: "Talk to the team",
 };
+
+/* ── Headline numbers — pulled from real LT + Mr XCA production data ── */
+export const platformStats = [
+  { value: "50,000+", label: "Tickets sold", description: "Across our platforms" },
+  { value: "12,000+", label: "Prizes awarded", description: "Instant wins + draws" },
+  { value: "41,000", label: "Tickets · 1 day", description: "Lucky Turbo launch day" },
+  { value: "2", label: "Live brands", description: "Lucky Turbo + Mr XCA" },
+];
 
 export const trustedByLogos = [
   "Lucky Turbo",
   "Mr XCA",
-  "Competition operators",
-  "Raffle startups",
 ];
 
 export const featuredWork: {
@@ -87,26 +94,26 @@ export const featuredWork: {
   {
     slug: "lucky-turbo",
     title: "Lucky Turbo",
-    category: "Raffle Platform",
-    categoryTag: "Raffle",
+    category: "Our Flagship",
+    categoryTag: "Dog-food",
     blurb:
-      "UK raffle competition platform with instant wins, countdown timers, cart system, and a high-energy design that drives ticket sales and repeat engagement.",
-    metric: "Live",
-    metricLabel: "luckyturbo.co.uk",
-    tags: ["Next.js", "Payments", "Instant Wins", "Gamification"],
+      "Lucky Turbo Ltd's own competition business — 50,000+ tickets sold since launch, 41,000 in a single launch day. Turbo IT built it. Turbo IT runs it. This is proof of concept by proof of use.",
+    metric: "50K+",
+    metricLabel: "tickets sold",
+    tags: ["Next.js", "Cloudflare Pages", "Supabase", "Cashflows", "Instant Wins", "7 Game Modes"],
     color: "#00B0F0",
     liveUrl: "https://luckyturbo.co.uk",
   },
   {
     slug: "mr-xca",
     title: "Mr XCA",
-    category: "Competition Platform",
-    categoryTag: "Competition",
+    category: "White-Label Client",
+    categoryTag: "Client",
     blurb:
-      "Raffles and giveaways platform with a sleek dark aesthetic, real-time competitions, automated draws, and seamless ticket purchasing.",
-    metric: "Live",
-    metricLabel: "mrxca.co.uk",
-    tags: ["React", "Supabase", "Real-time", "Automated Draws"],
+      "Our first white-label licensee. Same platform as Lucky Turbo, re-skinned with Mr XCA's brand, live draws running since March 2026. Proof the multi-tenant works end-to-end — from admin panel to £500 cash payouts to winners.",
+    metric: "Mar 2026",
+    metricLabel: "live since",
+    tags: ["White-label", "Supabase", "Real-time Draws", "Cash Instant Wins"],
     color: "#38BDF8",
     liveUrl: "https://mrxca.co.uk",
   },
@@ -135,126 +142,163 @@ export const caseStudies: Record<string, {
   "lucky-turbo": {
     slug: "lucky-turbo",
     title: "Lucky Turbo",
-    subtitle: "UK Raffle Competition Platform",
-    category: "Raffle Platform",
-    client: "Lucky Turbo",
-    duration: "10 weeks",
+    subtitle: "Our own competition business — and the proof Turbo IT works at scale",
+    category: "Flagship Platform",
+    client: "Lucky Turbo Ltd (ourselves)",
+    duration: "10 weeks to v1, continuous since",
     year: "2026",
     overview:
-      "Lucky Turbo is a UK-based online raffle competition platform. They needed a website that created excitement and drove engagement while handling secure payments, competition management, and a seamless player experience.",
+      "Lucky Turbo is Lucky Turbo Ltd's flagship competition business and the dog-food for the Turbo IT platform. We didn't build it to sell; we built it to run. Every feature on the Turbo IT licence exists because we needed it ourselves — and every bug gets fixed before it reaches a client, because it hits our own revenue first.",
     problem:
-      "Competition sites need to feel exciting and trustworthy at the same time. The platform needed to handle ticket purchases, countdown timers, instant wins, winner announcements, and cart functionality — all while meeting UK competition regulations.",
+      "UK raffle operators live and die by launch-day traffic, payment reliability, and compliance. Template platforms like Rafflex can't do custom game modes. WordPress plugins collapse under load. Existing competition agencies take 6+ months and five-figure builds. We needed something we could run ourselves — and re-use.",
     approach:
-      "We focused on creating energy — bright blues, animations, progress bars, and pulsing winner badges. The gamification elements keep players engaged while the clean UI and transparent draws build trust. Payment integration was built for speed and security.",
+      "Built on Next.js 16 static export + Cloudflare Pages for sub-second TTFB anywhere in the world, Supabase for real-time data, Cashflows embedded checkout with Apple Pay + Google Pay, and a custom Workers backend for payment + cron + SMS. Every draw automated and auditable. Every instant-win deterministic. Seven native game modes: scratch cards, spin the wheel, coin flip, mystery chest, turbo drop (plinko), flappy bird, sugar rush (match-3).",
     solution:
-      "A high-energy raffle platform with instant win games, countdown timers, user accounts, shopping cart, and automated draw management. The design creates excitement while staying professional and compliant.",
+      "A production raffle operation that opened to the public on 7 March 2026. We handle payments, draws, compliance, anti-fraud, SMS campaigns, email automation, Meta Pixel + CAPI, and customer support in-house — on the same codebase we license to clients.",
     results: [
-      { metric: "Live", label: "Platform", description: "luckyturbo.co.uk" },
-      { metric: "Instant", label: "Wins", description: "Real-time prize reveals" },
-      { metric: "Timers", label: "Countdowns", description: "Competition deadlines" },
-      { metric: "Mobile", label: "Responsive", description: "Full mobile support" },
+      { metric: "50,000+", label: "Tickets sold", description: "Since public launch 7 March 2026" },
+      { metric: "12,000+", label: "Prizes awarded", description: "Instant wins + draws combined" },
+      { metric: "41,000", label: "Launch-day tickets", description: "Sold in a single 24-hour window" },
+      { metric: "7", label: "Game modes", description: "All custom — none of them off-the-shelf" },
     ],
-    techStack: ["Next.js", "Supabase", "Cloudflare Workers", "Payment Integration", "Real-time Updates", "Tailwind CSS"],
+    techStack: ["Next.js 16", "Cloudflare Pages", "Cloudflare Workers", "Supabase", "Cashflows", "Twilio", "Resend", "Tailwind CSS"],
     liveUrl: "https://luckyturbo.co.uk",
   },
   "mr-xca": {
     slug: "mr-xca",
     title: "Mr XCA",
-    subtitle: "Raffles & Giveaways Platform",
-    category: "Competition Platform",
+    subtitle: "Our first white-label client — same platform, different brand, live since March 2026",
+    category: "White-Label Licensing",
     client: "Mr XCA",
-    duration: "8 weeks",
+    duration: "8 weeks from kickoff to live draws",
     year: "2026",
     overview:
-      "Mr XCA is an online raffles and giveaways platform offering exciting competitions with transparent draws and instant results. They needed a modern, trustworthy platform to manage competitions and ticket sales at scale.",
+      "Mr XCA is the proof that the Turbo IT platform is genuinely multi-tenant. Same core codebase as Lucky Turbo. Different brand. Different admin panel. Different payment destination. No forks — one platform, two tenants, clean separation. Their first public draws ran in March 2026 and they've been paying out cash instant-wins to winners ever since.",
     problem:
-      "The client needed a competition platform that felt premium and trustworthy while handling real-time ticket sales, multiple concurrent competitions, and automated prize draws seamlessly.",
+      "A new competition brand needed to go live fast without the two-year build timeline (and six-figure bill) of a traditional agency. They also didn't want a Rafflex-style template that would make them look identical to every other raffle site on Google.",
     approach:
-      "We built a sleek dark-themed interface with sky-blue accents that creates a modern, premium feel. The platform uses Supabase for real-time data, ensuring instant updates on ticket availability and competition status across all connected players.",
+      "Started from the Lucky Turbo reference implementation. Re-themed to Mr XCA's brand in Figma. Stood up their own Supabase project, their own payment gateway, their own admin panel. Kept the shared components, game modes, and automated draw engine. 8 weeks from kickoff to live paying customers.",
     solution:
-      "A polished competition platform with real-time ticket tracking, automated draws, user accounts, and a dark aesthetic that stands out from competitors. The Supabase backend ensures instant updates across all users.",
+      "A branded competition platform at mrxca.co.uk running on Turbo IT infrastructure. Their team uses the same admin panel we use for Lucky Turbo. When we ship a platform improvement, they benefit automatically.",
     results: [
-      { metric: "Live", label: "Platform", description: "mrxca.co.uk" },
-      { metric: "Real-time", label: "Updates", description: "Instant ticket tracking" },
-      { metric: "Automated", label: "Draws", description: "Transparent prize selection" },
-      { metric: "Mobile", label: "Responsive", description: "Full mobile support" },
+      { metric: "March 2026", label: "Live since", description: "First paid draws from launch" },
+      { metric: "£500", label: "Cash instant-win paid", description: "Real payout to a real winner" },
+      { metric: "100+", label: "Prizes drawn", description: "Across automated and live draws" },
+      { metric: "8 weeks", label: "Kickoff to live", description: "vs. 6-12 months for bespoke agency builds" },
     ],
-    techStack: ["React", "Vite", "Supabase", "Tailwind CSS", "Real-time Subscriptions", "Payment Integration"],
+    techStack: ["Shared Turbo IT codebase", "Supabase (dedicated tenant)", "Cloudflare Pages", "Real-time Draws", "Cash Instant Wins"],
     liveUrl: "https://mrxca.co.uk",
   },
 };
+
+/* ── 3-way comparison matrix — generic buckets, no named competitors ── */
+export const comparisonMatrix: {
+  feature: string;
+  turboIt: string | boolean;
+  templateSaas: string | boolean;
+  traditionalAgency: string | boolean;
+}[] = [
+  { feature: "Launch speed", turboIt: "6–10 weeks", templateSaas: "Days", traditionalAgency: "6+ months" },
+  { feature: "Truly custom game modes", turboIt: true, templateSaas: false, traditionalAgency: "For £££" },
+  { feature: "White-label / own brand", turboIt: true, templateSaas: "Partial", traditionalAgency: true },
+  { feature: "Multi-tenant (you aren't a fork)", turboIt: true, templateSaas: true, traditionalAgency: false },
+  { feature: "Dog-fooded in production", turboIt: "Yes — luckyturbo.co.uk", templateSaas: false, traditionalAgency: false },
+  { feature: "Edge-hosted (< 200ms TTFB)", turboIt: true, templateSaas: "Varies", traditionalAgency: "Depends on host" },
+  { feature: "Upfront build fee", turboIt: "Minimal", templateSaas: "None", traditionalAgency: "£10k–£50k" },
+  { feature: "Ongoing cost model", turboIt: "Monthly licence", templateSaas: "Per-order + subscription", traditionalAgency: "Per-sprint retainers" },
+  { feature: "Code ownership", turboIt: "We own, you licence", templateSaas: "Vendor locked", traditionalAgency: "You own (and maintain)" },
+  { feature: "Product improvements shipped to you automatically", turboIt: true, templateSaas: true, traditionalAgency: false },
+];
+
+/* ── Playable game-mode showcase for the homepage + /demo page ── */
+export const gameModes: {
+  slug: string;
+  title: string;
+  tagline: string;
+  icon: string;
+  demoComponent: string;
+  difficulty: "easy" | "medium" | "hard";
+}[] = [
+  { slug: "scratch-card", title: "Scratch Card", tagline: "Canvas-based silver foil — scratch to reveal.", icon: "CreditCard", demoComponent: "DemoScratchCard", difficulty: "easy" },
+  { slug: "coin-flip", title: "Coin Flip", tagline: "3D heads-or-tails on a Framer Motion axis.", icon: "Circle", demoComponent: "DemoCoinFlip", difficulty: "easy" },
+  { slug: "mystery-chest", title: "Mystery Chest", tagline: "Tap to open — animated prize reveal.", icon: "Box", demoComponent: "DemoMysteryChest", difficulty: "easy" },
+  { slug: "spin-the-wheel", title: "Spin the Wheel", tagline: "Weighted-segment wheel with pointer physics.", icon: "PieChart", demoComponent: "DemoSpinTheWheel", difficulty: "medium" },
+  { slug: "turbo-drop", title: "Turbo Drop", tagline: "Plinko-style drop with procedural chiptune.", icon: "Layers", demoComponent: "DemoTurboDrop", difficulty: "medium" },
+  { slug: "flappy-bird", title: "Sky Run", tagline: "Flap through pipes — leaderboard prizes.", icon: "Bird", demoComponent: "DemoFlappyBird", difficulty: "hard" },
+  { slug: "sugar-rush", title: "Sugar Rush", tagline: "Match-3 candy swap with cascade scoring.", icon: "Candy", demoComponent: "DemoSugarRush", difficulty: "hard" },
+];
 
 export const services = [
   {
     title: "Platform Development",
     description:
-      "Custom-built competition and raffle websites designed to sell tickets and create excitement.",
+      "White-label competition and raffle websites — the same stack we run Lucky Turbo on, rebranded for you.",
     icon: "Trophy",
     features: [
-      "Custom Competition Sites",
-      "User Registration & Accounts",
-      "Mobile-First Design",
-      "Admin Dashboard",
+      "Custom brand + theme",
+      "Your own admin panel",
+      "Mobile-first design",
+      "All 7 native game modes",
     ],
   },
   {
     title: "Payment & Ticketing",
     description:
-      "Secure ticket purchasing systems with fast checkout, cart functionality, and multiple payment methods.",
+      "Embedded Cashflows checkout with Apple Pay + Google Pay, cart, instant receipts, refund tooling.",
     icon: "CreditCard",
     features: [
-      "Secure Payment Gateways",
-      "Shopping Cart System",
-      "Ticket Management",
-      "Refund & Dispute Handling",
+      "Secure tokenised payments",
+      "Apple Pay + Google Pay",
+      "Shopping cart + vouchers",
+      "Refund + chargeback tooling",
     ],
   },
   {
     title: "Draw & Prize Systems",
     description:
-      "Automated, transparent draw systems with instant wins, countdown timers, and winner announcements.",
+      "Automated scheduled draws, deterministic instant-wins, provable fairness, winner notifications — all in the admin panel.",
     icon: "Timer",
     features: [
-      "Automated Prize Draws",
-      "Instant Win Games",
-      "Countdown Timers",
-      "Winner Notifications",
+      "Auto-scheduled draws",
+      "Deterministic instant wins",
+      "Provable fairness audit log",
+      "SMS + email winner alerts",
     ],
   },
   {
     title: "Compliance & Regulation",
     description:
-      "Competition platforms built to meet UK gambling and competition law from day one.",
+      "UK competition law compliance baked in — T&Cs template, age verification, responsible-play messaging, banned-word filters.",
     icon: "ShieldCheck",
     features: [
-      "UK Competition Law",
-      "Terms & Conditions",
-      "Age Verification",
-      "Responsible Gambling",
+      "UK competition-law T&Cs",
+      "Age verification",
+      "Responsible-play messaging",
+      "Anti-fraud + device checks",
     ],
   },
   {
     title: "Marketing & Growth",
     description:
-      "Player acquisition and retention strategies including SEO, paid ads, and social media.",
+      "The marketing stack we use on Lucky Turbo: Meta Pixel + CAPI, SMS campaigns, abandoned-cart, trust pilot integration.",
     icon: "Target",
     features: [
-      "SEO for Competitions",
-      "Google & Meta Ads",
-      "Social Media Strategy",
-      "Email & SMS Marketing",
+      "Meta Pixel + CAPI server-side",
+      "SMS campaign batching",
+      "Abandoned-cart recovery",
+      "Trustpilot + SEO setup",
     ],
   },
   {
     title: "Hosting & Infrastructure",
     description:
-      "High-availability hosting built to handle traffic spikes during competition launches and draw events.",
+      "Cloudflare Pages edge hosting, Workers for APIs, Supabase for data. Sub-second TTFB globally, 99.9% uptime.",
     icon: "Server",
     features: [
-      "99.9% Uptime Guarantee",
-      "Real-time Infrastructure",
-      "CDN & Edge Hosting",
-      "24/7 Monitoring",
+      "Edge-hosted on Cloudflare",
+      "< 200ms TTFB target",
+      "99.9% uptime",
+      "24/7 monitoring",
     ],
   },
 ];
@@ -262,49 +306,49 @@ export const services = [
 export const processSteps = [
   {
     step: 1,
-    title: "Discover",
+    title: "Brand",
     description:
-      "We learn your competition model, audience, and regulations. What prizes? What ticket price? How many entries? We map it all out.",
+      "You bring the brand — name, colours, prize strategy. We map it to the Turbo IT reference and flag anything that'll need custom work.",
   },
   {
     step: 2,
-    title: "Design",
+    title: "Configure",
     description:
-      "We design an experience that builds trust and drives ticket sales — from countdown timers to winner showcases.",
+      "We stand up your dedicated Supabase tenant, your payment gateway, your admin panel. No forks; you're a real tenant on the shared platform.",
   },
   {
     step: 3,
-    title: "Build",
+    title: "Theme",
     description:
-      "Custom platform development with payments, automated draws, real-time updates, and admin tools.",
+      "We re-skin the storefront to match your brand and drop in any bespoke game mode or prize mechanic you need.",
   },
   {
     step: 4,
     title: "Launch",
     description:
-      "Full testing, compliance review, and a smooth go-live. Your first competition can be running within hours.",
+      "Compliance review, test purchases, soft launch. First paid draw usually within 6–10 weeks of kickoff.",
   },
   {
     step: 5,
-    title: "Grow",
+    title: "Grow together",
     description:
-      "Ongoing support, analytics, marketing integration, and feature development to scale your business.",
+      "When we ship a platform improvement — Apple Pay, Google Pay, new game modes — every tenant gets it. Including you.",
   },
 ];
 
 export const metrics = [
-  { value: "99.9%", label: "Uptime", description: "Across all platforms" },
-  { value: "< 1s", label: "Load Time", description: "Edge-hosted globally" },
-  { value: "2", label: "Live Platforms", description: "Processing tickets now" },
-  { value: "10+", label: "Game Modes", description: "Scratch cards, spin, leaderboards & more" },
+  { value: "50K+", label: "Tickets sold", description: "Across our platforms" },
+  { value: "41,000", label: "Launch day tickets", description: "Lucky Turbo, 7 March 2026" },
+  { value: "< 200ms", label: "Edge TTFB", description: "On Cloudflare Pages globally" },
+  { value: "7", label: "Game modes", description: "All custom, all on the licence" },
 ];
 
 export const testimonials = [
   {
     quote:
-      "The platform they built handles everything — payments, instant wins, automated draws, SMS campaigns — all under one roof. It feels like a product, not a website.",
-    author: "Lucky Turbo",
-    role: "Live Platform",
+      "The Turbo IT platform handles everything — payments, instant wins, automated draws, SMS campaigns — all under one roof. It feels like a product, not a website. It should; we built it to run our own business.",
+    author: "Lucky Turbo Operations",
+    role: "Lucky Turbo Ltd — parent company of Turbo IT",
     company: "luckyturbo.co.uk",
   },
 ];
@@ -314,16 +358,15 @@ export const pricingPlans = [
     name: "Starter",
     price: "499",
     period: "/month",
-    description: "Everything you need to launch your first competition website.",
+    description: "Your own white-labelled competition site, live in weeks.",
     features: [
-      "Custom competition website",
-      "Mobile responsive design",
-      "Payment integration",
-      "Manual draw management",
-      "Basic admin dashboard",
-      "Hosting & SSL included",
+      "Your brand, your domain",
+      "Mobile-first storefront",
+      "Cashflows payment integration",
+      "Manual draw tooling",
+      "Admin panel access",
+      "Hosting + SSL included",
       "Email support",
-      "White-label platform",
     ],
     highlighted: false,
     cta: "Get Started",
@@ -332,16 +375,15 @@ export const pricingPlans = [
     name: "Growth",
     price: "899",
     period: "/month",
-    description: "For established competition businesses ready to scale.",
+    description: "Established competition businesses ready to scale.",
     features: [
       "Everything in Starter",
-      "Automated prize draws",
-      "Instant win games",
-      "Real-time ticket tracking",
-      "Player analytics dashboard",
-      "SEO & marketing setup",
+      "All 7 native game modes",
+      "Automated draws + instant wins",
+      "SMS + email marketing suite",
+      "Meta Pixel + CAPI server-side",
+      "Real-time analytics",
       "Priority support",
-      "SMS & email notifications",
     ],
     highlighted: true,
     cta: "Get Started",
@@ -350,16 +392,15 @@ export const pricingPlans = [
     name: "Scale",
     price: "Custom",
     period: "",
-    description: "Bespoke platform for high-traffic competition operations.",
+    description: "Custom game modes, dedicated infra, enterprise support.",
     features: [
       "Everything in Growth",
-      "Custom feature development",
-      "API integrations",
-      "Multi-competition management",
-      "Dedicated account manager",
-      "Same-day support",
+      "Bespoke game-mode development",
+      "Dedicated Supabase + Workers",
+      "API + webhook integrations",
       "Compliance consulting",
-      "White-label options",
+      "Dedicated account manager",
+      "Same-day SLA",
     ],
     highlighted: false,
     cta: "Let's Talk",
@@ -368,44 +409,44 @@ export const pricingPlans = [
 
 export const faqItems = [
   {
-    question: "How long does it take to build a competition platform?",
+    question: "Is Turbo IT building a one-off site, or selling a platform?",
     answer:
-      "Most competition platforms take 8-12 weeks from kickoff to launch. Simpler raffle sites can be faster. We'll give you a clear timeline during our discovery phase.",
+      "A platform. Turbo IT is the licensing arm of Lucky Turbo Ltd. We run luckyturbo.co.uk on the platform ourselves. Clients license the same stack — branded as them, hosted by us, improved continuously.",
   },
   {
-    question: "Do you handle UK gambling and competition regulations?",
+    question: "How is this different from Rafflex or other SaaS raffle tools?",
     answer:
-      "Yes. We build platforms with compliance in mind from day one — including terms and conditions, age verification, responsible gambling measures, and adherence to UK competition law.",
+      "Template SaaS tools ship one fixed product. If you want a Flappy-Bird-style instant win, you don't get it. We dog-food our own platform and build the game modes we need for Lucky Turbo, then every client gets them. You can't buy our feature set anywhere else.",
   },
   {
-    question: "What payment providers do you integrate?",
+    question: "How is this different from a traditional raffle agency?",
     answer:
-      "We integrate with specialist gaming payment gateways like Cashflows, as well as providers like Stripe and PayPal. We'll recommend the best option for your competition model and ticket price points.",
+      "Agencies build you a one-off site, charge £10k–£50k up front, then stop shipping. We license a living platform: every time we improve it for ourselves, you get the improvement too. No forks, no stale codebases.",
   },
   {
-    question: "Can you build automated draw systems?",
+    question: "How long does it take to launch?",
     answer:
-      "Absolutely. We build fully automated, transparent draw systems with provably fair selection, winner notifications, and public draw results. Instant win mechanics are also available.",
+      "Most clients go live 6–10 weeks after kickoff. Mr XCA launched in 8 weeks. If all you need is a brand reskin with our defaults, it's faster.",
   },
   {
-    question: "Do you offer ongoing support after launch?",
+    question: "Can I see the platform running?",
     answer:
-      "Yes. All our packages include a support period, and we offer monthly retainer plans for ongoing maintenance, feature development, and marketing support. We grow with your business.",
+      "Yes — luckyturbo.co.uk is our live flagship. mrxca.co.uk is our first licensee. You can also play the game modes directly on the Platform page without creating an account.",
   },
   {
-    question: "Can you help with marketing and player acquisition?",
+    question: "Who owns the code?",
     answer:
-      "Yes — we offer SEO, Google Ads, Meta Ads, and social media strategy specifically for competition businesses. We understand what drives ticket sales and player retention.",
+      "We do. That's intentional — it's how we can keep rolling out improvements to every tenant simultaneously. You own your brand, your customers, and your tenant data. On Scale plans we can discuss bespoke-fork arrangements.",
   },
   {
-    question: "Can you migrate my WordPress competition site?",
+    question: "What payment providers do you support?",
     answer:
-      "Yes. We regularly migrate competition businesses from WordPress and other platforms. We rebuild your site on modern edge infrastructure with better performance, custom game modes, and full white-label branding — all while keeping your domain, customers, and brand. No more plugin conflicts, no more expensive hosting, and this time you own the platform.",
+      "Cashflows by default (specialist gaming gateway). Stripe and others for specific cases. We'll recommend the best fit during onboarding.",
   },
   {
-    question: "What makes you different from WordPress competition agencies?",
+    question: "Do you handle UK competition regulations?",
     answer:
-      "WordPress agencies build on a general-purpose CMS with third-party plugins. We build purpose-built competition platforms from the ground up using Next.js, Supabase, and Cloudflare edge hosting. The result is faster load times, custom game modes that WordPress simply can't replicate, built-in marketing tools (SMS, email automation, Meta tracking), and a white-label platform you actually own.",
+      "Yes — T&Cs template, age verification, responsible-play messaging, banned-word filters, provable-draw audit logs. We deal with the same rules on Lucky Turbo every day.",
   },
 ];
 
@@ -413,20 +454,20 @@ export const teamMembers: { name: string; role: string; bio: string }[] = [];
 
 export const companyValues = [
   {
-    title: "Player Trust First",
-    description: "Competitions depend on trust. We build transparent platforms with provably fair draws and secure payments.",
+    title: "Dog-fooded",
+    description: "Every feature ships to Lucky Turbo before it ships to you. We eat our own cooking.",
   },
   {
-    title: "Compliance Built-In",
-    description: "Regulatory compliance isn't an afterthought. We build it into every platform from day one.",
+    title: "Compliance built-in",
+    description: "UK competition law is baked into the platform — T&Cs, age checks, fairness audit logs — not bolted on after.",
   },
   {
-    title: "Performance Under Load",
-    description: "Competition launches create traffic spikes. Our platforms are built to handle the rush without breaking a sweat.",
+    title: "Performance at launch",
+    description: "Lucky Turbo sold 41,000 tickets in its launch day. The platform you'd license is the same one.",
   },
   {
-    title: "Long-Term Partnership",
-    description: "We're not a one-and-done shop. We grow with your competition business as it scales.",
+    title: "Improvements travel with the licence",
+    description: "When we ship Apple Pay, new game modes, or an SMS campaign tool — every tenant gets it that week.",
   },
 ];
 
@@ -442,6 +483,7 @@ export const footerLinks = {
   company: [
     { label: "About", href: "/about" },
     { label: "Work", href: "/work" },
+    { label: "Platform demo", href: "/demo" },
     { label: "Pricing", href: "/pricing" },
     { label: "Contact", href: "/contact" },
   ],

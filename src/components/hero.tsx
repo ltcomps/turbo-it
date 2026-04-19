@@ -7,7 +7,7 @@ import { ArrowRight, ExternalLink } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { containerClass } from "@/lib/tokens";
-import { featuredWork } from "@/lib/content";
+import { featuredWork, platformStats, heroContent } from "@/lib/content";
 import { Button } from "@/components/ui/button";
 import { GridBackground } from "@/components/grid-background";
 import { GradientOrbs } from "@/components/gradient-orbs";
@@ -67,7 +67,7 @@ export function Hero() {
               <span className="absolute inline-flex size-full animate-ping rounded-full bg-electric opacity-75" />
               <span className="relative inline-flex size-2 rounded-full bg-electric" />
             </span>
-            UK Competition Platform Specialists
+            {heroContent.badge}
           </motion.div>
 
           <motion.h1
@@ -76,16 +76,18 @@ export function Hero() {
             className="text-4xl font-extrabold tracking-tighter sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl"
           >
             <span className="block">
-              Custom-built{" "}
-              <span className="bg-gradient-to-r from-violet-400 via-electric to-cyan-300 bg-clip-text text-transparent">
-                competition
-              </span>
+              The raffle platform{" "}
             </span>
             <span className="block">
+              <span className="bg-gradient-to-r from-violet-400 via-electric to-cyan-300 bg-clip-text text-transparent">
+                we run ourselves.
+              </span>
+            </span>
+            <span className="block text-muted-foreground">
+              Now licensed to{" "}
               <span className="bg-gradient-to-r from-electric to-cyan-300 bg-clip-text text-transparent">
-                platforms
-              </span>{" "}
-              <span className="text-muted-foreground">that outperform templates.</span>
+                you.
+              </span>
             </span>
           </motion.h1>
 
@@ -94,9 +96,9 @@ export function Hero() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="mx-auto mt-6 max-w-2xl text-base text-muted-foreground sm:text-lg sm:leading-relaxed"
           >
-            Not another DIY template. We design and build bespoke raffle platforms
-            with edge-hosted performance, custom game modes, and marketing tools
-            that template platforms simply can&apos;t offer.
+            Turbo IT is the tech behind Lucky Turbo — our own competition business.
+            Same platform, same edge infrastructure, branded as yours. Live in weeks,
+            not quarters.
           </motion.p>
 
           <motion.div
@@ -109,8 +111,8 @@ export function Hero() {
               size="lg"
               className="group relative h-12 overflow-hidden bg-electric px-8 text-white shadow-[0_0_40px_-8px_var(--glow)] transition-all hover:bg-electric/90 hover:shadow-[0_0_60px_-5px_var(--glow)]"
             >
-              <Link href="/contact">
-                Start a project
+              <Link href="/demo">
+                Play the platform
                 <ArrowRight className="ml-2 size-4 transition-transform duration-200 group-hover:translate-x-1" />
               </Link>
             </Button>
@@ -120,7 +122,7 @@ export function Hero() {
               size="lg"
               className="h-12 border-border/40 px-8 backdrop-blur-sm hover:border-electric/40 hover:bg-electric/5"
             >
-              <Link href="/work">See our work</Link>
+              <Link href="/contact">Talk to the team</Link>
             </Button>
           </motion.div>
         </div>
@@ -255,16 +257,11 @@ export function Hero() {
           transition={{ duration: 0.5, delay: 0.7 }}
           className="mx-auto mt-14 max-w-2xl"
         >
-          <div className="flex items-center justify-center gap-6 rounded-2xl border border-white/[0.06] bg-white/[0.03] px-6 py-5 backdrop-blur-sm sm:gap-12 sm:px-10">
-            {[
-              { value: "2", label: "Live platforms" },
-              { value: "< 1s", label: "Edge TTFB" },
-              { value: "99.9%", label: "Uptime" },
-              { value: "White", label: "Label ready" },
-            ].map((stat) => (
-              <div key={stat.label} className="text-center">
-                <p className="text-lg font-bold sm:text-2xl">{stat.value}</p>
-                <p className="text-[11px] text-muted-foreground sm:text-xs">{stat.label}</p>
+          <div className="flex items-center justify-center gap-5 rounded-2xl border border-white/[0.06] bg-white/[0.03] px-4 py-5 backdrop-blur-sm sm:gap-10 sm:px-10">
+            {platformStats.map((stat) => (
+              <div key={stat.label} className="min-w-0 text-center">
+                <p className="text-lg font-bold tracking-tight sm:text-2xl lg:text-3xl">{stat.value}</p>
+                <p className="text-[10px] leading-tight text-muted-foreground sm:text-xs">{stat.label}</p>
               </div>
             ))}
           </div>

@@ -40,7 +40,8 @@ export default function AboutPage() {
           </span>
 
           <h1 className={cn(tokens.typography.h1, "mx-auto max-w-3xl")}>
-            About Turbo IT
+            We built the raffle platform <span className="bg-gradient-to-r from-violet-400 via-electric to-cyan-300 bg-clip-text text-transparent">we needed.</span>{" "}
+            Then we started licensing it.
           </h1>
 
           <p
@@ -49,10 +50,13 @@ export default function AboutPage() {
               "mx-auto mt-6 max-w-2xl text-muted-foreground"
             )}
           >
-            Founded in Manchester, Turbo IT is a specialist studio focused
-            exclusively on competition and raffle platform development. We
-            combine deep technical expertise with an understanding of what
-            makes players buy tickets — and what makes them come back.
+            Turbo IT is the licensing arm of <strong className="text-foreground">Lucky Turbo Ltd</strong> —
+            a UK competition business based in Manchester. We run{" "}
+            <a href="https://luckyturbo.co.uk" className="text-electric hover:underline">luckyturbo.co.uk</a>{" "}
+            ourselves, on the same platform we license to other operators.
+            Every feature on the Turbo IT licence exists because we needed it
+            to run our own business. No guessing, no theory — just the stack
+            that sells tickets for us, rebranded for you.
           </p>
         </div>
       </section>
@@ -77,9 +81,9 @@ export default function AboutPage() {
                 "text-foreground"
               )}
             >
-              Competition platforms need to do two things brilliantly: build
-              trust and drive ticket sales. Every decision we make is measured
-              against those two outcomes.
+              Every feature we ship hits our own revenue first. If it breaks
+              Lucky Turbo on a Monday, it doesn&rsquo;t ship to clients on
+              Tuesday. That&rsquo;s the only quality bar we need.
             </blockquote>
 
             <p
@@ -88,7 +92,7 @@ export default function AboutPage() {
                 "mt-6 text-muted-foreground"
               )}
             >
-              — Turbo IT, Manchester
+              — Lucky Turbo Ltd, Manchester
             </p>
           </div>
         </div>

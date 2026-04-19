@@ -18,8 +18,9 @@ import { WhyCustom } from "@/components/why-custom";
 import { WordPressMigration } from "@/components/wordpress-migration";
 import { PageTransition } from "@/components/page-transition";
 import { CtaSection } from "@/components/cta-section";
+import { PlatformPlayground } from "@/components/platform-playground";
 import { Button } from "@/components/ui/button";
-import { testimonials, processSteps } from "@/lib/content";
+import { processSteps } from "@/lib/content";
 import { containerClass } from "@/lib/tokens";
 import { cn } from "@/lib/utils";
 
@@ -104,8 +105,6 @@ const fadeUp = {
 /* -------------------------------------------------------------------------- */
 
 export default function HomePage() {
-  const testimonial = testimonials[0];
-
   return (
     <PageTransition>
       {/* ── Hero ── */}
@@ -199,7 +198,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Why Custom? ── */}
+      {/* ── Playable platform demos ── */}
+      <PlatformPlayground />
+
+      {/* ── 3-way comparison matrix ── */}
       <WhyCustom />
 
       {/* ── WordPress Migration ── */}
@@ -263,7 +265,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Platform spotlight — reframed as "what we built", not a review ── */}
+      {/* ── Who we are — Lucky Turbo Ltd dog-food proof ── */}
       <section className="noise relative overflow-hidden border-y border-white/[0.04]">
         <div
           aria-hidden="true"
@@ -276,23 +278,47 @@ export default function HomePage() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="mx-auto max-w-2xl"
+            className="mx-auto max-w-3xl"
           >
-            <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-8 text-center backdrop-blur-sm sm:p-12">
-              <span className="mb-4 inline-block rounded-full border border-electric/20 bg-electric/5 px-4 py-1.5 text-xs font-medium tracking-wider text-electric uppercase">
-                From Our Platform
+            <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-8 backdrop-blur-sm sm:p-12">
+              <span className="inline-block rounded-full border border-electric/20 bg-electric/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-electric">
+                Who runs this thing
               </span>
 
-              <blockquote className="mt-4 text-lg font-medium leading-relaxed sm:text-xl">
-                &ldquo;{testimonial.quote}&rdquo;
-              </blockquote>
-              <div className="mt-6">
-                <p className="font-semibold">{testimonial.author}</p>
-                <p className="text-sm text-muted-foreground">
-                  <Link href="/work/lucky-turbo" className="text-electric hover:underline">
-                    {testimonial.company}
-                  </Link>
-                </p>
+              <h2 className="mt-5 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">
+                Turbo IT is <span className="brand-inline">Lucky Turbo Ltd</span> — the people who
+                run <Link href="https://luckyturbo.co.uk" className="text-electric underline decoration-electric/40 decoration-2 underline-offset-4 hover:decoration-electric">luckyturbo.co.uk</Link>.
+              </h2>
+
+              <p className="mt-5 text-base leading-relaxed text-muted-foreground sm:text-lg">
+                We're not a generic agency. Lucky Turbo is our own competition business —
+                it's done <strong className="text-foreground">50,000+ ticket sales</strong>,
+                awarded <strong className="text-foreground">12,000+ prizes</strong>, and sold{" "}
+                <strong className="text-foreground">41,000 tickets on its launch day alone</strong>.
+              </p>
+              <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
+                The platform that runs it is the platform we license to you under the
+                Turbo IT brand. Same codebase. Same edge infrastructure. Same game modes.
+                Every improvement we ship for Lucky Turbo ships to every client automatically.
+              </p>
+
+              <div className="mt-8 flex flex-wrap items-center gap-3">
+                <Button
+                  asChild
+                  size="sm"
+                  variant="outline"
+                  className="border-electric/30 bg-electric/5 text-electric hover:border-electric/50 hover:bg-electric/10"
+                >
+                  <Link href="/work/lucky-turbo">See Lucky Turbo case study <ArrowRight className="ml-1 size-3.5" /></Link>
+                </Button>
+                <Button
+                  asChild
+                  size="sm"
+                  variant="outline"
+                  className="border-border/40 hover:border-electric/40 hover:bg-electric/5"
+                >
+                  <Link href="/work/mr-xca">See Mr XCA (our first client) <ArrowRight className="ml-1 size-3.5" /></Link>
+                </Button>
               </div>
             </div>
           </motion.div>
