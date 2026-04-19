@@ -107,8 +107,8 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "Turbo IT Contact <onboarding@resend.dev>",
-        to: "info@luckyturbo.co.uk",
+        from: "Turbo IT Contact <hello@turboit.uk>",
+        to: "info@turboit.uk",
         reply_to: email,
         subject: `New Turbo IT Enquiry from ${name}`,
         html,
