@@ -103,6 +103,7 @@ export const featuredWork: {
     tags: ["Next.js", "Cloudflare Pages", "Supabase", "Cashflows", "Instant Wins", "7 Game Modes"],
     color: "#00B0F0",
     liveUrl: "https://luckyturbo.co.uk",
+    screenshot: "/screenshots/luckyturbo-hero.webp",
   },
   {
     slug: "mr-xca",
@@ -116,6 +117,7 @@ export const featuredWork: {
     tags: ["White-label", "Multi-tenant", "Full re-theme", "Admin panel"],
     color: "#38BDF8",
     liveUrl: "https://mrxca.co.uk",
+    screenshot: "/screenshots/mrxca-hero.webp",
   },
 ];
 
@@ -222,7 +224,6 @@ export const gameModes: {
 }[] = [
   { slug: "scratch-card", title: "Scratch Card", tagline: "Canvas-based silver foil — scratch to reveal.", icon: "CreditCard", demoComponent: "DemoScratchCard", difficulty: "easy" },
   { slug: "coin-flip", title: "Coin Flip", tagline: "3D heads-or-tails on a Framer Motion axis.", icon: "Circle", demoComponent: "DemoCoinFlip", difficulty: "easy" },
-  { slug: "mystery-chest", title: "Mystery Chest", tagline: "Tap to open — animated prize reveal.", icon: "Box", demoComponent: "DemoMysteryChest", difficulty: "easy" },
   { slug: "spin-the-wheel", title: "Spin the Wheel", tagline: "Weighted-segment wheel with pointer physics.", icon: "PieChart", demoComponent: "DemoSpinTheWheel", difficulty: "medium" },
   { slug: "turbo-drop", title: "Turbo Drop", tagline: "Plinko-style drop with procedural chiptune.", icon: "Layers", demoComponent: "DemoTurboDrop", difficulty: "medium" },
   { slug: "flappy-bird", title: "Sky Run", tagline: "Flap through pipes — leaderboard prizes.", icon: "Bird", demoComponent: "DemoFlappyBird", difficulty: "hard" },

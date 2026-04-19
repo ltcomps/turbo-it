@@ -14,7 +14,6 @@ import { Button } from "@/components/ui/button";
 const lazyMap = {
   DemoScratchCard:   lazy(() => import("@/components/demos").then(m => ({ default: m.DemoScratchCard }))),
   DemoCoinFlip:      lazy(() => import("@/components/demos").then(m => ({ default: m.DemoCoinFlip }))),
-  DemoMysteryChest:  lazy(() => import("@/components/demos").then(m => ({ default: m.DemoMysteryChest }))),
   DemoSpinTheWheel:  lazy(() => import("@/components/demos").then(m => ({ default: m.DemoSpinTheWheel }))),
   DemoTurboDrop:     lazy(() => import("@/components/demos").then(m => ({ default: m.DemoTurboDrop }))),
   DemoFlappyBird:    lazy(() => import("@/components/demos").then(m => ({ default: m.DemoFlappyBird }))),

@@ -13,7 +13,6 @@ import { useReducedMotion, staggerContainer, pickVariants } from "@/lib/motion";
 
 const filters = [
   { label: "All", value: "All" },
-  { label: "Raffle", value: "Raffle" },
   { label: "Competition", value: "Competition" },
 ] as const;
 
