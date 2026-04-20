@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, ExternalLink } from "lucide-react";
@@ -11,6 +11,7 @@ import { featuredWork, platformStats, heroContent } from "@/lib/content";
 import { Button } from "@/components/ui/button";
 import { GridBackground } from "@/components/grid-background";
 import { GradientOrbs } from "@/components/gradient-orbs";
+import { LazyIframe } from "@/components/lazy-iframe";
 
 const ROTATE_INTERVAL = 5000;
 const CARD_COUNT = featuredWork.length;
@@ -33,6 +34,11 @@ export function Hero() {
   const reducedMotion = useReducedMotion();
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  // Slugs whose iframe is allowed to start loading. A card is "warmed" the
+  // first time it leaves the active position, so the LCP-critical first paint
+  // never has to compete with iframe bytes.
+  const [warmedSlugs, setWarmedSlugs] = useState<Set<string>>(new Set());
+  const prevActiveRef = useRef(0);
 
   const goToNext = useCallback(() => {
     setActiveIndex((prev) => (prev + 1) % CARD_COUNT);
@@ -43,6 +49,21 @@ export function Hero() {
     const timer = setInterval(goToNext, ROTATE_INTERVAL);
     return () => clearInterval(timer);
   }, [isPaused, reducedMotion, goToNext]);
+
+  // Warm the previously-active card the moment it rotates to the back.
+  useEffect(() => {
+    if (prevActiveRef.current === activeIndex) return; // initial mount
+    const prevSlug = featuredWork[prevActiveRef.current]?.slug;
+    if (prevSlug) {
+      setWarmedSlugs((s) => {
+        if (s.has(prevSlug)) return s;
+        const next = new Set(s);
+        next.add(prevSlug);
+        return next;
+      });
+    }
+    prevActiveRef.current = activeIndex;
+  }, [activeIndex]);
 
   const fadeUp = {
     initial: { opacity: 0, y: reducedMotion ? 0 : 24 },
@@ -190,14 +211,24 @@ export function Hero() {
                     )}
 
                     <div className="relative flex h-full flex-col overflow-hidden rounded-2xl border-2 border-electric/30 bg-card/80 shadow-2xl backdrop-blur-sm transition-all duration-300 group-hover:border-electric/60">
-                      {/* Screenshot preview */}
+                      {/* Live preview — screenshot underneath, iframe on top once loaded for the active card */}
                       <div className="relative min-h-0 flex-1 overflow-hidden">
                         <img
                           src={`/screenshots/${item.slug === "lucky-turbo" ? "luckyturbo" : "mrxca"}-hero.webp`}
                           alt={`${item.title} Preview`}
-                          className="h-full w-full object-cover object-top"
+                          className="absolute inset-0 h-full w-full object-cover object-top"
                           loading={isActive ? "eager" : "lazy"}
                         />
+                        <div className="absolute inset-0">
+                          <LazyIframe
+                            src={item.liveUrl}
+                            title={`${item.title} live preview`}
+                            active={warmedSlugs.has(item.slug)}
+                            placeholderColor={item.color}
+                            className="h-full w-full border-0"
+                            style={{ pointerEvents: "none" }}
+                          />
+                        </div>
                       </div>
 
                       {/* Label bar */}
