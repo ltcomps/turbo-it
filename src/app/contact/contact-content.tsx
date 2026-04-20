@@ -18,7 +18,6 @@ const projectTypeOptions = [
   "New competition site (greenfield build)",
   "WordPress migration \u2192 Turbo IT",
   "Custom / React-based site migration \u2192 Turbo IT",
-  "White-label licence (use the platform with my brand)",
   "Demo & exploration",
   "Other / not sure yet",
 ] as const;
