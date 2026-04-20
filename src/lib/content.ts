@@ -455,15 +455,6 @@ export const pricingAddOns: PricingAddOn[] = [
     icon: "MessageSquare",
   },
   {
-    name: "Founder call package",
-    price: "299",
-    billing: "per month",
-    tagline: "1 hour direct access per month",
-    description:
-      "Strategy session with the Turbo IT founders — growth ideas, pricing tweaks, game-mode calibration, compliance questions. Basically a fractional CTO for competition businesses.",
-    icon: "Headphones",
-  },
-  {
     name: "Compliance consulting",
     price: "250",
     billing: "per hour",

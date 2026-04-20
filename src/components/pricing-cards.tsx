@@ -7,7 +7,6 @@ import {
   Gamepad2,
   Zap,
   MessageSquare,
-  Headphones,
   ShieldCheck,
   Calendar,
   type LucideIcon,
@@ -27,7 +26,6 @@ const addOnIconMap: Record<string, LucideIcon> = {
   Gamepad2,
   Zap,
   MessageSquare,
-  Headphones,
   ShieldCheck,
 };
 
