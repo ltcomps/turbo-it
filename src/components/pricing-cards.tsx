@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import {
@@ -8,7 +9,6 @@ import {
   Zap,
   MessageSquare,
   ShieldCheck,
-  Calendar,
   type LucideIcon,
 } from "lucide-react";
 
@@ -28,6 +28,24 @@ const addOnIconMap: Record<string, LucideIcon> = {
   MessageSquare,
   ShieldCheck,
 };
+
+type BillingFrequency = "annual" | "monthly";
+
+const ANNUAL_DISCOUNT = 0.1; // 10% off monthly recurring when billed annually
+
+function annualMonthlyEquivalent(monthly: string): string {
+  if (monthly === "Custom") return "Custom";
+  const n = parseFloat(monthly.replace(/,/g, ""));
+  if (!Number.isFinite(n)) return monthly;
+  return Math.round(n * (1 - ANNUAL_DISCOUNT)).toLocaleString("en-GB");
+}
+
+function annualTotal(monthly: string): string | null {
+  if (monthly === "Custom") return null;
+  const n = parseFloat(monthly.replace(/,/g, ""));
+  if (!Number.isFinite(n)) return null;
+  return Math.round(n * 12 * (1 - ANNUAL_DISCOUNT)).toLocaleString("en-GB");
+}
 
 const cardVariants = {
   hidden: { opacity: 0, y: 32 },
@@ -137,7 +155,19 @@ function AddOnCard({ addOn, idx }: { addOn: PricingAddOn; idx: number }) {
   );
 }
 
-function PlanCard({ plan, idx }: { plan: PricingPlan; idx: number }) {
+function PlanCard({
+  plan,
+  idx,
+  billing,
+}: {
+  plan: PricingPlan;
+  idx: number;
+  billing: BillingFrequency;
+}) {
+  const isAnnual = billing === "annual";
+  const displayMonthly = isAnnual ? annualMonthlyEquivalent(plan.monthly) : plan.monthly;
+  const yearTotal = isAnnual ? annualTotal(plan.monthly) : null;
+
   return (
     <motion.div
       key={plan.name}
@@ -171,11 +201,16 @@ function PlanCard({ plan, idx }: { plan: PricingPlan; idx: number }) {
       {/* Price block */}
       <div className="mt-5 space-y-2 rounded-xl border border-white/[0.05] bg-white/[0.02] p-4">
         <PriceLine
-          label="Monthly"
-          value={plan.monthly}
-          suffix={plan.monthly !== "Custom" ? "/mo" : undefined}
+          label={isAnnual ? "Equivalent monthly" : "Monthly"}
+          value={displayMonthly}
+          suffix={displayMonthly !== "Custom" ? "/mo" : undefined}
           emphasis="headline"
         />
+        {isAnnual && yearTotal && (
+          <p className="-mt-0.5 text-[11px] leading-snug text-emerald-300/80">
+            Billed as £{yearTotal}/year · save 10% on monthly recurring
+          </p>
+        )}
         <PriceLine
           label="Per paid order"
           value={plan.perOrder}
@@ -232,7 +267,62 @@ function PlanCard({ plan, idx }: { plan: PricingPlan; idx: number }) {
   );
 }
 
+function BillingToggle({
+  value,
+  onChange,
+}: {
+  value: BillingFrequency;
+  onChange: (v: BillingFrequency) => void;
+}) {
+  return (
+    <div
+      role="tablist"
+      aria-label="Billing frequency"
+      className="inline-flex items-center gap-1 rounded-full border border-white/[0.08] bg-white/[0.03] p-1 backdrop-blur-sm"
+    >
+      <button
+        role="tab"
+        aria-selected={value === "annual"}
+        onClick={() => onChange("annual")}
+        className={cn(
+          "relative rounded-full px-5 py-2 text-sm font-medium transition-colors",
+          value === "annual"
+            ? "bg-electric text-white shadow-[0_0_20px_-6px_var(--glow)]"
+            : "text-muted-foreground hover:text-foreground",
+        )}
+      >
+        Annual
+        <span
+          className={cn(
+            "ml-2 inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider",
+            value === "annual"
+              ? "bg-white/20 text-white"
+              : "bg-emerald-500/15 text-emerald-300",
+          )}
+        >
+          Save 10%
+        </span>
+      </button>
+      <button
+        role="tab"
+        aria-selected={value === "monthly"}
+        onClick={() => onChange("monthly")}
+        className={cn(
+          "rounded-full px-5 py-2 text-sm font-medium transition-colors",
+          value === "monthly"
+            ? "bg-electric text-white shadow-[0_0_20px_-6px_var(--glow)]"
+            : "text-muted-foreground hover:text-foreground",
+        )}
+      >
+        Monthly
+      </button>
+    </div>
+  );
+}
+
 export function PricingCards() {
+  const [billing, setBilling] = useState<BillingFrequency>("annual");
+
   return (
     <section className={cn(sectionPadding)}>
       <div className={cn(containerClass)}>
@@ -252,13 +342,20 @@ export function PricingCards() {
             Low monthly base, small per-order fee, no hidden percentages. As you grow, the per-order
             rate drops.
           </p>
-          <p className="mt-3 text-xs text-muted-foreground/70">All prices exclude VAT. Per-order = paid orders only (refunds excluded).</p>
+          <p className="mt-3 text-xs text-muted-foreground/70">
+            All prices exclude VAT. Per-order = paid orders only (refunds excluded).
+          </p>
         </motion.div>
 
+        {/* Billing-frequency toggle */}
+        <div className="mt-10 flex justify-center">
+          <BillingToggle value={billing} onChange={setBilling} />
+        </div>
+
         {/* Cards — 3 across on lg, stack on mobile */}
-        <div className="mt-16 grid gap-6 md:grid-cols-3">
+        <div className="mt-10 grid gap-6 md:grid-cols-3">
           {pricingPlans.map((plan, idx) => (
-            <PlanCard key={plan.name} plan={plan} idx={idx} />
+            <PlanCard key={plan.name} plan={plan} idx={idx} billing={billing} />
           ))}
         </div>
 
@@ -470,46 +567,6 @@ export function PricingCards() {
           </div>
         </motion.div>
 
-        {/* ------------------------------------------------------------------ */}
-        {/* Annual billing strip                                                */}
-        {/* ------------------------------------------------------------------ */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.5 }}
-          className="mx-auto mt-14 max-w-5xl"
-        >
-          <div className="relative overflow-hidden rounded-2xl border border-electric/20 bg-gradient-to-br from-electric/[0.06] via-transparent to-violet-500/[0.06] p-6 backdrop-blur-sm sm:p-8">
-            <div className="grid items-center gap-6 sm:grid-cols-[auto_1fr_auto]">
-              <div className="flex size-12 items-center justify-center rounded-xl border border-electric/30 bg-electric/10 text-electric">
-                <Calendar className="size-5" />
-              </div>
-              <div>
-                <h4 className="text-lg font-bold tracking-tight sm:text-xl">
-                  Pay annually, save 10%
-                </h4>
-                <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
-                  Commit for 12 months and we knock 10% off the monthly recurring portion of any
-                  tier. Operator drops from{" "}
-                  <span className="text-foreground">£11,988/yr</span> to{" "}
-                  <span className="font-semibold text-electric">£10,791/yr</span> — a £1,197 saving.
-                  Per-order and add-on fees still bill monthly as they&rsquo;re used.
-                </p>
-              </div>
-              <div className="sm:text-right">
-                <Button
-                  asChild
-                  size="sm"
-                  variant="outline"
-                  className="border-electric/40 bg-electric/5 text-electric hover:border-electric/60 hover:bg-electric/10"
-                >
-                  <Link href="/contact">Ask about annual</Link>
-                </Button>
-              </div>
-            </div>
-          </div>
-        </motion.div>
       </div>
     </section>
   );
