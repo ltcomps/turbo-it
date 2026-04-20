@@ -262,8 +262,13 @@ export function PricingCards() {
               What you&rsquo;ll actually spend to launch
             </h3>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
-              Raffle platforms love hiding the third-party fees. Here&rsquo;s every cost we know about
-              — ours, the payment processor&rsquo;s, and the legal one you&rsquo;d pay anyone.
+              Raffle platforms love hiding the third-party fees. Here&rsquo;s every cost we know
+              about — ours, the payment processor&rsquo;s (paid direct to them, not through us),
+              and the legal one you&rsquo;d pay anyone.
+            </p>
+            <p className="mt-2 text-xs font-medium text-electric/90">
+              We never touch your payment-processor money. Funds settle from Cashflows straight
+              into your bank — we don&rsquo;t bill you for their fees, and we don&rsquo;t mark them up.
             </p>
 
             <div className="mt-8 overflow-hidden rounded-xl border border-white/[0.06]">
@@ -292,15 +297,34 @@ export function PricingCards() {
                     <td className="px-4 py-4 align-top sm:px-5">
                       <p className="font-semibold">Cashflows KYB check</p>
                       <p className="mt-0.5 text-xs text-muted-foreground">
-                        Payment processor&rsquo;s fee — not ours
+                        Paid by you to Cashflows &mdash; not to us
                       </p>
                     </td>
                     <td className="px-4 py-4 align-top sm:px-5">
                       <span className="text-foreground">~£500 one-off</span>{" "}
-                      <span className="text-muted-foreground">(industry standard · we handle the liaison)</span>
+                      <span className="text-muted-foreground">(industry standard · we handle the liaison free of charge)</span>
                     </td>
                     <td className="hidden px-4 py-4 align-top text-muted-foreground sm:table-cell sm:px-5">
-                      ~£500 one-off — you organise it yourself
+                      ~£500 one-off &mdash; you organise it yourself
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-4 align-top sm:px-5">
+                      <p className="font-semibold">Cashflows transaction fees</p>
+                      <p className="mt-0.5 text-xs text-muted-foreground">
+                        Ongoing &mdash; settled direct from your merchant account
+                      </p>
+                    </td>
+                    <td className="px-4 py-4 align-top sm:px-5">
+                      <span className="text-foreground">Typically ~1.4%&ndash;2.5% + 20p per transaction</span>{" "}
+                      <span className="text-muted-foreground">
+                        &mdash; paid directly to Cashflows on your own merchant contract. We never
+                        mark these up and we never see this money.
+                      </span>
+                    </td>
+                    <td className="hidden px-4 py-4 align-top text-muted-foreground sm:table-cell sm:px-5">
+                      Same rates &mdash; but some platforms route funds through themselves and add a
+                      hidden spread
                     </td>
                   </tr>
                   <tr>
