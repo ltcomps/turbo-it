@@ -26,26 +26,32 @@ const fadeUp = {
 function Cell({ value, variant }: { value: string | boolean; variant: "turbo" | "template" | "agency" }) {
   if (value === true) {
     return (
-      <div className={cn(
-        "flex size-6 items-center justify-center rounded-full",
-        variant === "turbo" ? "bg-electric/20 text-electric" : "bg-emerald-500/15 text-emerald-400"
-      )}>
-        <Check className="size-3.5" />
+      <div
+        className={cn(
+          "flex size-9 items-center justify-center rounded-full ring-1 ring-inset",
+          variant === "turbo"
+            ? "bg-electric/25 text-electric ring-electric/40 shadow-[0_0_18px_-2px_var(--glow)]"
+            : "bg-emerald-500/20 text-emerald-300 ring-emerald-400/30 shadow-[0_0_14px_-3px_rgb(16_185_129_/_0.6)]",
+        )}
+      >
+        <Check className="size-5" strokeWidth={3} />
       </div>
     );
   }
   if (value === false) {
     return (
-      <div className="flex size-6 items-center justify-center rounded-full bg-red-500/10 text-red-400">
-        <X className="size-3.5" />
+      <div className="flex size-9 items-center justify-center rounded-full bg-red-500/15 text-red-400 ring-1 ring-inset ring-red-400/30 shadow-[0_0_14px_-3px_rgb(239_68_68_/_0.55)]">
+        <X className="size-5" strokeWidth={3} />
       </div>
     );
   }
   return (
-    <span className={cn(
-      "inline-flex items-center gap-1.5 text-xs font-medium leading-snug",
-      variant === "turbo" ? "text-electric" : "text-muted-foreground"
-    )}>
+    <span
+      className={cn(
+        "inline-flex items-center gap-1.5 text-xs font-medium leading-snug",
+        variant === "turbo" ? "text-electric" : "text-muted-foreground",
+      )}
+    >
       {variant !== "turbo" && <Minus className="size-3 opacity-60" />}
       {value}
     </span>

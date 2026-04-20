@@ -5,6 +5,7 @@ import {
   Github,
   Instagram,
   Zap,
+  ArrowRight,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -30,6 +31,23 @@ export function Footer() {
 
   return (
     <footer className="border-t border-border bg-background">
+      {/* ---- Migrate CTA strip ---- */}
+      <div className="border-b border-border bg-gradient-to-r from-electric/[0.06] via-violet-500/[0.05] to-electric/[0.06]">
+        <div className={cn(containerClass, "flex flex-col items-center justify-between gap-3 py-5 text-center sm:flex-row sm:text-left")}>
+          <p className="text-sm sm:text-base">
+            <span className="text-muted-foreground">Still on WordPress or a template SaaS? </span>
+            <span className="font-semibold">Migrate to Turbo IT in 6 weeks.</span>
+          </p>
+          <Link
+            href="/contact"
+            className="group inline-flex items-center gap-1.5 rounded-full border border-electric/40 bg-electric/10 px-5 py-2 text-sm font-semibold text-electric transition-all hover:border-electric/70 hover:bg-electric/20 hover:shadow-[0_0_24px_-6px_var(--glow)]"
+          >
+            Start a migration chat
+            <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+          </Link>
+        </div>
+      </div>
+
       <div className={cn(containerClass, "py-16")}>
         {/* ---- Top grid ---- */}
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">

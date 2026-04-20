@@ -19,8 +19,9 @@ import { WordPressMigration } from "@/components/wordpress-migration";
 import { PageTransition } from "@/components/page-transition";
 import { CtaSection } from "@/components/cta-section";
 import { PlatformPlayground } from "@/components/platform-playground";
+import { MarqueeStrip } from "@/components/marquee-strip";
 import { Button } from "@/components/ui/button";
-import { processSteps } from "@/lib/content";
+import { marqueeRows, processSteps } from "@/lib/content";
 import { containerClass } from "@/lib/tokens";
 import { cn } from "@/lib/utils";
 
@@ -109,6 +110,9 @@ export default function HomePage() {
     <PageTransition>
       {/* ── Hero ── */}
       <Hero />
+
+      {/* ── Logo / stack marquee ── */}
+      <MarqueeStrip rows={marqueeRows} title="Trusted, built on, paid through" />
 
       {/* ── Services Grid ── */}
       <section className="noise relative overflow-hidden border-t border-white/[0.04]">

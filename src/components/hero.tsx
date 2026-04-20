@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { GridBackground } from "@/components/grid-background";
 import { GradientOrbs } from "@/components/gradient-orbs";
 import { LazyIframe } from "@/components/lazy-iframe";
+import { AnimatedCounter } from "@/components/animated-counter";
 
 const ROTATE_INTERVAL = 5000;
 const CARD_COUNT = featuredWork.length;
@@ -288,7 +289,10 @@ export function Hero() {
           <div className="flex items-center justify-center gap-5 rounded-2xl border border-white/[0.06] bg-white/[0.03] px-4 py-5 backdrop-blur-sm sm:gap-10 sm:px-10">
             {platformStats.map((stat) => (
               <div key={stat.label} className="min-w-0 text-center">
-                <p className="text-lg font-bold tracking-tight sm:text-2xl lg:text-3xl">{stat.value}</p>
+                <AnimatedCounter
+                  value={stat.value}
+                  className="block text-lg font-bold tracking-tight tabular-nums sm:text-2xl lg:text-3xl"
+                />
                 <p className="text-[10px] leading-tight text-muted-foreground sm:text-xs">{stat.label}</p>
               </div>
             ))}

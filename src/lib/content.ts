@@ -78,6 +78,50 @@ export const trustedByLogos = [
   "Mr XCA",
 ];
 
+/* ── Logo wall — three rows of names, mixed across categories so the strip
+   feels dense even with only two live clients today. ── */
+export const marqueeRows: { label: string; items: string[]; reverse?: boolean }[] = [
+  {
+    label: "Live on the platform",
+    items: [
+      "Lucky Turbo",
+      "Mr XCA",
+      "Manchester · UK",
+      "50,000+ tickets sold",
+      "40,000 launch-day tickets",
+      "12,000+ prizes awarded",
+      "7 native game modes",
+    ],
+  },
+  {
+    label: "Built on",
+    reverse: true,
+    items: [
+      "Cloudflare Pages",
+      "Cloudflare Workers",
+      "Supabase",
+      "Next.js 16",
+      "Tailwind CSS",
+      "Framer Motion",
+      "TypeScript",
+    ],
+  },
+  {
+    label: "Payments & trust",
+    items: [
+      "Cashflows",
+      "Apple Pay",
+      "Google Pay",
+      "Visa",
+      "Mastercard",
+      "Amex",
+      "Twilio · SMS",
+      "Resend · Email",
+      "Trustpilot",
+    ],
+  },
+];
+
 export const featuredWork: {
   slug: string;
   title: string;
