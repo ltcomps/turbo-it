@@ -219,14 +219,23 @@ export function Hero() {
                           className="absolute inset-0 h-full w-full object-cover object-top"
                           loading={isActive ? "eager" : "lazy"}
                         />
-                        <div className="absolute inset-0">
+                        {/* Iframe rendered at 2x size then scaled to 50% so the
+                            embedded site sees a desktop viewport while the user
+                            sees a zoomed-out thumbnail with more content visible. */}
+                        <div className="absolute inset-0 overflow-hidden">
                           <LazyIframe
                             src={item.liveUrl}
                             title={`${item.title} live preview`}
                             active={warmedSlugs.has(item.slug)}
                             placeholderColor={item.color}
-                            className="h-full w-full border-0"
-                            style={{ pointerEvents: "none" }}
+                            className="border-0"
+                            style={{
+                              pointerEvents: "none",
+                              width: "200%",
+                              height: "200%",
+                              transformOrigin: "top left",
+                              transform: "scale(0.5)",
+                            }}
                           />
                         </div>
                       </div>
