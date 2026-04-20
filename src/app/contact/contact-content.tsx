@@ -22,12 +22,16 @@ const projectTypeOptions = [
   "Other / not sure yet",
 ] as const;
 
+// First-year total spend buckets aligned to the pricing tiers.
+// Launchpad first year ≈ £2–3k. Operator first year ≈ £20–30k
+// (£2,499 setup + ~£1.7k/mo). Enterprise starts ~£60k+.
 const budgetOptions = [
-  "Under \u00a32.5k",
-  "\u00a32.5k\u2013\u00a35k",
-  "\u00a35k\u2013\u00a310k",
-  "\u00a310k\u2013\u00a325k",
-  "\u00a325k+",
+  "Under \u00a33k \u2014 Launchpad / template",
+  "\u00a33k\u2013\u00a315k \u2014 small custom",
+  "\u00a315k\u2013\u00a330k \u2014 Operator first year",
+  "\u00a330k\u2013\u00a360k",
+  "\u00a360k+ \u2014 Enterprise / bespoke",
+  "Not sure yet",
 ] as const;
 
 function StyledSelect({

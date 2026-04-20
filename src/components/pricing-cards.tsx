@@ -2,12 +2,34 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Check } from "lucide-react";
+import {
+  Check,
+  Gamepad2,
+  Zap,
+  MessageSquare,
+  Headphones,
+  ShieldCheck,
+  Calendar,
+  type LucideIcon,
+} from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { tokens, containerClass, sectionPadding } from "@/lib/tokens";
-import { pricingPlans, type PricingPlan } from "@/lib/content";
+import {
+  pricingPlans,
+  pricingAddOns,
+  type PricingPlan,
+  type PricingAddOn,
+} from "@/lib/content";
 import { Button } from "@/components/ui/button";
+
+const addOnIconMap: Record<string, LucideIcon> = {
+  Gamepad2,
+  Zap,
+  MessageSquare,
+  Headphones,
+  ShieldCheck,
+};
 
 const cardVariants = {
   hidden: { opacity: 0, y: 32 },
@@ -76,6 +98,44 @@ function PriceLine({
         )}
       </span>
     </div>
+  );
+}
+
+function AddOnCard({ addOn, idx }: { addOn: PricingAddOn; idx: number }) {
+  const Icon = addOnIconMap[addOn.icon];
+  return (
+    <motion.div
+      custom={idx}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-60px" }}
+      variants={cardVariants}
+      className="flex flex-col rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5 backdrop-blur-sm transition-colors hover:border-white/[0.12] hover:bg-white/[0.04]"
+    >
+      <div className="mb-3 flex items-center gap-3">
+        <div className="flex size-9 items-center justify-center rounded-lg border border-electric/20 bg-electric/10 text-electric">
+          {Icon && <Icon className="size-4" />}
+        </div>
+        <div>
+          <h4 className="text-sm font-semibold leading-tight">{addOn.name}</h4>
+          <p className="mt-0.5 text-[11px] uppercase tracking-wider text-electric/70">
+            {addOn.tagline}
+          </p>
+        </div>
+      </div>
+      <p className="mb-4 flex-1 text-sm leading-relaxed text-muted-foreground">
+        {addOn.description}
+      </p>
+      <div className="flex items-baseline justify-between border-t border-white/[0.04] pt-3">
+        <span className="text-xs uppercase tracking-wider text-muted-foreground/70">
+          {addOn.billing}
+        </span>
+        <span className="text-xl font-bold tracking-tight tabular-nums">
+          <span className="text-sm font-normal text-muted-foreground">£</span>
+          {addOn.price}
+        </span>
+      </div>
+    </motion.div>
   );
 }
 
@@ -378,6 +438,78 @@ export function PricingCards() {
               solicitor review your final public-facing T&amp;Cs for your specific prize structure —
               that&rsquo;s typically ~£150 for a review (much cheaper than drafting from scratch).
             </p>
+          </div>
+        </motion.div>
+
+        {/* ------------------------------------------------------------------ */}
+        {/* Optional add-ons                                                    */}
+        {/* ------------------------------------------------------------------ */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.5 }}
+          className="mx-auto mt-24 max-w-6xl"
+        >
+          <div className="mb-10 text-center">
+            <span className="inline-block rounded-full border border-electric/20 bg-electric/5 px-4 py-1.5 text-xs font-medium uppercase tracking-widest text-electric">
+              Optional add-ons
+            </span>
+            <h3 className="mt-4 text-2xl font-bold tracking-tight sm:text-3xl">
+              Stack what your business needs
+            </h3>
+            <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+              Everything on the main tiers is a complete running platform. These add-ons exist for
+              the moments when you want a bit more — a custom game mechanic, a founder&rsquo;s phone
+              number, or a cohort of SMS credits sitting ready for your next campaign.
+            </p>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {pricingAddOns.map((addOn, i) => (
+              <AddOnCard key={addOn.name} addOn={addOn} idx={i} />
+            ))}
+          </div>
+        </motion.div>
+
+        {/* ------------------------------------------------------------------ */}
+        {/* Annual billing strip                                                */}
+        {/* ------------------------------------------------------------------ */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.5 }}
+          className="mx-auto mt-14 max-w-5xl"
+        >
+          <div className="relative overflow-hidden rounded-2xl border border-electric/20 bg-gradient-to-br from-electric/[0.06] via-transparent to-violet-500/[0.06] p-6 backdrop-blur-sm sm:p-8">
+            <div className="grid items-center gap-6 sm:grid-cols-[auto_1fr_auto]">
+              <div className="flex size-12 items-center justify-center rounded-xl border border-electric/30 bg-electric/10 text-electric">
+                <Calendar className="size-5" />
+              </div>
+              <div>
+                <h4 className="text-lg font-bold tracking-tight sm:text-xl">
+                  Pay annually, save 10%
+                </h4>
+                <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+                  Commit for 12 months and we knock 10% off the monthly recurring portion of any
+                  tier. Operator drops from{" "}
+                  <span className="text-foreground">£11,988/yr</span> to{" "}
+                  <span className="font-semibold text-electric">£10,791/yr</span> — a £1,197 saving.
+                  Per-order and add-on fees still bill monthly as they&rsquo;re used.
+                </p>
+              </div>
+              <div className="sm:text-right">
+                <Button
+                  asChild
+                  size="sm"
+                  variant="outline"
+                  className="border-electric/40 bg-electric/5 text-electric hover:border-electric/60 hover:bg-electric/10"
+                >
+                  <Link href="/contact">Ask about annual</Link>
+                </Button>
+              </div>
+            </div>
           </div>
         </motion.div>
       </div>

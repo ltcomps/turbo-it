@@ -416,6 +416,64 @@ export type PricingPlan = {
   cta: string;
 };
 
+export type PricingAddOn = {
+  name: string;
+  price: string;
+  /** Human-readable billing frequency, e.g. "one-off", "per month", "per hour". */
+  billing: string;
+  tagline: string;
+  description: string;
+  icon: string; // lucide icon name
+};
+
+export const pricingAddOns: PricingAddOn[] = [
+  {
+    name: "Bespoke game mode",
+    price: "1,499",
+    billing: "one-off",
+    tagline: "Your own prize mechanic",
+    description:
+      "We've built scratch cards, spin wheels, coin flips, plinko, Flappy Bird and match-3. If you have a game-mode idea that would make your brand unmistakable, we build it.",
+    icon: "Gamepad2",
+  },
+  {
+    name: "Rush onboarding",
+    price: "999",
+    billing: "one-off",
+    tagline: "Live in 3 weeks, not 8",
+    description:
+      "Some launches can't wait — Black Friday, F1 weekend, a specific product drop. We'll drop other work, cut the usual review cycles, and have you live in 3 weeks.",
+    icon: "Zap",
+  },
+  {
+    name: "SMS credit bundle",
+    price: "149",
+    billing: "per month",
+    tagline: "5,000 SMS + campaigns included",
+    description:
+      "Powers winner notifications, basket-abandonment recovery, and scheduled marketing pushes. Rolls over unused credits. Twilio under the hood — no markup on the numbers.",
+    icon: "MessageSquare",
+  },
+  {
+    name: "Founder call package",
+    price: "299",
+    billing: "per month",
+    tagline: "1 hour direct access per month",
+    description:
+      "Strategy session with the Turbo IT founders — growth ideas, pricing tweaks, game-mode calibration, compliance questions. Basically a fractional CTO for competition businesses.",
+    icon: "Headphones",
+  },
+  {
+    name: "Compliance consulting",
+    price: "250",
+    billing: "per hour",
+    tagline: "UK competition-law guidance",
+    description:
+      "Ad-hoc help with skill-question design, prize structure, Gambling Commission queries, T&Cs edge cases. Drawn from our own daily experience running Lucky Turbo.",
+    icon: "ShieldCheck",
+  },
+];
+
 export const pricingPlans: PricingPlan[] = [
   {
     name: "Launchpad",
