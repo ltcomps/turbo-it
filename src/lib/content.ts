@@ -406,15 +406,10 @@ export type PricingPlan = {
   setup: string | null;
   /** Recurring monthly fee in £. Use "Custom" for enterprise tier. */
   monthly: string;
-  /** Per paid-order fee in £. Null means "not applicable — see revShare". */
+  /** Per paid-order fee in £. Null means "Custom". */
   perOrder: string | null;
-  /** Optional revenue share applied instead of per-order fee. */
-  revShare?: {
-    /** Percent of paid GMV, e.g. 1 for 1%. */
-    percent: number;
-    /** Monthly cap in £ — stops the revenue share escalating indefinitely. */
-    capMonthly?: string;
-  };
+  /** Optional footnote under the per-order line — e.g. a volume breakpoint. */
+  perOrderNote?: string;
   description: string;
   features: string[];
   highlighted: boolean;
@@ -446,11 +441,12 @@ export const pricingPlans: PricingPlan[] = [
   {
     name: "Operator",
     tagline: "Custom design, fully migrated",
-    setup: "499",
-    monthly: "299",
-    perOrder: "0.09",
+    setup: "2,499",
+    monthly: "999",
+    perOrder: "0.12",
+    perOrderNote: "Drops to £0.07 / order above 10,000 paid orders per month.",
     description:
-      "Custom-designed site built around your brand. We migrate your WordPress or React storefront, re-theme end-to-end, and onboard your team — usually in 6–10 weeks.",
+      "Custom-designed site built around your brand. We migrate your WordPress or React storefront, re-theme end-to-end, and onboard your team — usually in 6–10 weeks. The breakpoint rewards you as you grow, without forcing a tier change.",
     features: [
       "Everything in Launchpad",
       "Custom design from scratch (no template)",
@@ -465,38 +461,21 @@ export const pricingPlans: PricingPlan[] = [
     cta: "Discuss a custom build",
   },
   {
-    name: "Scale",
-    tagline: "Bespoke game modes + dedicated infra",
-    setup: "999",
-    monthly: "999",
-    perOrder: null,
-    revShare: { percent: 1, capMonthly: "15,000" },
-    description:
-      "For high-volume operators who want their own game mechanics, dedicated infrastructure, and a direct line to the founders. Revenue share scales with you — capped so your bill never runs away.",
-    features: [
-      "Everything in Operator",
-      "Bespoke game-mode development",
-      "Dedicated Supabase + Workers tenant",
-      "API + webhook integrations",
-      "Compliance consulting",
-      "Dedicated account manager",
-      "Same-day SLA",
-    ],
-    highlighted: false,
-    cta: "Talk to the founders",
-  },
-  {
     name: "Enterprise",
-    tagline: "Quoted",
+    tagline: "Bespoke commercial terms",
     setup: "Custom",
     monthly: "Custom",
     perOrder: "Custom",
     description:
-      "Multi-brand operators, white-label resellers, or anything that doesn't fit the tiers above. We'll quote on-spec.",
+      "Multi-brand operators, white-label resellers, high-volume businesses doing seven-figure months, or anything that doesn't fit the tiers above. We'll quote on-spec with bespoke SLAs, dedicated infrastructure, and a direct line to the founders.",
     features: [
-      "Multi-tenant management",
-      "Custom commercial terms",
-      "Bespoke SLAs + procurement-friendly contracts",
+      "Bespoke game-mode development",
+      "Dedicated Supabase + Workers tenant",
+      "Multi-brand / multi-tenant management",
+      "API + webhook integrations",
+      "Compliance consulting",
+      "Dedicated account manager + same-day SLA",
+      "Procurement-friendly contracts",
       "Founder-led onboarding",
     ],
     highlighted: false,
@@ -533,7 +512,7 @@ export const faqItems = [
   {
     question: "Who owns the code?",
     answer:
-      "We do. That's intentional — it's how we can keep rolling out improvements to every tenant simultaneously. You own your brand, your customers, and your tenant data. On Scale plans we can discuss bespoke-fork arrangements.",
+      "We do. That's intentional — it's how we can keep rolling out improvements to every tenant simultaneously. You own your brand, your customers, and your tenant data. On Enterprise plans we can discuss bespoke-fork arrangements.",
   },
   {
     question: "What payment providers do you support?",

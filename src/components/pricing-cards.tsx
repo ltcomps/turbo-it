@@ -118,23 +118,13 @@ function PlanCard({ plan, idx }: { plan: PricingPlan; idx: number }) {
           suffix={plan.monthly !== "Custom" ? "/mo" : undefined}
           emphasis="headline"
         />
-        {plan.revShare ? (
-          <div className="flex items-baseline justify-between gap-3 text-sm">
-            <span className="text-muted-foreground">Revenue share</span>
-            <span className="tabular-nums font-semibold">
-              {plan.revShare.percent}%
-              <span className="ml-1 font-normal text-muted-foreground">
-                of paid GMV
-                {plan.revShare.capMonthly && ` · cap £${plan.revShare.capMonthly}/mo`}
-              </span>
-            </span>
-          </div>
-        ) : (
-          <PriceLine
-            label="Per paid order"
-            value={plan.perOrder}
-            suffix={plan.perOrder && plan.perOrder !== "Custom" ? "/order" : undefined}
-          />
+        <PriceLine
+          label="Per paid order"
+          value={plan.perOrder}
+          suffix={plan.perOrder && plan.perOrder !== "Custom" ? "/order" : undefined}
+        />
+        {plan.perOrderNote && (
+          <p className="pl-[1px] text-[11px] leading-snug text-electric/80">{plan.perOrderNote}</p>
         )}
         <PriceLine
           label="One-off setup"
@@ -207,39 +197,50 @@ export function PricingCards() {
           <p className="mt-3 text-xs text-muted-foreground/70">All prices exclude VAT. Per-order = paid orders only (refunds excluded).</p>
         </motion.div>
 
-        {/* Cards — 4 across on xl, 2x2 on md, 1 on mobile */}
-        <div className="mt-16 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+        {/* Cards — 3 across on lg, stack on mobile */}
+        <div className="mt-16 grid gap-6 md:grid-cols-3">
           {pricingPlans.map((plan, idx) => (
             <PlanCard key={plan.name} plan={plan} idx={idx} />
           ))}
         </div>
 
-        {/* Worked examples — two scenarios so both "per-order" and "rev-share" models land */}
+        {/* Worked examples — three real-world scenarios across tiers */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="mx-auto mt-14 grid max-w-5xl gap-4 sm:grid-cols-2"
+          className="mx-auto mt-14 grid max-w-5xl gap-4 md:grid-cols-3"
         >
           <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6 backdrop-blur-sm sm:p-7">
-            <p className="mb-2 text-xs font-medium uppercase tracking-widest text-electric/80">
-              Operator @ 5,000 orders / month
+            <p className="mb-2 text-xs font-medium uppercase tracking-widest text-muted-foreground/80">
+              Launchpad · solo operator
             </p>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              £499 setup (one-off) + £299/mo + (5,000 × £0.09) ={" "}
-              <span className="font-semibold text-electric">£749/mo</span>{" "}
-              <span className="text-muted-foreground/70">(~£0.15 per order all-in)</span>
+            <p className="text-xs text-muted-foreground/70">~400 paid orders / month</p>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+              £0 setup + £99/mo + (400 × £0.19) ={" "}
+              <span className="font-semibold text-electric">£175/mo</span>
             </p>
           </div>
-          <div className="rounded-2xl border border-electric/20 bg-electric/[0.03] p-6 backdrop-blur-sm sm:p-7">
+          <div className="rounded-2xl border border-electric/25 bg-electric/[0.03] p-6 backdrop-blur-sm sm:p-7">
             <p className="mb-2 text-xs font-medium uppercase tracking-widest text-electric/80">
-              Scale @ £500k monthly GMV
+              Operator · established brand
             </p>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              £999 setup + £999/mo + 1% of £500,000 ={" "}
-              <span className="font-semibold text-electric">£5,999/mo</span>{" "}
-              <span className="text-muted-foreground/70">(cap keeps it at £15k/mo max, even at £2M+ GMV)</span>
+            <p className="text-xs text-muted-foreground/70">6,000 paid orders / month</p>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+              £2,499 setup (one-off) + £999/mo + (6,000 × £0.12) ={" "}
+              <span className="font-semibold text-electric">£1,719/mo</span>{" "}
+              <span className="text-muted-foreground/70">(~£0.29 per order all-in)</span>
+            </p>
+          </div>
+          <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6 backdrop-blur-sm sm:p-7">
+            <p className="mb-2 text-xs font-medium uppercase tracking-widest text-muted-foreground/80">
+              Operator · growing (breakpoint)
+            </p>
+            <p className="text-xs text-muted-foreground/70">15,000 paid orders / month</p>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+              £999/mo + (10k × £0.12) + (5k × £0.07) ={" "}
+              <span className="font-semibold text-electric">£2,549/mo</span>
             </p>
           </div>
         </motion.div>
@@ -287,10 +288,10 @@ export function PricingCards() {
                       <p className="mt-0.5 text-xs text-muted-foreground">One-off to our team</p>
                     </td>
                     <td className="px-4 py-4 align-top sm:px-5">
-                      £0 on Launchpad · £499 on Operator · £999 on Scale
+                      £0 on Launchpad · £2,499 on Operator (full custom design + migration)
                     </td>
                     <td className="hidden px-4 py-4 align-top text-muted-foreground sm:table-cell sm:px-5">
-                      Up to £1,999 on mid-tier plans
+                      Up to £1,999 on mid-tier plans — template only, no migration
                     </td>
                   </tr>
                   <tr>
@@ -360,11 +361,11 @@ export function PricingCards() {
                   <tr className="bg-electric/[0.05]">
                     <td className="px-4 py-4 align-top sm:px-5 font-semibold">Total to go live</td>
                     <td className="px-4 py-4 align-top sm:px-5">
-                      <span className="font-semibold text-electric">£500–£1,650</span>{" "}
-                      <span className="text-muted-foreground">(depending on tier)</span>
+                      <span className="font-semibold text-electric">£500 (Launchpad) &ndash; £3,150 (Operator)</span>{" "}
+                      <span className="text-muted-foreground">&mdash; Operator includes full custom build + migration</span>
                     </td>
                     <td className="hidden px-4 py-4 align-top text-muted-foreground sm:table-cell sm:px-5">
-                      £1,200–£3,200
+                      £1,200&ndash;£3,200 &mdash; template-only, no migration
                     </td>
                   </tr>
                 </tbody>
