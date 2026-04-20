@@ -399,57 +399,100 @@ export const testimonials = [
   },
 ];
 
-export const pricingPlans = [
+export type PricingPlan = {
+  name: string;
+  tagline: string;
+  /** One-off setup fee in £, or null/zero for "no setup". */
+  setup: string | null;
+  /** Recurring monthly fee in £. Use "Custom" for enterprise tier. */
+  monthly: string;
+  /** Per paid-order fee in £. Use "Custom" or null for enterprise. */
+  perOrder: string | null;
+  description: string;
+  features: string[];
+  highlighted: boolean;
+  cta: string;
+};
+
+export const pricingPlans: PricingPlan[] = [
   {
-    name: "Starter",
-    price: "499",
-    period: "/month",
-    description: "Your own white-labelled competition site, live in weeks.",
+    name: "Launchpad",
+    tagline: "Template-based, live in 5 days",
+    setup: null,
+    monthly: "99",
+    perOrder: "0.19",
+    description:
+      "Pick a launch template, swap in your brand, and start selling tickets this week. Same engine that runs Lucky Turbo — without the custom design timeline.",
     features: [
-      "Your brand, your domain",
-      "Mobile-first storefront",
-      "Cashflows payment integration",
-      "Manual draw tooling",
-      "Admin panel access",
-      "Hosting + SSL included",
+      "Pick from our library of launch templates",
+      "Apply your branding (colours, logo, copy)",
+      "Your own domain + admin panel",
+      "Cashflows checkout (Apple Pay + Google Pay)",
+      "All 7 native game modes",
+      "Automated draws + instant wins",
+      "Hosting + SSL + edge cache included",
       "Email support",
     ],
     highlighted: false,
-    cta: "Get Started",
+    cta: "Start with a template",
   },
   {
-    name: "Growth",
-    price: "899",
-    period: "/month",
-    description: "Established competition businesses ready to scale.",
+    name: "Operator",
+    tagline: "Custom design, fully migrated",
+    setup: "499",
+    monthly: "299",
+    perOrder: "0.09",
+    description:
+      "Custom-designed site built around your brand. We migrate your WordPress or React storefront, re-theme end-to-end, and onboard your team — usually in 6–10 weeks.",
     features: [
-      "Everything in Starter",
-      "All 7 native game modes",
-      "Automated draws + instant wins",
+      "Everything in Launchpad",
+      "Custom design from scratch (no template)",
+      "WordPress / React migration handled by us",
+      "Bespoke landing pages + content sections",
       "SMS + email marketing suite",
       "Meta Pixel + CAPI server-side",
-      "Real-time analytics",
+      "Real-time analytics dashboard",
       "Priority support",
     ],
     highlighted: true,
-    cta: "Get Started",
+    cta: "Discuss a custom build",
   },
   {
     name: "Scale",
-    price: "Custom",
-    period: "",
-    description: "Custom game modes, dedicated infra, enterprise support.",
+    tagline: "Bespoke game modes + dedicated infra",
+    setup: "999",
+    monthly: "599",
+    perOrder: "0.04",
+    description:
+      "For high-volume operators who want their own game mechanics, dedicated infrastructure, and a direct line to the founders.",
     features: [
-      "Everything in Growth",
+      "Everything in Operator",
       "Bespoke game-mode development",
-      "Dedicated Supabase + Workers",
+      "Dedicated Supabase + Workers tenant",
       "API + webhook integrations",
       "Compliance consulting",
       "Dedicated account manager",
       "Same-day SLA",
     ],
     highlighted: false,
-    cta: "Let's Talk",
+    cta: "Talk to the founders",
+  },
+  {
+    name: "Enterprise",
+    tagline: "Quoted",
+    setup: "Custom",
+    monthly: "Custom",
+    perOrder: "Custom",
+    description:
+      "Multi-brand operators, white-label resellers, or anything that doesn't fit the tiers above. We'll quote on-spec.",
+    features: [
+      "Multi-tenant management",
+      "Custom commercial terms",
+      "Bespoke SLAs + procurement-friendly contracts",
+      "Founder-led onboarding",
+    ],
+    highlighted: false,
+    cta: "Get a quote",
   },
 ];
 
