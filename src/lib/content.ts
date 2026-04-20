@@ -406,8 +406,15 @@ export type PricingPlan = {
   setup: string | null;
   /** Recurring monthly fee in £. Use "Custom" for enterprise tier. */
   monthly: string;
-  /** Per paid-order fee in £. Use "Custom" or null for enterprise. */
+  /** Per paid-order fee in £. Null means "not applicable — see revShare". */
   perOrder: string | null;
+  /** Optional revenue share applied instead of per-order fee. */
+  revShare?: {
+    /** Percent of paid GMV, e.g. 1 for 1%. */
+    percent: number;
+    /** Monthly cap in £ — stops the revenue share escalating indefinitely. */
+    capMonthly?: string;
+  };
   description: string;
   features: string[];
   highlighted: boolean;
@@ -461,10 +468,11 @@ export const pricingPlans: PricingPlan[] = [
     name: "Scale",
     tagline: "Bespoke game modes + dedicated infra",
     setup: "999",
-    monthly: "599",
-    perOrder: "0.04",
+    monthly: "999",
+    perOrder: null,
+    revShare: { percent: 1, capMonthly: "15,000" },
     description:
-      "For high-volume operators who want their own game mechanics, dedicated infrastructure, and a direct line to the founders.",
+      "For high-volume operators who want their own game mechanics, dedicated infrastructure, and a direct line to the founders. Revenue share scales with you — capped so your bill never runs away.",
     features: [
       "Everything in Operator",
       "Bespoke game-mode development",

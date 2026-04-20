@@ -118,11 +118,24 @@ function PlanCard({ plan, idx }: { plan: PricingPlan; idx: number }) {
           suffix={plan.monthly !== "Custom" ? "/mo" : undefined}
           emphasis="headline"
         />
-        <PriceLine
-          label="Per paid order"
-          value={plan.perOrder}
-          suffix={plan.perOrder && plan.perOrder !== "Custom" ? "/order" : undefined}
-        />
+        {plan.revShare ? (
+          <div className="flex items-baseline justify-between gap-3 text-sm">
+            <span className="text-muted-foreground">Revenue share</span>
+            <span className="tabular-nums font-semibold">
+              {plan.revShare.percent}%
+              <span className="ml-1 font-normal text-muted-foreground">
+                of paid GMV
+                {plan.revShare.capMonthly && ` · cap £${plan.revShare.capMonthly}/mo`}
+              </span>
+            </span>
+          </div>
+        ) : (
+          <PriceLine
+            label="Per paid order"
+            value={plan.perOrder}
+            suffix={plan.perOrder && plan.perOrder !== "Custom" ? "/order" : undefined}
+          />
+        )}
         <PriceLine
           label="One-off setup"
           value={plan.setup}
@@ -201,23 +214,146 @@ export function PricingCards() {
           ))}
         </div>
 
-        {/* Tiny example calculator strip */}
+        {/* Worked examples — two scenarios so both "per-order" and "rev-share" models land */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="mx-auto mt-14 max-w-3xl rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6 backdrop-blur-sm sm:p-8"
+          className="mx-auto mt-14 grid max-w-5xl gap-4 sm:grid-cols-2"
         >
-          <p className="mb-3 text-xs font-medium uppercase tracking-widest text-electric/80">
-            What it looks like in real numbers
-          </p>
-          <p className="text-sm leading-relaxed text-muted-foreground">
-            <span className="font-semibold text-foreground">Operator tier, 5,000 paid orders / month:</span>{" "}
-            £499 setup (one-off) + £299/mo + (5,000 × £0.09) = <span className="font-semibold text-electric">£749/mo</span>.
-            That&rsquo;s ~£0.15 per order all-in — and we run the whole platform, payments, draws, SMS,
-            and pixels for you.
-          </p>
+          <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6 backdrop-blur-sm sm:p-7">
+            <p className="mb-2 text-xs font-medium uppercase tracking-widest text-electric/80">
+              Operator @ 5,000 orders / month
+            </p>
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              £499 setup (one-off) + £299/mo + (5,000 × £0.09) ={" "}
+              <span className="font-semibold text-electric">£749/mo</span>{" "}
+              <span className="text-muted-foreground/70">(~£0.15 per order all-in)</span>
+            </p>
+          </div>
+          <div className="rounded-2xl border border-electric/20 bg-electric/[0.03] p-6 backdrop-blur-sm sm:p-7">
+            <p className="mb-2 text-xs font-medium uppercase tracking-widest text-electric/80">
+              Scale @ £500k monthly GMV
+            </p>
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              £999 setup + £999/mo + 1% of £500,000 ={" "}
+              <span className="font-semibold text-electric">£5,999/mo</span>{" "}
+              <span className="text-muted-foreground/70">(cap keeps it at £15k/mo max, even at £2M+ GMV)</span>
+            </p>
+          </div>
+        </motion.div>
+
+        {/* Startup-costs transparency section */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.5, delay: 0.25 }}
+          className="mx-auto mt-16 max-w-5xl"
+        >
+          <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6 backdrop-blur-sm sm:p-10">
+            <div className="mb-6 flex items-center gap-3">
+              <span className="inline-block rounded-full border border-electric/20 bg-electric/5 px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-electric">
+                Startup costs, unvarnished
+              </span>
+            </div>
+            <h3 className="text-2xl font-bold tracking-tight sm:text-3xl">
+              What you&rsquo;ll actually spend to launch
+            </h3>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
+              Raffle platforms love hiding the third-party fees. Here&rsquo;s every cost we know about
+              — ours, the payment processor&rsquo;s, and the legal one you&rsquo;d pay anyone.
+            </p>
+
+            <div className="mt-8 overflow-hidden rounded-xl border border-white/[0.06]">
+              <table className="w-full text-left text-sm">
+                <thead className="bg-white/[0.03] text-xs uppercase tracking-wider text-muted-foreground/80">
+                  <tr>
+                    <th className="px-4 py-3 sm:px-5">Cost</th>
+                    <th className="px-4 py-3 sm:px-5">Turbo IT</th>
+                    <th className="hidden px-4 py-3 sm:table-cell sm:px-5">Template platforms (typical)</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-white/[0.04]">
+                  <tr>
+                    <td className="px-4 py-4 align-top sm:px-5">
+                      <p className="font-semibold">Platform setup</p>
+                      <p className="mt-0.5 text-xs text-muted-foreground">One-off to our team</p>
+                    </td>
+                    <td className="px-4 py-4 align-top sm:px-5">
+                      £0 on Launchpad · £499 on Operator · £999 on Scale
+                    </td>
+                    <td className="hidden px-4 py-4 align-top text-muted-foreground sm:table-cell sm:px-5">
+                      Up to £1,999 on mid-tier plans
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-4 align-top sm:px-5">
+                      <p className="font-semibold">Cashflows KYB check</p>
+                      <p className="mt-0.5 text-xs text-muted-foreground">
+                        Payment processor&rsquo;s fee — not ours
+                      </p>
+                    </td>
+                    <td className="px-4 py-4 align-top sm:px-5">
+                      <span className="text-foreground">~£500 one-off</span>{" "}
+                      <span className="text-muted-foreground">(industry standard · we handle the liaison)</span>
+                    </td>
+                    <td className="hidden px-4 py-4 align-top text-muted-foreground sm:table-cell sm:px-5">
+                      ~£500 one-off — you organise it yourself
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-4 align-top sm:px-5">
+                      <p className="font-semibold">Legal T&amp;Cs</p>
+                      <p className="mt-0.5 text-xs text-muted-foreground">
+                        UK competition-law compliant
+                      </p>
+                    </td>
+                    <td className="px-4 py-4 align-top sm:px-5">
+                      <span className="font-semibold text-electric">£0</span>{" "}
+                      <span className="text-muted-foreground">
+                        — battle-tested T&amp;Cs from luckyturbo.co.uk included. Optional solicitor
+                        review for edge cases ~£150.
+                      </span>
+                    </td>
+                    <td className="hidden px-4 py-4 align-top text-muted-foreground sm:table-cell sm:px-5">
+                      £700+ VAT from specialist solicitor
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-4 align-top sm:px-5">
+                      <p className="font-semibold">Domain + SSL + hosting</p>
+                    </td>
+                    <td className="px-4 py-4 align-top sm:px-5">
+                      <span className="font-semibold text-electric">£0</span>{" "}
+                      <span className="text-muted-foreground">— included on every tier (edge-hosted on Cloudflare)</span>
+                    </td>
+                    <td className="hidden px-4 py-4 align-top text-muted-foreground sm:table-cell sm:px-5">
+                      Usually bundled
+                    </td>
+                  </tr>
+                  <tr className="bg-electric/[0.05]">
+                    <td className="px-4 py-4 align-top sm:px-5 font-semibold">Total to go live</td>
+                    <td className="px-4 py-4 align-top sm:px-5">
+                      <span className="font-semibold text-electric">£500–£1,650</span>{" "}
+                      <span className="text-muted-foreground">(depending on tier)</span>
+                    </td>
+                    <td className="hidden px-4 py-4 align-top text-muted-foreground sm:table-cell sm:px-5">
+                      £1,200–£3,200
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p className="mt-5 text-xs leading-relaxed text-muted-foreground/70">
+              Our T&amp;Cs template reflects current UK competition law and is derived from the
+              documents we operate Lucky Turbo under every day. We strongly recommend an independent
+              solicitor review your final public-facing T&amp;Cs for your specific prize structure —
+              that&rsquo;s typically ~£150 for a review (much cheaper than drafting from scratch).
+            </p>
+          </div>
         </motion.div>
       </div>
     </section>
