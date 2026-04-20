@@ -6,7 +6,6 @@ import { Send, Loader2 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { tokens, containerClass, sectionPadding } from "@/lib/tokens";
-import { services } from "@/lib/content";
 import {
   fadeInUp,
   pickVariants,
@@ -14,6 +13,15 @@ import {
 } from "@/lib/motion";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+
+const projectTypeOptions = [
+  "New competition site (greenfield build)",
+  "WordPress migration \u2192 Turbo IT",
+  "Custom / React-based site migration \u2192 Turbo IT",
+  "White-label licence (use the platform with my brand)",
+  "Demo & exploration",
+  "Other / not sure yet",
+] as const;
 
 const budgetOptions = [
   "Under \u00a32.5k",
@@ -148,8 +156,9 @@ export function ContactContent() {
             Let&rsquo;s Build Your Competition Platform
           </h1>
           <p className="mt-3 text-base text-muted-foreground sm:mt-4 sm:text-lg">
-            Tell us about your raffle or competition project and we&rsquo;ll
-            get back to you within 24 hours. All fields are required.
+            Building a new competition site, migrating from WordPress, or moving
+            off a custom React stack? Tell us a bit about your project and
+            we&rsquo;ll get back to you within 24 hours.
           </p>
         </motion.div>
 
@@ -237,14 +246,14 @@ export function ContactContent() {
                 <div className="grid gap-5 sm:grid-cols-2 sm:gap-6">
                   <div className="space-y-2">
                     <label htmlFor="contact-service" className="text-sm font-medium">
-                      Service Interest <span className="text-destructive">*</span>
+                      Project Type <span className="text-destructive">*</span>
                     </label>
                     <StyledSelect
                       id="contact-service"
                       value={form.service}
                       onChange={updateField("service")}
-                      options={services.map((s) => s.title)}
-                      placeholder="Select a service..."
+                      options={projectTypeOptions}
+                      placeholder="What are you building?"
                     />
                   </div>
                   <div className="space-y-2">
@@ -269,7 +278,7 @@ export function ContactContent() {
                   <textarea
                     id="contact-message"
                     rows={4}
-                    placeholder="Tell us about your project..."
+                    placeholder="What are you running today, what's the timeline, and what would success look like?"
                     value={form.message}
                     onChange={(e) => updateField("message")(e.target.value)}
                     required
