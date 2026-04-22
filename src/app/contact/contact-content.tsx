@@ -24,7 +24,7 @@ const projectTypeOptions = [
 
 // First-year total spend buckets aligned to the pricing tiers.
 // Launchpad first year ≈ £2–3k. Operator first year ≈ £20–30k
-// (£2,499 setup + ~£1.7k/mo). Enterprise starts ~£60k+.
+// (£1,999 setup + ~£1.7k/mo). Enterprise starts ~£60k+.
 const budgetOptions = [
   "Under \u00a33k \u2014 Launchpad / template",
   "\u00a33k\u2013\u00a315k \u2014 small custom",

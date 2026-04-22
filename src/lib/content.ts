@@ -490,7 +490,7 @@ export const pricingPlans: PricingPlan[] = [
   {
     name: "Operator",
     tagline: "Custom design, fully migrated",
-    setup: "2,499",
+    setup: "1,999",
     monthly: "999",
     perOrder: "0.12",
     perOrderNote: "Drops to £0.07 / order above 10,000 paid orders per month.",

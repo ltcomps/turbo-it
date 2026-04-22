@@ -359,6 +359,133 @@ export function PricingCards() {
           ))}
         </div>
 
+        {/* Head-to-head comparison — Launchpad vs the UK raffle-platform alternatives */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.5, delay: 0.15 }}
+          className="mx-auto mt-16 max-w-5xl"
+        >
+          <div className="mb-8 text-center">
+            <span className="inline-block rounded-full border border-electric/20 bg-electric/5 px-4 py-1.5 text-xs font-medium uppercase tracking-widest text-electric">
+              How we compare
+            </span>
+            <h3 className="mt-4 text-2xl font-bold tracking-tight sm:text-3xl">
+              Launchpad vs the alternatives
+            </h3>
+            <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+              We pulled pricing directly from rafflex.io. No spin, no marketing fluff &mdash; just
+              the numbers you&rsquo;d pay for the nearest UK raffle-platform alternatives.
+            </p>
+          </div>
+
+          <div className="overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm">
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-sm">
+                <thead className="bg-white/[0.03] text-xs uppercase tracking-wider text-muted-foreground/80">
+                  <tr>
+                    <th className="px-4 py-4 sm:px-6">&nbsp;</th>
+                    <th className="px-4 py-4 text-electric sm:px-6">Turbo IT Launchpad</th>
+                    <th className="px-4 py-4 sm:px-6">RaffleX DIY</th>
+                    <th className="hidden px-4 py-4 sm:table-cell sm:px-6">RaffleXpert</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-white/[0.04]">
+                  <tr>
+                    <td className="px-4 py-4 align-top font-medium sm:px-6">Platform setup fee</td>
+                    <td className="px-4 py-4 align-top text-electric sm:px-6">
+                      <span className="font-semibold">£0</span>
+                      <span className="block text-xs font-normal text-muted-foreground">we build it for you</span>
+                    </td>
+                    <td className="px-4 py-4 align-top text-muted-foreground sm:px-6">
+                      £0
+                      <span className="block text-xs">you build it yourself</span>
+                    </td>
+                    <td className="hidden px-4 py-4 align-top text-muted-foreground sm:table-cell sm:px-6">
+                      <span className="font-semibold text-foreground">£1,999</span>
+                      <span className="block text-xs">they build it</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-4 align-top font-medium sm:px-6">Monthly</td>
+                    <td className="px-4 py-4 align-top sm:px-6">£99</td>
+                    <td className="px-4 py-4 align-top text-muted-foreground sm:px-6">
+                      £74.17
+                      <span className="block text-xs">(£89 inc VAT)</span>
+                    </td>
+                    <td className="hidden px-4 py-4 align-top text-muted-foreground sm:table-cell sm:px-6">
+                      £74.17
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-4 align-top font-medium sm:px-6">Per paid order</td>
+                    <td className="px-4 py-4 align-top sm:px-6">£0.19</td>
+                    <td className="px-4 py-4 align-top text-muted-foreground sm:px-6">£0.17</td>
+                    <td className="hidden px-4 py-4 align-top text-muted-foreground sm:table-cell sm:px-6">
+                      £0.17
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-4 align-top font-medium sm:px-6">
+                      We handle your build
+                    </td>
+                    <td className="px-4 py-4 align-top text-electric sm:px-6">
+                      <Check className="size-5" />
+                    </td>
+                    <td className="px-4 py-4 align-top text-muted-foreground/60 sm:px-6">
+                      <span className="inline-block">&mdash;</span>
+                    </td>
+                    <td className="hidden px-4 py-4 align-top text-electric sm:table-cell sm:px-6">
+                      <Check className="size-5" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-4 align-top font-medium sm:px-6">
+                      Cashflows KYB + legal T&amp;Cs included
+                    </td>
+                    <td className="px-4 py-4 align-top text-electric sm:px-6">
+                      <Check className="size-5" />
+                    </td>
+                    <td className="px-4 py-4 align-top text-muted-foreground/60 sm:px-6">
+                      <span className="inline-block">&mdash;</span>
+                    </td>
+                    <td className="hidden px-4 py-4 align-top text-muted-foreground/60 sm:table-cell sm:px-6">
+                      <span className="inline-block">&mdash;</span>
+                    </td>
+                  </tr>
+                  <tr className="bg-electric/[0.04]">
+                    <td className="px-4 py-5 align-top font-semibold sm:px-6">
+                      2-year cost
+                      <span className="block text-xs font-normal text-muted-foreground">at 500 paid orders/month</span>
+                    </td>
+                    <td className="px-4 py-5 align-top sm:px-6">
+                      <span className="font-semibold text-electric">£4,656</span>
+                    </td>
+                    <td className="px-4 py-5 align-top text-muted-foreground sm:px-6">
+                      £3,820
+                      <span className="block text-xs">+ your 30+ hrs DIY build time</span>
+                    </td>
+                    <td className="hidden px-4 py-5 align-top text-muted-foreground sm:table-cell sm:px-6">
+                      <span className="font-semibold text-foreground">£5,819</span>
+                      <span className="block text-xs text-electric/80">Launchpad saves £1,163</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <p className="mx-auto mt-6 max-w-3xl text-center text-sm leading-relaxed text-muted-foreground sm:text-base">
+            <span className="font-semibold text-foreground">RaffleXpert charges £1,999 to build your raffle site. RaffleX DIY makes you build it yourself.</span>{" "}
+            Launchpad does the build for you &mdash; <span className="font-semibold text-electric">£0 upfront</span>.
+          </p>
+          <p className="mx-auto mt-3 max-w-3xl text-center text-[11px] leading-relaxed text-muted-foreground/60">
+            Pricing verified from rafflex.io. All figures ex VAT unless noted. Comparison reflects
+            public pricing at time of writing &mdash; we refresh it periodically.
+          </p>
+        </motion.div>
+
         {/* Worked examples — three real-world scenarios across tiers */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -383,7 +510,7 @@ export function PricingCards() {
             </p>
             <p className="text-xs text-muted-foreground/70">6,000 paid orders / month</p>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              £2,499 setup (one-off) + £999/mo + (6,000 × £0.12) ={" "}
+              £1,999 setup (one-off) + £999/mo + (6,000 × £0.12) ={" "}
               <span className="font-semibold text-electric">£1,719/mo</span>{" "}
               <span className="text-muted-foreground/70">(~£0.29 per order all-in)</span>
             </p>
@@ -443,7 +570,7 @@ export function PricingCards() {
                       <p className="mt-0.5 text-xs text-muted-foreground">One-off to our team</p>
                     </td>
                     <td className="px-4 py-4 align-top sm:px-5">
-                      £0 on Launchpad · £2,499 on Operator (full custom design + migration)
+                      £0 on Launchpad · £1,999 on Operator (full custom design + migration)
                     </td>
                     <td className="hidden px-4 py-4 align-top text-muted-foreground sm:table-cell sm:px-5">
                       Up to £1,999 on mid-tier plans — template only, no migration
@@ -516,7 +643,7 @@ export function PricingCards() {
                   <tr className="bg-electric/[0.05]">
                     <td className="px-4 py-4 align-top sm:px-5 font-semibold">Total to go live</td>
                     <td className="px-4 py-4 align-top sm:px-5">
-                      <span className="font-semibold text-electric">£500 (Launchpad) &ndash; £3,150 (Operator)</span>{" "}
+                      <span className="font-semibold text-electric">£500 (Launchpad) &ndash; £2,649 (Operator)</span>{" "}
                       <span className="text-muted-foreground">&mdash; Operator includes full custom build + migration</span>
                     </td>
                     <td className="hidden px-4 py-4 align-top text-muted-foreground sm:table-cell sm:px-5">
