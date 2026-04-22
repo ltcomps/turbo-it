@@ -352,11 +352,13 @@ export function PricingCards() {
           <BillingToggle value={billing} onChange={setBilling} />
         </div>
 
-        {/* Cards — 3 across on lg, stack on mobile */}
+        {/* Cards — 3 across on lg, stack on mobile (Enterprise rendered separately below) */}
         <div className="mt-10 grid gap-6 md:grid-cols-3">
-          {pricingPlans.map((plan, idx) => (
-            <PlanCard key={plan.name} plan={plan} idx={idx} billing={billing} />
-          ))}
+          {pricingPlans
+            .filter((plan) => plan.name !== "Enterprise")
+            .map((plan, idx) => (
+              <PlanCard key={plan.name} plan={plan} idx={idx} billing={billing} />
+            ))}
         </div>
 
         {/* Head-to-head comparison — Launchpad vs the UK raffle-platform alternatives */}
@@ -504,26 +506,54 @@ export function PricingCards() {
               <span className="font-semibold text-electric">£175/mo</span>
             </p>
           </div>
-          <div className="rounded-2xl border border-electric/25 bg-electric/[0.03] p-6 backdrop-blur-sm sm:p-7">
-            <p className="mb-2 text-xs font-medium uppercase tracking-widest text-electric/80">
-              Operator · established brand
+          <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6 backdrop-blur-sm sm:p-7">
+            <p className="mb-2 text-xs font-medium uppercase tracking-widest text-muted-foreground/80">
+              Operator Build · established brand
             </p>
             <p className="text-xs text-muted-foreground/70">6,000 paid orders / month</p>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              £1,999 setup (one-off) + £999/mo + (6,000 × £0.12) ={" "}
-              <span className="font-semibold text-electric">£1,719/mo</span>{" "}
-              <span className="text-muted-foreground/70">(~£0.29 per order all-in)</span>
+              £1,999 setup (one-off) + £299/mo + (6,000 × £0.12) ={" "}
+              <span className="font-semibold text-electric">£1,019/mo</span>{" "}
+              <span className="text-muted-foreground/70">(~£0.17 per order all-in)</span>
             </p>
           </div>
-          <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6 backdrop-blur-sm sm:p-7">
-            <p className="mb-2 text-xs font-medium uppercase tracking-widest text-muted-foreground/80">
-              Operator · growing (breakpoint)
+          <div className="rounded-2xl border border-electric/25 bg-electric/[0.03] p-6 backdrop-blur-sm sm:p-7">
+            <p className="mb-2 text-xs font-medium uppercase tracking-widest text-electric/80">
+              Operator Managed · scaling (breakpoint)
             </p>
             <p className="text-xs text-muted-foreground/70">15,000 paid orders / month</p>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
               £999/mo + (10k × £0.12) + (5k × £0.07) ={" "}
               <span className="font-semibold text-electric">£2,549/mo</span>
             </p>
+          </div>
+        </motion.div>
+
+        {/* Enterprise CTA — for anyone bigger than Managed */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.5, delay: 0.22 }}
+          className="mx-auto mt-14 max-w-5xl"
+        >
+          <div className="flex flex-col items-center justify-between gap-5 rounded-2xl border border-white/[0.08] bg-gradient-to-br from-white/[0.04] to-white/[0.01] p-6 backdrop-blur-sm sm:flex-row sm:p-8">
+            <div className="flex-1">
+              <span className="inline-block rounded-full border border-white/[0.1] bg-white/[0.04] px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
+                Enterprise
+              </span>
+              <h3 className="mt-3 text-xl font-bold tracking-tight sm:text-2xl">
+                Seven-figure months, multi-brand, or white-label?
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground sm:text-base">
+                Bespoke commercials, dedicated Supabase + Workers tenant, SLA-backed support, and a
+                direct line to the founders. Quoted on-spec for operators who&rsquo;ve outgrown
+                standard tiers.
+              </p>
+            </div>
+            <Button asChild size="lg" variant="outline" className="shrink-0">
+              <Link href="/contact">Get a quote</Link>
+            </Button>
           </div>
         </motion.div>
 
@@ -570,7 +600,7 @@ export function PricingCards() {
                       <p className="mt-0.5 text-xs text-muted-foreground">One-off to our team</p>
                     </td>
                     <td className="px-4 py-4 align-top sm:px-5">
-                      £0 on Launchpad · £1,999 on Operator (full custom design + migration)
+                      £0 on Launchpad · £1,999 on Operator Build or Managed (full custom design + migration)
                     </td>
                     <td className="hidden px-4 py-4 align-top text-muted-foreground sm:table-cell sm:px-5">
                       Up to £1,999 on mid-tier plans — template only, no migration
