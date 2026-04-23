@@ -19,6 +19,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://turboit.uk"),
   title: "Turbo IT | UK Competition & Raffle Platform Specialists",
   description: siteConfig.description,
   alternates: {
@@ -37,11 +38,20 @@ export const metadata: Metadata = {
     siteName: "Turbo IT",
     locale: "en_GB",
     type: "website",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "Turbo IT — UK Competition & Raffle Platform Specialists",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Turbo IT | UK Competition & Raffle Platform Specialists",
     description: siteConfig.description,
+    images: ["/opengraph-image"],
   },
 };
 
