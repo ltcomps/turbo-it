@@ -142,7 +142,22 @@ export function Hero() {
               asChild
               variant="outline"
               size="lg"
-              className="h-12 border-border/40 px-8 backdrop-blur-sm hover:border-electric/40 hover:bg-electric/5"
+              className="group h-12 border-electric/30 px-8 backdrop-blur-sm hover:border-electric/60 hover:bg-electric/5"
+            >
+              <a
+                href="https://demorafflesite.turboit.uk"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View live demo site
+                <ExternalLink className="ml-2 size-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+              </a>
+            </Button>
+            <Button
+              asChild
+              variant="ghost"
+              size="lg"
+              className="h-12 px-6 text-muted-foreground hover:bg-white/[0.04] hover:text-foreground"
             >
               <Link href="/contact">Talk to the team</Link>
             </Button>

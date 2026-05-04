@@ -375,8 +375,8 @@ export function PricingCards() {
               Launchpad vs the alternatives
             </h3>
             <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-              We pulled pricing directly from rafflex.io. No spin, no marketing fluff &mdash; just
-              the numbers you&rsquo;d pay for the nearest UK raffle-platform alternatives.
+              How Launchpad stacks up against the typical UK raffle-platform options &mdash;
+              DIY templates you build yourself, or done-for-you builds with a high upfront fee.
             </p>
           </div>
 
@@ -387,8 +387,8 @@ export function PricingCards() {
                   <tr>
                     <th className="px-4 py-4 sm:px-6">&nbsp;</th>
                     <th className="px-4 py-4 text-electric sm:px-6">Turbo IT Launchpad</th>
-                    <th className="px-4 py-4 sm:px-6">RaffleX DIY</th>
-                    <th className="hidden px-4 py-4 sm:table-cell sm:px-6">RaffleXpert</th>
+                    <th className="px-4 py-4 sm:px-6">DIY platform</th>
+                    <th className="hidden px-4 py-4 sm:table-cell sm:px-6">Done-for-you alternative</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-white/[0.04]">
@@ -468,7 +468,6 @@ export function PricingCards() {
                     </td>
                     <td className="hidden px-4 py-5 align-top text-muted-foreground sm:table-cell sm:px-6">
                       <span className="font-semibold text-foreground">£5,819</span>
-                      <span className="block text-xs text-electric/80">Launchpad saves £1,163</span>
                     </td>
                   </tr>
                 </tbody>
@@ -477,12 +476,13 @@ export function PricingCards() {
           </div>
 
           <p className="mx-auto mt-6 max-w-3xl text-center text-sm leading-relaxed text-muted-foreground sm:text-base">
-            <span className="font-semibold text-foreground">RaffleXpert charges £1,999 to build your raffle site. RaffleX DIY makes you build it yourself.</span>{" "}
-            Launchpad does the build for you &mdash; <span className="font-semibold text-electric">£0 upfront</span>.
+            Done-for-you alternatives typically charge a four-figure upfront build fee. DIY templates
+            shift that work onto you. Launchpad does the build for you &mdash;{" "}
+            <span className="font-semibold text-electric">£0 upfront</span>.
           </p>
           <p className="mx-auto mt-3 max-w-3xl text-center text-[11px] leading-relaxed text-muted-foreground/60">
-            Pricing verified from rafflex.io. All figures ex VAT unless noted. Comparison reflects
-            public pricing at time of writing &mdash; we refresh it periodically.
+            Comparison figures based on public pricing of typical UK raffle-platform alternatives.
+            All figures ex VAT unless noted. Refreshed periodically.
           </p>
         </motion.div>
 

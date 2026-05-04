@@ -3,7 +3,7 @@
 import { useState, Suspense, lazy, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, Loader2 } from "lucide-react";
+import { ArrowRight, ExternalLink, Loader2 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { tokens, containerClass, sectionPadding } from "@/lib/tokens";
@@ -77,6 +77,24 @@ export function DemoContent() {
             These are the real game modes running on Lucky Turbo. No signup, no checkout —
             just the same UX your players get. Pick one.
           </p>
+
+          {/* Live full-site demo banner */}
+          <a
+            href="https://demorafflesite.turboit.uk"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group mt-8 inline-flex items-center gap-3 rounded-full border border-electric/30 bg-electric/5 px-5 py-2.5 text-sm backdrop-blur-sm transition-all hover:border-electric/60 hover:bg-electric/10 hover:shadow-[0_0_30px_-8px_var(--glow)] sm:text-base"
+          >
+            <span className="relative flex size-2">
+              <span className="absolute inline-flex size-full animate-ping rounded-full bg-electric opacity-75" />
+              <span className="relative inline-flex size-2 rounded-full bg-electric" />
+            </span>
+            <span>
+              Want the whole platform, not just the games?{" "}
+              <span className="font-semibold text-electric">Tour the full live demo site</span>
+            </span>
+            <ExternalLink className="size-4 text-electric transition-transform group-hover:translate-x-0.5" />
+          </a>
         </motion.div>
 
         {/* Game picker tabs */}
