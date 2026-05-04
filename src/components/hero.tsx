@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, ExternalLink } from "lucide-react";
@@ -11,7 +11,6 @@ import { featuredWork, platformStats, heroContent } from "@/lib/content";
 import { Button } from "@/components/ui/button";
 import { GridBackground } from "@/components/grid-background";
 import { GradientOrbs } from "@/components/gradient-orbs";
-import { LazyIframe } from "@/components/lazy-iframe";
 import { AnimatedCounter } from "@/components/animated-counter";
 
 const ROTATE_INTERVAL = 5000;
@@ -35,11 +34,6 @@ export function Hero() {
   const reducedMotion = useReducedMotion();
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  // Slugs whose iframe is allowed to start loading. A card is "warmed" the
-  // first time it leaves the active position, so the LCP-critical first paint
-  // never has to compete with iframe bytes.
-  const [warmedSlugs, setWarmedSlugs] = useState<Set<string>>(new Set());
-  const prevActiveRef = useRef(0);
 
   const goToNext = useCallback(() => {
     setActiveIndex((prev) => (prev + 1) % CARD_COUNT);
@@ -50,21 +44,6 @@ export function Hero() {
     const timer = setInterval(goToNext, ROTATE_INTERVAL);
     return () => clearInterval(timer);
   }, [isPaused, reducedMotion, goToNext]);
-
-  // Warm the previously-active card the moment it rotates to the back.
-  useEffect(() => {
-    if (prevActiveRef.current === activeIndex) return; // initial mount
-    const prevSlug = featuredWork[prevActiveRef.current]?.slug;
-    if (prevSlug) {
-      setWarmedSlugs((s) => {
-        if (s.has(prevSlug)) return s;
-        const next = new Set(s);
-        next.add(prevSlug);
-        return next;
-      });
-    }
-    prevActiveRef.current = activeIndex;
-  }, [activeIndex]);
 
   const fadeUp = {
     initial: { opacity: 0, y: reducedMotion ? 0 : 24 },
@@ -227,33 +206,17 @@ export function Hero() {
                     )}
 
                     <div className="relative flex h-full flex-col overflow-hidden rounded-2xl border-2 border-electric/30 bg-card/80 shadow-2xl backdrop-blur-sm transition-all duration-300 group-hover:border-electric/60">
-                      {/* Live preview — screenshot underneath, iframe on top once loaded for the active card */}
+                      {/* Screenshot preview — dropped the live iframe overlay so
+                          the homepage isn't running two full sites in the carousel. */}
                       <div className="relative min-h-0 flex-1 overflow-hidden">
                         <img
                           src={`/screenshots/${item.slug === "lucky-turbo" ? "luckyturbo" : "mrxca"}-hero.webp`}
                           alt={`${item.title} Preview`}
                           className="absolute inset-0 h-full w-full object-cover object-top"
                           loading={isActive ? "eager" : "lazy"}
+                          decoding="async"
+                          fetchPriority={isActive ? "high" : "low"}
                         />
-                        {/* Iframe rendered at 2x size then scaled to 50% so the
-                            embedded site sees a desktop viewport while the user
-                            sees a zoomed-out thumbnail with more content visible. */}
-                        <div className="absolute inset-0 overflow-hidden">
-                          <LazyIframe
-                            src={item.liveUrl}
-                            title={`${item.title} live preview`}
-                            active={warmedSlugs.has(item.slug)}
-                            placeholderColor={item.color}
-                            className="border-0"
-                            style={{
-                              pointerEvents: "none",
-                              width: "200%",
-                              height: "200%",
-                              transformOrigin: "top left",
-                              transform: "scale(0.5)",
-                            }}
-                          />
-                        </div>
                       </div>
 
                       {/* Label bar */}
