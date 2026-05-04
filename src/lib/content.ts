@@ -13,7 +13,6 @@ export const navLinks = [
   { label: "Platform", href: "/demo" },
   { label: "Work", href: "/work" },
   { label: "Pricing", href: "/pricing" },
-  { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
 

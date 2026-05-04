@@ -8,6 +8,7 @@ import {
   Menu,
   X,
   ChevronDown,
+  ExternalLink,
   Trophy,
   CreditCard,
   Timer,
@@ -215,6 +216,21 @@ export function Navbar() {
 
         {/* ---- Right actions ---- */}
         <div className="flex items-center gap-2">
+          <Button
+            asChild
+            size="sm"
+            variant="outline"
+            className="hidden border-electric/30 text-foreground hover:border-electric/60 hover:bg-electric/5 md:inline-flex"
+          >
+            <a
+              href="https://demorafflesite.turboit.uk"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Live demo
+              <ExternalLink className="ml-1.5 size-3.5" />
+            </a>
+          </Button>
           <Button asChild size="sm" className="hidden sm:inline-flex">
             <Link href="/contact">Get a Quote</Link>
           </Button>
@@ -358,7 +374,23 @@ export function Navbar() {
                   transition={{ delay: 0.4 }}
                   className="mt-6"
                 >
-                  <Button asChild size="lg" className="w-full">
+                  <Button
+                    asChild
+                    size="lg"
+                    variant="outline"
+                    className="w-full border-electric/30 hover:border-electric/60 hover:bg-electric/5"
+                  >
+                    <a
+                      href="https://demorafflesite.turboit.uk"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      Live demo
+                      <ExternalLink className="ml-2 size-4" />
+                    </a>
+                  </Button>
+                  <Button asChild size="lg" className="mt-3 w-full">
                     <Link href="/contact" onClick={() => setMobileOpen(false)}>
                       Get a Quote
                     </Link>
