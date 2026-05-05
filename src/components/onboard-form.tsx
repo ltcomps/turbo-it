@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 type StageId =
   | "idle" | "submitting" | "failed"
-  | "start" | "wait_active"
+  | "start" | "wait_active" | "configure_auth"
   | "migrate_0001" | "migrate_0002"
   | "seed" | "register" | "done";
 
@@ -74,7 +74,7 @@ export function OnboardForm() {
   }
 
   const inProgress: StageId[] = [
-    "submitting", "start", "wait_active",
+    "submitting", "start", "wait_active", "configure_auth",
     "migrate_0001", "migrate_0002", "seed", "register", "done",
   ];
   if (inProgress.includes(stage.id)) {
@@ -119,6 +119,7 @@ function Progress({ stage, slug }: { stage: Stage; slug: string }) {
   const STAGES: Array<{ id: StageId; label: string }> = [
     { id: "start", label: "Creating Supabase project" },
     { id: "wait_active", label: "Waiting for project to come online" },
+    { id: "configure_auth", label: "Enabling sign-ups" },
     { id: "migrate_0001", label: "Applying database schema" },
     { id: "migrate_0002", label: "Adding ticket-allocation RPC" },
     { id: "seed", label: "Configuring brand" },
