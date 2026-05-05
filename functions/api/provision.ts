@@ -1,19 +1,14 @@
 /**
- * CF Pages Function — proxy /onboard form submissions to the provisioning
- * worker. Lives at POST /api/provision.
- *
- * The shared token (PROVISION_SHARED_TOKEN) is read from the project's
- * environment variables (set on the turbo-it CF Pages project), so it
- * never reaches the browser. The /onboard page is gated by Cloudflare
- * Access already, so reaching this function implies a logged-in staff
- * member.
+ * CF Pages Function — proxies /onboard form submissions to the provisioning
+ * worker. Async pattern: POST returns 202 immediately, client polls
+ * GET /api/provision/status?slug=<slug> for progress.
  */
 
 interface Env {
   PROVISION_SHARED_TOKEN?: string;
 }
 
-const PROVISION_URL = "https://raffle-template-provision.frosty-rice-fe5d.workers.dev/provision";
+const PROVISION_BASE = "https://raffle-template-provision.frosty-rice-fe5d.workers.dev";
 
 function slugify(s: string): string {
   return s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 40);
@@ -42,7 +37,7 @@ export const onRequestPost: PagesFunction<Env> = async (ctx) => {
     adminEmail: String(body.admin_email ?? "").trim(),
   };
 
-  const res = await fetch(PROVISION_URL, {
+  const res = await fetch(`${PROVISION_BASE}/provision`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

@@ -1,15 +1,51 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+
+type Stage =
+  | { id: "idle" | "submitting" | "failed"; pct: number; label: string; error?: string }
+  | { id: "creating" | "waiting_active" | "migrating" | "seeding" | "registering" | "done"; pct: number; label: string; ref?: string };
 
 export function OnboardForm() {
-  const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [stage, setStage] = useState<Stage>({ id: "idle", pct: 0, label: "" });
+  const [slug, setSlug] = useState<string | null>(null);
+  const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  // Poll status every 2s while we have an active slug and we're not done/failed.
+  useEffect(() => {
+    if (!slug) return;
+    if (stage.id === "done" || stage.id === "failed") return;
+
+    async function tick() {
+      try {
+        const res = await fetch(`/api/provision/status?slug=${encodeURIComponent(slug!)}`);
+        const data = await res.json() as { stage?: Stage["id"]; pct?: number; label?: string; ref?: string; error?: string };
+        if (data.stage && data.label && typeof data.pct === "number") {
+          setStage({ id: data.stage, pct: data.pct, label: data.label, ref: data.ref } as Stage);
+          if (data.stage === "done") {
+            const params = new URLSearchParams();
+            params.set("slug", slug!);
+            if (data.ref) params.set("ref", data.ref);
+            // Give the user a beat to see 100%, then redirect.
+            setTimeout(() => {
+              window.location.href = `/onboard/success?${params.toString()}`;
+            }, 800);
+          }
+        }
+      } catch {
+        // ignore transient errors; next tick will retry
+      }
+    }
+    tick();
+    pollRef.current = setInterval(tick, 2000);
+    return () => {
+      if (pollRef.current) clearInterval(pollRef.current);
+    };
+  }, [slug, stage.id]);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setSubmitting(true);
-    setError(null);
+    setStage({ id: "submitting", pct: 5, label: "Submitting…" });
     const fd = new FormData(e.currentTarget);
     const body = Object.fromEntries(fd.entries());
 
@@ -19,27 +55,32 @@ export function OnboardForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
-      const data = await res.json() as { ok?: boolean; error?: string; supabaseProjectRef?: string; slug?: string };
-      if (!res.ok || !data.ok) {
-        setError(data.error ?? `Failed (${res.status})`);
-        setSubmitting(false);
+      const data = await res.json() as { ok?: boolean; slug?: string; error?: string };
+      if (!res.ok || !data.ok || !data.slug) {
+        setStage({ id: "failed", pct: 0, label: "", error: data.error ?? `Failed (${res.status})` });
         return;
       }
-      const params = new URLSearchParams();
-      if (data.slug) params.set("slug", data.slug);
-      if (data.supabaseProjectRef) params.set("ref", data.supabaseProjectRef);
-      window.location.href = `/onboard/success?${params.toString()}`;
+      setSlug(data.slug);
+      setStage({ id: "creating", pct: 10, label: "Creating Supabase project" });
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Network error");
-      setSubmitting(false);
+      setStage({
+        id: "failed", pct: 0, label: "",
+        error: err instanceof Error ? err.message : "Network error",
+      });
     }
+  }
+
+  if (stage.id === "submitting" || stage.id === "creating" || stage.id === "waiting_active" ||
+      stage.id === "migrating" || stage.id === "seeding" || stage.id === "registering" ||
+      stage.id === "done") {
+    return <Progress stage={stage} slug={slug ?? ""} />;
   }
 
   return (
     <>
-      {error && (
+      {stage.id === "failed" && stage.error && (
         <p className="mt-6 rounded-md border border-red-500/30 bg-red-500/10 px-3 py-2 text-sm text-red-300">
-          Provisioning failed: {error}
+          Provisioning failed: {stage.error}
         </p>
       )}
       <form onSubmit={handleSubmit} className="mt-8 space-y-5 rounded-xl border border-border/40 bg-card/40 p-6 backdrop-blur-sm">
@@ -56,16 +97,71 @@ export function OnboardForm() {
 
         <button
           type="submit"
-          disabled={submitting}
-          className="w-full rounded-lg bg-electric px-4 py-2.5 text-sm font-semibold text-white shadow-[0_0_30px_-6px_var(--glow)] hover:bg-electric/90 disabled:opacity-60"
+          className="w-full rounded-lg bg-electric px-4 py-2.5 text-sm font-semibold text-white shadow-[0_0_30px_-6px_var(--glow)] hover:bg-electric/90"
         >
-          {submitting ? "Provisioning… (~30s)" : "Provision tenant"}
+          Provision tenant
         </button>
         <p className="text-center text-[11px] text-muted-foreground/70">
-          Takes ~30 seconds. You’ll get the env vars + runbook on the next page.
+          Takes ~60-90 seconds. You’ll see live progress.
         </p>
       </form>
     </>
+  );
+}
+
+function Progress({ stage, slug }: { stage: Stage; slug: string }) {
+  const STAGES: Array<{ id: Stage["id"]; label: string }> = [
+    { id: "creating", label: "Creating Supabase project" },
+    { id: "waiting_active", label: "Waiting for project to come online" },
+    { id: "migrating", label: "Applying database schema" },
+    { id: "seeding", label: "Configuring brand" },
+    { id: "registering", label: "Registering tenant" },
+    { id: "done", label: "Done" },
+  ];
+  const currentIdx = STAGES.findIndex((s) => s.id === stage.id);
+
+  return (
+    <div className="mt-8 rounded-xl border border-border/40 bg-card/40 p-6 backdrop-blur-sm">
+      <p className="text-xs uppercase tracking-widest text-electric">Provisioning {slug}</p>
+      <p className="mt-1 text-sm text-foreground">{stage.label}…</p>
+
+      {/* Bar */}
+      <div className="mt-5 h-2 w-full overflow-hidden rounded-full bg-background/60">
+        <div
+          className="h-full bg-electric transition-all duration-500 ease-out"
+          style={{ width: `${stage.pct}%` }}
+        />
+      </div>
+      <p className="mt-2 text-right text-[11px] text-muted-foreground">{stage.pct}%</p>
+
+      {/* Stage list */}
+      <ol className="mt-6 space-y-2 text-sm">
+        {STAGES.map((s, i) => {
+          const done = currentIdx > i;
+          const active = currentIdx === i;
+          return (
+            <li key={s.id} className="flex items-center gap-3">
+              <span
+                className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] font-bold ${
+                  done ? "bg-emerald-500 text-white"
+                       : active ? "bg-electric text-white animate-pulse"
+                       : "bg-background/60 text-muted-foreground"
+                }`}
+              >
+                {done ? "✓" : i + 1}
+              </span>
+              <span className={done ? "text-foreground line-through opacity-60" : active ? "text-foreground" : "text-muted-foreground"}>
+                {s.label}
+              </span>
+            </li>
+          );
+        })}
+      </ol>
+
+      <p className="mt-6 text-center text-[11px] text-muted-foreground/70">
+        Don&apos;t close this page. Auto-redirect on completion.
+      </p>
+    </div>
   );
 }
 
