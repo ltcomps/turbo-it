@@ -51,13 +51,12 @@ export function OnboardForm() {
     e.preventDefault();
     setStage({ id: "submitting", pct: 5, label: "Submitting…" });
     const fd = new FormData(e.currentTarget);
-    const body = Object.fromEntries(fd.entries());
 
     try {
       const res = await fetch("/api/provision", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
+        // Browser sets the right multipart Content-Type with the boundary.
+        body: fd,
       });
       const data = await res.json() as { ok?: boolean; slug?: string; error?: string };
       if (!res.ok || !data.ok || !data.slug) {
@@ -97,7 +96,8 @@ export function OnboardForm() {
           <Field name="brand_color" label="Brand colour (hex)" defaultValue="#3b6fc4" required />
           <Field name="support_email" label="Support email" type="email" placeholder="hello@acme.com" required />
         </div>
-        <Field name="logo_url" label="Logo URL (optional)" placeholder="https://r2.../acme-logo.svg" />
+        <FileField name="logo_file" label="Logo (upload, optional)" accept="image/png,image/svg+xml,image/jpeg,image/webp" />
+        <Field name="logo_url" label="… or paste a Logo URL instead" placeholder="https://your-cdn/acme-logo.svg" />
         <Field name="domain" label="Custom domain (optional)" placeholder="https://acme-raffles.com" />
         <Field name="admin_email" label="Bootstrap admin email" type="email" required />
 
@@ -169,6 +169,24 @@ function Progress({ stage, slug }: { stage: Stage; slug: string }) {
         Don&apos;t close this page. Auto-redirect on completion.
       </p>
     </div>
+  );
+}
+
+function FileField({
+  name, label, accept,
+}: {
+  name: string; label: string; accept?: string;
+}) {
+  return (
+    <label className="block">
+      <span className="text-xs uppercase tracking-wider text-muted-foreground">{label}</span>
+      <input
+        name={name}
+        type="file"
+        accept={accept}
+        className="mt-1 w-full rounded-lg border border-border/40 bg-background/60 px-3 py-2 text-sm text-foreground file:mr-3 file:rounded-md file:border-0 file:bg-electric/20 file:px-3 file:py-1 file:text-electric hover:file:bg-electric/30"
+      />
+    </label>
   );
 }
 
