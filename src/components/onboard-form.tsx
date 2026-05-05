@@ -2,9 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 
-type Stage =
-  | { id: "idle" | "submitting" | "failed"; pct: number; label: string; error?: string }
-  | { id: "creating" | "waiting_active" | "migrating" | "seeding" | "registering" | "done"; pct: number; label: string; ref?: string };
+type StageId =
+  | "idle" | "submitting" | "failed"
+  | "start" | "wait_active"
+  | "migrate_0001" | "migrate_0002"
+  | "seed" | "register" | "done";
+
+type Stage = { id: StageId; pct: number; label: string; ref?: string; error?: string };
 
 export function OnboardForm() {
   const [stage, setStage] = useState<Stage>({ id: "idle", pct: 0, label: "" });
@@ -61,7 +65,7 @@ export function OnboardForm() {
         return;
       }
       setSlug(data.slug);
-      setStage({ id: "creating", pct: 10, label: "Creating Supabase project" });
+      setStage({ id: "start", pct: 5, label: "Creating Supabase project" });
     } catch (err) {
       setStage({
         id: "failed", pct: 0, label: "",
@@ -70,9 +74,11 @@ export function OnboardForm() {
     }
   }
 
-  if (stage.id === "submitting" || stage.id === "creating" || stage.id === "waiting_active" ||
-      stage.id === "migrating" || stage.id === "seeding" || stage.id === "registering" ||
-      stage.id === "done") {
+  const inProgress: StageId[] = [
+    "submitting", "start", "wait_active",
+    "migrate_0001", "migrate_0002", "seed", "register", "done",
+  ];
+  if (inProgress.includes(stage.id)) {
     return <Progress stage={stage} slug={slug ?? ""} />;
   }
 
@@ -110,12 +116,13 @@ export function OnboardForm() {
 }
 
 function Progress({ stage, slug }: { stage: Stage; slug: string }) {
-  const STAGES: Array<{ id: Stage["id"]; label: string }> = [
-    { id: "creating", label: "Creating Supabase project" },
-    { id: "waiting_active", label: "Waiting for project to come online" },
-    { id: "migrating", label: "Applying database schema" },
-    { id: "seeding", label: "Configuring brand" },
-    { id: "registering", label: "Registering tenant" },
+  const STAGES: Array<{ id: StageId; label: string }> = [
+    { id: "start", label: "Creating Supabase project" },
+    { id: "wait_active", label: "Waiting for project to come online" },
+    { id: "migrate_0001", label: "Applying database schema" },
+    { id: "migrate_0002", label: "Adding ticket-allocation RPC" },
+    { id: "seed", label: "Configuring brand" },
+    { id: "register", label: "Registering tenant" },
     { id: "done", label: "Done" },
   ];
   const currentIdx = STAGES.findIndex((s) => s.id === stage.id);
