@@ -12,10 +12,6 @@ export default function OnboardSuccessPage() {
       <div className="mx-auto max-w-2xl px-6">
         <p className="text-xs uppercase tracking-widest text-emerald-400">✓ Provisioned</p>
         <OnboardSuccessReadout />
-        <p className="mt-3 text-sm text-muted-foreground">
-          Supabase project created, migrations applied, payment worker registered.
-          Check the onboarding email for the runbook to finish the CF Pages + DNS bits.
-        </p>
         <div className="mt-8 flex gap-3">
           <Link href="/onboard" className="rounded-lg border border-border/40 bg-card/40 px-4 py-2 text-sm hover:border-electric/40">
             Onboard another
