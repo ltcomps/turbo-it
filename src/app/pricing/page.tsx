@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 export const metadata: Metadata = {
   title: "Pricing | Turbo IT",
   description:
-    "Simple, transparent monthly pricing for competition and raffle platform development. No hidden fees. Get started from £499/month.",
+    "Three ways to run on Turbo IT. Launch on the templated platform from £99/month, scale with the Growth Partner revenue-share model, or commission a fully bespoke build. No hidden fees.",
 };
 
 export default function PricingPage() {

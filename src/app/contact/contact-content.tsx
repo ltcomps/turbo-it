@@ -23,14 +23,14 @@ const projectTypeOptions = [
 ] as const;
 
 // First-year total spend buckets aligned to the pricing tiers.
-// Launchpad first year ≈ £2–3k. Operator first year ≈ £20–30k
-// (£1,999 setup + ~£1.7k/mo). Enterprise starts ~£60k+.
+// Launch first year ≈ £2–3k. Growth Partner depends on revenue share —
+// typical first year £15k–£40k. Enterprise starts ~£60k+.
 const budgetOptions = [
-  "Under \u00a33k \u2014 Launchpad / template",
-  "\u00a33k\u2013\u00a315k \u2014 small custom",
-  "\u00a315k\u2013\u00a330k \u2014 Operator first year",
-  "\u00a330k\u2013\u00a360k",
-  "\u00a360k+ \u2014 Enterprise / bespoke",
+  "Under \u00a33k \u2014 Launch / templated",
+  "\u00a33k\u2013\u00a315k \u2014 small Growth Partner",
+  "\u00a315k\u2013\u00a340k \u2014 Growth Partner first year",
+  "\u00a340k\u2013\u00a360k",
+  "\u00a360k+ \u2014 Enterprise / Influencer",
   "Not sure yet",
 ] as const;
 

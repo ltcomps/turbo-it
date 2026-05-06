@@ -401,14 +401,18 @@ export const testimonials = [
 export type PricingPlan = {
   name: string;
   tagline: string;
-  /** One-off setup fee in £, or null/zero for "no setup". */
+  /** One-off setup fee in £, or null for "no setup". */
   setup: string | null;
   /** Recurring monthly fee in £. Use "Custom" for enterprise tier. */
   monthly: string;
-  /** Per paid-order fee in £. Null means "Custom". */
-  perOrder: string | null;
-  /** Optional footnote under the per-order line — e.g. a volume breakpoint. */
-  perOrderNote?: string;
+  /** Optional qualifier rendered next to the monthly fee, e.g. "minimum". */
+  monthlyNote?: string;
+  /** Per paid-order fee in £. Set on tiers that charge per order (Launch). */
+  perOrder?: string | null;
+  /** Revenue-share percentage as a string (e.g. "10%"). Set on partnership tiers. */
+  revShare?: string;
+  /** Footnote under the rate line — e.g. a breakpoint or definition. */
+  rateNote?: string;
   description: string;
   features: string[];
   highlighted: boolean;
@@ -466,88 +470,68 @@ export const pricingAddOns: PricingAddOn[] = [
 
 export const pricingPlans: PricingPlan[] = [
   {
-    name: "Launchpad",
-    tagline: "Template-based, live in 5 days",
+    name: "Launch",
+    tagline: "Templated platform, live this week",
     setup: null,
     monthly: "99",
     perOrder: "0.19",
     description:
-      "Pick a launch template, swap in your brand, and start selling tickets this week. Same engine that runs Lucky Turbo — without the custom design timeline.",
+      "Multi-tenant raffle platform built once, customised through your admin portal. Branding, copy, prizes, game modes — all configured by you, hosted on our shared infrastructure. The cheapest way to launch a serious raffle business.",
     features: [
-      "Pick from our library of launch templates",
-      "Apply your branding (colours, logo, copy)",
-      "Your own domain + admin panel",
+      "Templated multi-tenant platform",
+      "Self-serve customisation via admin portal",
+      "Logo, colours, copy, prizes — all editable by you",
+      "Your own domain + SSL included",
       "Cashflows checkout (Apple Pay + Google Pay)",
-      "All 7 native game modes",
+      "All standard game modes",
       "Automated draws + instant wins",
-      "Hosting + SSL + edge cache included",
       "Email support",
     ],
     highlighted: false,
-    cta: "Start with a template",
+    cta: "Start with Launch",
   },
   {
-    name: "Operator Build",
-    tagline: "Custom-built site, then hands-off",
-    setup: "1,999",
+    name: "Growth Partner",
+    tagline: "We grow together",
+    setup: "1,000",
     monthly: "299",
-    perOrder: "0.12",
-    perOrderNote: "Drops to £0.07 / order above 10,000 paid orders per month.",
+    monthlyNote: "minimum",
+    revShare: "10%",
+    rateNote: "Drops to 5% once you reach £25,000/month in paid revenue.",
     description:
-      "Custom-designed site built around your brand. We migrate your storefront, re-theme end-to-end, and hand you the keys — usually in 6–10 weeks. From there you run it; we keep the platform patched, the servers humming, and the feature set current.",
+      "For serious operators ready to scale. Semi-custom branded site, conversion optimisation built into the relationship, and a pricing model that aligns us — we earn more when you earn more, and our take drops as you grow.",
     features: [
-      "Everything in Launchpad",
-      "Custom design from scratch (no template)",
-      "WordPress / React migration handled by us",
-      "Bespoke landing pages + content sections",
-      "Cashflows + legal T&Cs liaison",
-      "Platform patches + feature upgrades",
-      "Priority email support",
-    ],
-    highlighted: false,
-    cta: "Discuss a custom build",
-  },
-  {
-    name: "Operator Managed",
-    tagline: "We're your fractional product team",
-    setup: "1,999",
-    monthly: "999",
-    perOrder: "0.12",
-    perOrderNote: "Drops to £0.07 / order above 10,000 paid orders per month.",
-    description:
-      "Everything in Operator Build, plus ongoing dev work and hands-on marketing. You get the software and a dedicated team shipping improvements, campaigns, and new landing pages every single month.",
-    features: [
-      "Everything in Operator Build",
-      "4 hrs/mo bespoke dev work (landing pages, A/B tests, features)",
-      "SMS + email marketing suite with campaign setup",
-      "Meta Pixel + CAPI server-side integration",
-      "Real-time analytics dashboard",
-      "Monthly strategy call",
-      "Priority phone + Slack support",
+      "Everything in Launch",
+      "Semi-custom frontend designed around your brand",
+      "Custom homepage sections + landing pages",
+      "Branded game styling",
+      "Enhanced UI/UX customisation",
+      "Conversion optimisation assistance",
+      "Ongoing platform upgrades included",
+      "Priority support + strategy alignment",
     ],
     highlighted: true,
-    cta: "Apply for Managed",
+    cta: "Apply for Growth Partner",
   },
   {
-    name: "Enterprise",
-    tagline: "Bespoke commercial terms",
+    name: "Enterprise / Influencer",
+    tagline: "Fully bespoke, fully yours",
     setup: "Custom",
     monthly: "Custom",
-    perOrder: "Custom",
     description:
-      "Multi-brand operators, white-label resellers, high-volume businesses doing seven-figure months, or anything that doesn't fit the tiers above. We'll quote on-spec with bespoke SLAs, dedicated infrastructure, and a direct line to the founders.",
+      "For influencers, high-volume operators and brands that need something unmistakable. A completely custom-built website, custom game mechanics designed from scratch for your audience, dedicated infrastructure, and commercial terms tailored to the deal.",
     features: [
-      "Bespoke game-mode development",
-      "Dedicated Supabase + Workers tenant",
-      "Multi-brand / multi-tenant management",
-      "API + webhook integrations",
-      "Compliance consulting",
-      "Dedicated account manager + same-day SLA",
-      "Procurement-friendly contracts",
+      "Bespoke frontend experience",
+      "Custom game development to spec",
+      "Dedicated infrastructure",
+      "API integrations",
+      "Multi-brand management",
+      "Advanced analytics + dedicated support",
       "Founder-led onboarding",
+      "Custom SLAs",
     ],
     highlighted: false,
-    cta: "Get a quote",
+    cta: "Book a call",
   },
 ];
 
@@ -570,7 +554,17 @@ export const faqItems = [
   {
     question: "How long does it take to launch?",
     answer:
-      "Most clients go live 6–10 weeks after kickoff. Mr XCA launched in 8 weeks. If all you need is a brand reskin with our defaults, it's faster.",
+      "Launch tier: live in days — it's the same multi-tenant platform, customised through your admin portal. Growth Partner: typically 6–10 weeks for the semi-custom build. Enterprise: scoped per project, usually 8–14 weeks for a fully bespoke build.",
+  },
+  {
+    question: "How does the Growth Partner revenue share work?",
+    answer:
+      "10% of paid raffle revenue, dropping to 5% once you cross £25,000/month. There's a £299/month minimum to cover infrastructure if a launch is slow, but most active operators are above the floor within weeks. Revenue = paid orders + instant-win purchases, net of refunds. Free entries and credit redemptions don't count.",
+  },
+  {
+    question: "Why a revenue share instead of per-order pricing?",
+    answer:
+      "Because Growth Partner is a partnership, not hosting. We're investing time in your custom design, conversion work and ongoing optimisation — so we want our success tied to yours. The 10% → 5% taper means our take drops as you scale, rather than punishing growth.",
   },
   {
     question: "Can I see the platform running?",
