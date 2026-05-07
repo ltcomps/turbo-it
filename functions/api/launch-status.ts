@@ -15,6 +15,7 @@ interface LaunchStash {
   reference: string;
   status: "awaiting_payment" | "provisioning" | "live" | "failed";
   sessionId?: string;
+  provisioningError?: string;
   form: {
     slug: string;
     brandName: string;
@@ -23,7 +24,6 @@ interface LaunchStash {
     adminEmail: string;
     hostname: string;
   };
-  provisioningError?: string;
 }
 
 const PROVISION_BASE = "https://raffle-template-provision.frosty-rice-fe5d.workers.dev";
@@ -117,26 +117,43 @@ export const onRequestGet: PagesFunction<Env> = async (ctx) => {
     error?: string;
   };
 
-  // When provisioning hits "done", flip the stash to "live" so future polls
-  // are fast-path. Don't fail the response if KV is slow.
-  if (provJson.stage === "done" && stash.status !== "live") {
-    stash.status = "live";
-    ctx.waitUntil(
-      ctx.env.LAUNCH_PENDING_SIGNUPS.put(ref, JSON.stringify(stash), {
-        expirationTtl: 24 * 60 * 60,
-      }),
-    );
+  // Flip the stash to terminal status (live or failed) on completion so
+  // future polls are fast-path and the welcome page sees the right UI.
+  // Don't fail the response if the KV write is slow.
+  let responseStatus: "provisioning" | "live" | "failed" = "provisioning";
+  if (provJson.stage === "done") {
+    responseStatus = "live";
+    if (stash.status !== "live") {
+      stash.status = "live";
+      ctx.waitUntil(
+        ctx.env.LAUNCH_PENDING_SIGNUPS.put(ref, JSON.stringify(stash), {
+          expirationTtl: 24 * 60 * 60,
+        }),
+      );
+    }
+  } else if (provJson.stage === "failed") {
+    responseStatus = "failed";
+    if (stash.status !== "failed") {
+      stash.status = "failed";
+      stash.provisioningError = provJson.error ?? "Provisioning failed";
+      ctx.waitUntil(
+        ctx.env.LAUNCH_PENDING_SIGNUPS.put(ref, JSON.stringify(stash), {
+          expirationTtl: 24 * 60 * 60,
+        }),
+      );
+    }
   }
 
   return Response.json(
     {
-      status: provJson.stage === "done" ? "live" : "provisioning",
+      status: responseStatus,
       brand: {
         brandName: stash.form.brandName,
         domain: stash.form.domain,
         adminEmail: stash.form.adminEmail,
       },
       provisioning: provJson,
+      ...(responseStatus === "failed" ? { error: provJson.error } : {}),
     },
     { headers: corsHeaders },
   );
