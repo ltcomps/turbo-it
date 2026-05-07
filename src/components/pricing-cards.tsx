@@ -183,7 +183,7 @@ function PlanCard({ plan, idx }: { plan: PricingPlan; idx: number }) {
           )}
           variant={plan.highlighted ? "default" : "outline"}
         >
-          <Link href="/contact">{plan.cta}</Link>
+          <Link href={plan.href}>{plan.cta}</Link>
         </Button>
       </div>
     </motion.div>

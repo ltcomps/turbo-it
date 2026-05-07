@@ -417,6 +417,8 @@ export type PricingPlan = {
   features: string[];
   highlighted: boolean;
   cta: string;
+  /** Where the CTA button links to. */
+  href: string;
 };
 
 export type PricingAddOn = {
@@ -489,6 +491,7 @@ export const pricingPlans: PricingPlan[] = [
     ],
     highlighted: false,
     cta: "Start with Launch",
+    href: "/contact",
   },
   {
     name: "Growth Partner",
@@ -512,6 +515,7 @@ export const pricingPlans: PricingPlan[] = [
     ],
     highlighted: true,
     cta: "Apply for Growth Partner",
+    href: "/get-started/growth",
   },
   {
     name: "Enterprise / Influencer",
@@ -532,6 +536,7 @@ export const pricingPlans: PricingPlan[] = [
     ],
     highlighted: false,
     cta: "Book a call",
+    href: "/get-started/enterprise",
   },
 ];
 
