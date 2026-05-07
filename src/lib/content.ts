@@ -491,7 +491,7 @@ export const pricingPlans: PricingPlan[] = [
     ],
     highlighted: false,
     cta: "Start with Launch",
-    href: "/contact",
+    href: "/get-started/launch",
   },
   {
     name: "Growth Partner",

@@ -1,7 +1,30 @@
 interface Env {
   RESEND_API_KEY: string;
   STRIPE_WEBHOOK_SECRET: string;
+  LAUNCH_PENDING_SIGNUPS?: KVNamespace;
+  PROVISION_SHARED_TOKEN?: string;
 }
+
+interface LaunchStash {
+  reference: string;
+  createdAt: number;
+  status: "awaiting_payment" | "provisioning" | "live" | "failed";
+  sessionId?: string;
+  form: {
+    slug: string;
+    brandName: string;
+    brandColor: string;
+    logoUrl: string;
+    supportEmail: string;
+    legalName: string;
+    adminEmail: string;
+    hostname: string;
+    domain: string;
+  };
+  provisioningError?: string;
+}
+
+const PROVISION_BASE = "https://raffle-template-provision.frosty-rice-fe5d.workers.dev";
 
 interface StripeEvent {
   id: string;
@@ -140,7 +163,128 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   const customerPhone = session.customer_details?.phone ?? "(no phone)";
   const reference = session.client_reference_id ?? "(no reference)";
 
-  // Notify only on growth-partner. Launch tier comes later in Phase 2.
+  // ========================================================================
+  // Launch tier — read pre-pay form data from KV, kick off provisioning.
+  // ========================================================================
+  if (tier === "launch") {
+    if (!context.env.LAUNCH_PENDING_SIGNUPS || !context.env.PROVISION_SHARED_TOKEN) {
+      console.error("Launch webhook missing LAUNCH_PENDING_SIGNUPS binding or PROVISION_SHARED_TOKEN");
+      return new Response(JSON.stringify({ received: true, error: "missing config" }), {
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    if (!session.client_reference_id) {
+      console.error(`Launch checkout completed without client_reference_id (session ${session.id})`);
+      return new Response(JSON.stringify({ received: true, error: "no client_reference_id" }), {
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    const ref = session.client_reference_id;
+    const stashRaw = await context.env.LAUNCH_PENDING_SIGNUPS.get(ref);
+    if (!stashRaw) {
+      console.error(`Launch webhook: no stash found for ref=${ref}`);
+      return new Response(JSON.stringify({ received: true, error: "stash not found" }), {
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+    const stash = JSON.parse(stashRaw) as LaunchStash;
+    const form = stash.form;
+
+    // If already provisioning (Stripe re-delivers the webhook on retry),
+    // don't double-trigger. Persist the sessionId for future status lookups.
+    if (stash.status !== "awaiting_payment") {
+      stash.sessionId = session.id;
+      await context.env.LAUNCH_PENDING_SIGNUPS.put(ref, JSON.stringify(stash), {
+        expirationTtl: 24 * 60 * 60,
+      });
+      return new Response(JSON.stringify({ received: true, ignored: "already provisioning" }), {
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    // Kick off provisioning. The provisioning worker creates the job + drives
+    // the first step inside this same call; subsequent steps advance via /status
+    // polling from the welcome page.
+    const provRes = await fetch(`${PROVISION_BASE}/provision`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${context.env.PROVISION_SHARED_TOKEN}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        slug: form.slug,
+        brandName: form.brandName,
+        brandColor: form.brandColor,
+        logoUrl: form.logoUrl,
+        supportEmail: form.supportEmail,
+        legalName: form.legalName,
+        adminEmail: customerEmail !== "(no email)" ? customerEmail : form.adminEmail,
+        domain: form.domain,
+        hostname: form.hostname,
+        plan: "pro",
+      }),
+    });
+
+    if (!provRes.ok) {
+      const errText = await provRes.text();
+      console.error(`Launch provision call failed: ${provRes.status} ${errText}`);
+      stash.status = "failed";
+      stash.provisioningError = `provision: ${provRes.status} ${errText.slice(0, 200)}`;
+      stash.sessionId = session.id;
+      await context.env.LAUNCH_PENDING_SIGNUPS.put(ref, JSON.stringify(stash), {
+        expirationTtl: 24 * 60 * 60,
+      });
+      // Don't 500 to Stripe — payment is good, our problem to fix.
+      return new Response(JSON.stringify({ received: true, error: "provision failed" }), {
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    stash.status = "provisioning";
+    stash.sessionId = session.id;
+    await context.env.LAUNCH_PENDING_SIGNUPS.put(ref, JSON.stringify(stash), {
+      expirationTtl: 24 * 60 * 60,
+    });
+    // Reverse index so /api/launch-status?session=X is O(1) instead of needing
+    // to call Stripe to resolve session_id -> client_reference_id.
+    await context.env.LAUNCH_PENDING_SIGNUPS.put(`session:${session.id}`, ref, {
+      expirationTtl: 24 * 60 * 60,
+    });
+
+    // Internal heads-up email (don't fail webhook on email error).
+    if (context.env.RESEND_API_KEY) {
+      await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${context.env.RESEND_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          from: "Turbo IT Signups <hello@turboit.uk>",
+          to: "info@turboit.uk",
+          subject: `✅ Launch signup paid — ${form.brandName}`,
+          html: `
+            <h2>New Launch tier signup</h2>
+            <p>Brand: <strong>${escapeHtml(form.brandName)}</strong></p>
+            <p>Slug: <code>${escapeHtml(form.slug)}</code> → ${escapeHtml(form.domain)}</p>
+            <p>Admin: ${escapeHtml(form.adminEmail)} (Stripe billed: ${escapeHtml(customerEmail)})</p>
+            <p>Amount: ${escapeHtml(formattedAmount)}/mo</p>
+            <p>Provisioning kicked off — customer is on the welcome page seeing live progress now.</p>
+          `,
+        }),
+      }).catch(() => {});
+    }
+
+    return new Response(JSON.stringify({ received: true, provisioning: true, slug: form.slug }), {
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
+  // ========================================================================
+  // Growth Partner tier — notify-only.
+  // ========================================================================
   if (tier === "growth-partner") {
     const html = `<!DOCTYPE html>
 <html><head><meta charset="utf-8"></head>
