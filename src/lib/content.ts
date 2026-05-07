@@ -514,7 +514,7 @@ export const pricingPlans: PricingPlan[] = [
       "Priority support + strategy alignment",
     ],
     highlighted: true,
-    cta: "Apply for Growth Partner",
+    cta: "Become a Growth Partner",
     href: "/get-started/growth",
   },
   {
